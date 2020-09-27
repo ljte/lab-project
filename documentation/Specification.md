@@ -25,8 +25,8 @@ The mode is designed to view the list of departments.
 -   User selects item “Departments”;
 -   Application displays the list of departments;
 
-![Image of the departments page]
-(./mockup_imgs/depart_page.png)
+![Image of the departments page](./mockup_imgs/depart_page.png)
+
 Pic 1.1 view of the Department list
 
 The list displays the following columns:
@@ -62,8 +62,8 @@ Filtering by the average salary:
 -   Data doesn’t save to the database and the user is redirected to the Departments page;
 -   If the user selects Departments or Employees from the menu, then the data won’t be saved in the database and the corresponding page will open;
 
-![Image of the add department page]
-(./mockup_imgs/edit_page.png)
+![Image of the add department page](./mockup_imgs/edit_page.png)
+
 Pic 1.2 Add department
 
 When adding a department, the following details are entered:
@@ -90,8 +90,8 @@ Cancel operation scenario:
 -   Data doesn’t save to the database and the user is redirected back to the Departments page;
 -   If the user selects Departments or Employees from the menu, then the data won’t be saved in the database and the corresponding page will open;
 
-![Image of the edit department page]
-(./mockup_imgs/edit_page.png)
+![Image of the edit department page](./mockup_imgs/edit_page.png)
+
 Pic 1.3 Edit department
 
 When editing a department, the following data can be changed:
@@ -109,8 +109,8 @@ When editing a department, the following data can be changed:
 -   If error occurs, the error message is displayed;
 -   If record removal went successfully, then the Departments page is displayed without the deleted record;
 
-![Image of the delete department prompt]
-(./mockup_imgs/delete_prompt.png)
+![Image of the delete department prompt](./mockup_imgs/delete_prompt.png)
+
 Pic 1.4 Remove department
 
 ***Cancel operation scenario:***
