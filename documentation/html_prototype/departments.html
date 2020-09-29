@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <title>Departments</title>
+    </head>
+    <body>
+        <header>
+            <div class="header-content">
+                <a class="header-links" href="departments.html" style="color: black; text-decoration: underline;">Departments</a>
+                <a class="header-links" href="employees.html">Employees</a>
+            </div>
+        </header>
+        <main>
+            <div class="filters">
+                <form>
+                    <label for="comparison">Filter by the average salary</label>
+                    <select name="comparison">
+                        <option value=">"><</option>
+                        <option value="<">></option>
+                        <option value="=">=</option>
+                        <option value="<=">>=</option>
+                        <option value="=>"><=</option>
+                    </select>
+                    <input type="number" name="aver-salary" value="avg-salary" placeholder="Enter average salary">
+                </form>
+                <div class="add-btn-div">
+                        <button class='btn' type="button" name="button">Add</button>
+                </div>
+            </div>
+            <table>
+                <tr class="table-header">
+                    <td>Department ID</td>
+                    <td>Department name</td>
+                    <td>Number of employees</td>
+                    <td>Average salary</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><a href="department.html">1</a></td>
+                    <td><a href="department.html">Finance department</a></td>
+                    <td>67</td>
+                    <td>7812$</td>
+                    <td class='edit-btn'><button class="btn">Edit</button></td>
+                    <td class='delete-btn'><button class="btn">Delete</button></td>
+                </tr>
+                <tr>
+                    <td><a href="department.html">2</a></td>
+                    <td><a href="department.html">Sales department</a></td>
+                    <td>45</td>
+                    <td>6783$</td>
+                    <td class='edit-btn'><button class="btn">Edit</button></td>
+                    <td class='delete-btn'><button class="btn">Delete</button></td>
+                </tr>
+                <tr>
+                    <td><a href="department.html">3</a></td>
+                    <td><a href="department.html">Human Resource department</a></td>
+                    <td>34</td>
+                    <td>5642$</td>
+                    <td class='edit-btn'><button class="btn">Edit</button></td>
+                    <td class='delete-btn'><button class="btn">Delete</button></td>
+                </tr>
+                <tr>
+                    <td><a href="department.html">4</a></td>
+                    <td><a href="department.html">Management department</a></td>
+                    <td>15</td>
+                    <td>8321$</td>
+                    <td class='edit-btn'><button class="btn">Edit</button></td>
+                    <td class='delete-btn'><button class="btn">Delete</button></td>
+                </tr>
+                <tr>
+                    <td><a href="department.html">5</a></td>
+                    <td><a href="department.html">Marketing department</a></td>
+                    <td>28</td>
+                    <td>7821$</td>
+                    <td class='edit-btn'><button class="btn">Edit</button></td>
+                    <td class='delete-btn'><button class="btn">Delete</button></td>
+                </tr>
+                <tr>
+                    <td><a href="department.html">6</a></td>
+                    <td><a href="department.html">Production department</a></td>
+                    <td>65</td>
+                    <td>4932$</td>
+                    <td class='edit-btn'><button class="btn">Edit</button></td>
+                    <td class='delete-btn'><button class="btn">Delete</button></td>
+                </tr>
+            </table>
+        </main>
+    </body>
+</html>

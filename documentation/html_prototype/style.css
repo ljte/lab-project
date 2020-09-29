@@ -1,0 +1,147 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: #D5D5D5;
+    font-family: Consolas;
+}
+
+header {
+    margin-bottom: 30px;
+    border-bottom: 3px solid rgba(0, 0, 0, 0.75);
+}
+
+
+.header-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 10px;
+    margin: 5px;
+}
+
+.header-links {
+    text-decoration: none;
+    padding: 10px;
+    font-size: 34px;
+    color: #6E6E6E;
+}
+
+.header-links:hover {
+    color: #323232;
+    text-decoration: underline;
+}
+
+.main-content {
+    font-size: 50px;
+    color: #6E6E6E;
+    text-align: center;
+    padding: 50px 20px;
+    margin: 20px;
+}
+
+.footer-content {
+    text-align: center;
+    margin: 0 auto;
+}
+
+.footer-content span{
+    margin: 10px auto;
+    font-size: 36px;
+    color: #6E6E6E;
+    border-bottom: 2px dashed #6E6E6E;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 0 auto;
+    width: 90%;
+    height: auto;
+}
+
+table tr td {
+    padding: 8px;
+    font-size: 24px;
+    color: rgba(0, 0, 0, 0.7);
+    border-bottom: 1px solid black;
+}
+
+.delete-btn button {
+    background-color: red;
+}
+.edit-btn button {
+    background-color: #36678C;
+}
+
+a {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+a:hover {
+    color: rgba(0, 0, 0, 0.9);
+}
+
+.table-header td{
+    background-color: rgba(20, 20, 20, 0.8);
+    color: white;
+}
+
+.filters {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 5px;
+}
+
+label {
+    font-size: 20px;
+}
+
+.btn {
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+    padding: 7px;
+    border-radius: 5px;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+input, select {
+    border: 1px solid black;
+    border-radius: 2px;
+    padding: 5px;
+    background-color: white;
+    margin: 2px;
+}
+
+.add-btn-div button {
+    width: 100%;
+    height: 100%;
+    background-color: #46CE1A;
+}
+
+h1 {
+    font-size: 38px;
+}
+
+.btns-container div{
+    display: inline-block;
+    margin: 10px;
+    padding: 5px;
+}
+
+.container {
+    margin: 10px;
+    padding: 5px;
+}
+
+.container ul {
+    list-style: none;
+}
+
+.container ul li {
+    margin: 10px;
+    font-size: 24px;
+}

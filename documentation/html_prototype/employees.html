@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <title>Departments</title>
+    </head>
+    <body>
+        <header>
+            <div class="header-content">
+                <a class="header-links" href="departments.html">Departments</a>
+                <a class="header-links" href="employees.html" style="color: black; text-decoration: underline;">Employees</a>
+            </div>
+        </header>
+        <main>
+            <div class="filters">
+                <form class="filter-form">
+                    <label for='bday'>Choose the birthday</label>
+                    <input type="date" name="bday" value="bday">
+                    <label for="left-date">or choose the period from</label>
+                    <input type="date" name="left-date" value="left-date">
+                    <label for="right-date">to</label>
+                    <input type="date" name="left-date" value="left-date">
+                </form>
+                <div class="add-btn-div">
+                        <button class='btn' type="button" name="button">Add</button>
+                </div>
+            </div>
+            <table>
+                <tr class="table-header">
+                    <td>Employee ID</td>
+                    <td>Employee fullname</td>
+                    <td>Department name</td>
+                    <td>Employee salary</td>
+                    <td>Birthday</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><a href="employee.html">1</a></td>
+                    <td><a href="employee.html">James Gosling</a></td>
+                    <td><a href="department.html">Finance department</a></td>
+                    <td>654$</td>
+                    <td>03.11.1992</td>
+                    <td class='edit-btn'><button class="btn">Edit</button></td>
+                    <td class='delete-btn'><button class="btn">Delete</button></td>
+                </tr>
+                <tr>
+                    <td><a href="employee.html">2</a></td>
+                    <td><a href="employee.html">Anna Dobrush</a></td>
+                    <td><a href="department.html">Human Resource department</a></td>
+                    <td>345$</td>
+                    <td>23.05.1988</td>
+                    <td class='edit-btn'><button class="btn">Edit</button></td>
+                    <td class='delete-btn'><button class="btn">Delete</button></td>
+                </tr>
+                <tr>
+                    <td><a href="employee.html">3</a></td>
+                    <td><a href="employee.html">Andrey Semenov</a></td>
+                    <td><a href="department.html">Management department</a></td>
+                    <td>756$</td>
+                    <td>14.03.1996</td>
+                    <td class='edit-btn'><button class="btn">Edit</button></td>
+                    <td class='delete-btn'><button class="btn">Delete</button></td>
+                </tr>
+                <tr>
+                    <td><a href="employee.html">4</a></td>
+                    <td><a href="employee.html">Semen Ivanov</a></td>
+                    <td><a href="department.html">Production department</a></td>
+                    <td>323$</td>
+                    <td>26.05.1984</td>
+                    <td class='edit-btn'><button class="btn">Edit</button></td>
+                    <td class='delete-btn'><button class="btn">Delete</button></td>
+                </tr>
+                <tr>
+                    <td><a href="employee.html">5</a></td>
+                    <td><a href="employee.html">Ivan Semenov</a></td>
+                    <td><a href="department.html">Marketing department</a></td>
+                    <td>432$</td>
+                    <td>05.07.1990</td>
+                    <td class='edit-btn'><button class="btn">Edit</button></td>
+                    <td class='delete-btn'><button class="btn">Delete</button></td>
+                </tr>
+                <tr>
+                    <td><a href="employee.html">6</a></td>
+                    <td><a href="employee.html">Daria Morkvna</a></td>
+                    <td><a href="department.html">Sales department</a></td>
+                    <td>534$</td>
+                    <td>02.09.1976</td>
+                    <td class='edit-btn'><button class="btn">Edit</button></td>
+                    <td class='delete-btn'><button class="btn">Delete</button></td>
+                </tr>
+            </table>
+        </main>
+    </body>
+</html>
