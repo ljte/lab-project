@@ -201,7 +201,7 @@ Cancel operation scenario:
 -   Data doesn’t save to the database and the user is redirected back to the Employees page;
 -   If the user selects Departments or Employees from the menu, then the data won’t be saved in the database and the corresponding page will open;
 
-![Image of the edit employee page](./mockup_imgs/edit_emploee_page.png)
+![Image of the edit employee page](./mockup_imgs/edit_employee_page.png)
 
 Pic 1.3 Edit employee
 
