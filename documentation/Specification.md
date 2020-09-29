@@ -13,6 +13,9 @@ Application should provide:
 -   Updating the list of employees (adding, editing, removing);
 -   Possibility to search for employees based on their birthday or if their were born in a specific period;
 -   Filtering departments by the average salary;
+-   Search by username;
+-   Search by department name;
+-   Filter user by department name
 
 ## **Departments**
 
@@ -40,7 +43,10 @@ Aggregate function: Average salary = SUM(Emloyees.employee\_salary) / Number of 
 
 Filtering by the average salary:
 
--   User chooses a comparison operator (&lt;, &gt;, =, &lt;=, &gt;=), enters the average salary and the app filter the table;
+-   User chooses a comparison operator (&lt;, &gt;, =, &lt;=, &gt;=), enters the average salary and the app filters the table;
+
+Searching by the department's name:
+-   User enters the department's name into the search field, clicks on the search sign nad then the app displays the department with the correspoding name;
 
 ### **1.2 Add Department**
 
@@ -54,6 +60,10 @@ Filtering by the average salary:
 -   If an error occurs, then the error message is displayed;
 -   If the record is added successfully, then User gets redirected to the Departments page;
 
+![Image of the add department page](./mockup_imgs/add_department_page.png)
+
+Pic 1.2 Add department
+
 ***Cancel operation scenario:***
 
 -   User clicks the “Add” button on the Departments page;
@@ -61,10 +71,6 @@ Filtering by the average salary:
 -   User enters department data and clicks “Cancel” button;
 -   Data doesn’t save to the database and the user is redirected to the Departments page;
 -   If the user selects Departments or Employees from the menu, then the data won’t be saved in the database and the corresponding page will open;
-
-![Image of the add department page](./mockup_imgs/edit_department_page.png)
-
-Pic 1.2 Add department
 
 When adding a department, the following details are entered:
 
@@ -82,6 +88,10 @@ When adding a department, the following details are entered:
 -   If error occurs, the error message is displayed;
 -   If the change is saved successfully, then the use is redirected to the departments page;
 
+![Image of the edit department page](./mockup_imgs/edit_department_page.png)
+
+Pic 1.3 Edit department
+
 Cancel operation scenario:
 
 -   User clicks the “Edit” button on the Departments page;
@@ -89,10 +99,6 @@ Cancel operation scenario:
 -   User edits the department’s data and clicks “Cancel”;
 -   Data doesn’t save to the database and the user is redirected back to the Departments page;
 -   If the user selects Departments or Employees from the menu, then the data won’t be saved in the database and the corresponding page will open;
-
-![Image of the edit department page](./mockup_imgs/edit_department_page.png)
-
-Pic 1.3 Edit department
 
 When editing a department, the following data can be changed:
 
@@ -103,13 +109,15 @@ When editing a department, the following data can be changed:
 ***Main scenario:***
 
 -   User clicks the “Remove” button in the corresponding line;
--   Then the prompt appears asking the use to confirm removal;
+-   Then the prompt appears asking the user to confirm removal;
 -   The user confirms the removal;
--   The recorded is deleted from the database;
+-   The record is deleted from the database;
 -   If error occurs, the error message is displayed;
 -   If record removal went successfully, then the Departments page is displayed without the deleted record;
+-   If user tries to delete a department that has employees then he is asked wether he wants to delete all the employees if not then he is not allowed to delete the department;
 
 ![Image of the delete department prompt](./mockup_imgs/delete_department_prompt.png)
+![Image of the delete department prompt](./mockup_imgs/delete_department_second_prompt.png)
 
 Pic 1.4 Remove department
 
@@ -162,6 +170,10 @@ Filtering by the period of birthdays:
 -   If an error occurs, then the error message is displayed;
 -   If the record is added successfully, then User gets redirected to the Employees page;
 
+![Image of the add employee page](./mockup_imgs/add_employee_page.png)
+
+Pic 1.2 Add employee
+
 ***Cancel operation scenario:***
 
 -   User clicks the “Add” button on the Employees page;
@@ -170,9 +182,7 @@ Filtering by the period of birthdays:
 -   Data doesn’t save to the database and the user is redirected to the Employees page;
 -   If the user selects Departments or Employees from the menu, then the data won’t be saved in the database and the corresponding page will open;
 
-![Image of the add employee page](./mockup_imgs/add_employee_page.png)
 
-Pic 1.2 Add employee
 
 When adding a employee, the following details are entered:
 
@@ -193,6 +203,10 @@ When adding a employee, the following details are entered:
 -   If error occurs, the error message is displayed;
 -   If the change is saved successfully, then the use is redirected to the employees page;
 
+![Image of the edit employee page](./mockup_imgs/edit_employee_page.png)
+
+Pic 1.3 Edit employee
+
 Cancel operation scenario:
 
 -   User clicks the “Edit” button on the Employees page;
@@ -200,10 +214,6 @@ Cancel operation scenario:
 -   User edits the Employee's data and clicks “Cancel”;
 -   Data doesn’t save to the database and the user is redirected back to the Employees page;
 -   If the user selects Departments or Employees from the menu, then the data won’t be saved in the database and the corresponding page will open;
-
-![Image of the edit employee page](./mockup_imgs/edit_employee_page.png)
-
-Pic 1.3 Edit employee
 
 When editing an employee, the following data can be changed:
 
