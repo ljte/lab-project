@@ -25,7 +25,11 @@ The mode is designed to view the list of departments.
 -   User selects item “Departments”;
 -   Application displays the list of departments;
 
+<<<<<<< HEAD
 ![Image of the departments page](./mockup_imgs/departments_page.png)
+=======
+![Image of the departments page](./mockup_imgs/depart_page.png)
+>>>>>>> eb43e21113c361627bd823019c43b1e1c10c6e9f
 
 Pic 1.1 view of the Department list
 
@@ -62,7 +66,11 @@ Filtering by the average salary:
 -   Data doesn’t save to the database and the user is redirected to the Departments page;
 -   If the user selects Departments or Employees from the menu, then the data won’t be saved in the database and the corresponding page will open;
 
+<<<<<<< HEAD
 ![Image of the add department page](./mockup_imgs/edit_department_page.png)
+=======
+![Image of the add department page](./mockup_imgs/edit_page.png)
+>>>>>>> eb43e21113c361627bd823019c43b1e1c10c6e9f
 
 Pic 1.2 Add department
 
@@ -90,7 +98,11 @@ Cancel operation scenario:
 -   Data doesn’t save to the database and the user is redirected back to the Departments page;
 -   If the user selects Departments or Employees from the menu, then the data won’t be saved in the database and the corresponding page will open;
 
+<<<<<<< HEAD
 ![Image of the edit department page](./mockup_imgs/edit_department_page.png)
+=======
+![Image of the edit department page](./mockup_imgs/edit_page.png)
+>>>>>>> eb43e21113c361627bd823019c43b1e1c10c6e9f
 
 Pic 1.3 Edit department
 
@@ -109,7 +121,11 @@ When editing a department, the following data can be changed:
 -   If error occurs, the error message is displayed;
 -   If record removal went successfully, then the Departments page is displayed without the deleted record;
 
+<<<<<<< HEAD
 ![Image of the delete department prompt](./mockup_imgs/delete_department_prompt.png)
+=======
+![Image of the delete department prompt](./mockup_imgs/delete_prompt.png)
+>>>>>>> eb43e21113c361627bd823019c43b1e1c10c6e9f
 
 Pic 1.4 Remove department
 
