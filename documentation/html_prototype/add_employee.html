@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <title>Employee - 1</title>
+    </head>
+    <body>
+        <header>
+            <div class="header">
+                <a href="departments.html">Departments</a>
+                <a href="employees.html">Employees</a>
+            </div>
+        </header>
+        <main>
+            <div class="item">
+                <h2>New employee</h2>
+                <form>
+                    <label for="fullname">Employee's fullname: </label>
+                    <input type="text" name="fullname" placeholder="Enter fullname" id="fullname">
+                    <br>
+                    <label for="dep_name">Department name: </label>
+                    <select class="combo" name="dep_name" id="dep_name">
+                        <option disabled selected>Choose a department</option>
+                        <option value="finance">Finance department</option>
+                        <option value="sales">Sales department</option>
+                        <option value="management">Management department</option>
+                        <option value="marketing">Marketing department</option>
+                        <option value="production">Production department</option>
+                        <option value="hr">Human Resource department</option>
+                    </select>
+                    <br>
+                    <label for="salary">Employee's salary: </label>
+                    <input type="number" name="salary" min=0 id="salary" placeholder="Salary">
+                    <br>
+                    <label for="bday">Employee's birthday: </label>
+                    <input type="date" name="bday" id="bday" max="2002-12-31" min="1960-01-01">
+                    <br>
+                </form>
+                <div>
+                    <button class="btn edit-btn" id="add_btn">Add</button>
+                    <button class="btn delete-btn" id="cancel_btn">Cancel</button>
+                </div>
+            </div>
+        </main>
+    </body>
+    <script type="text/javascript">
+        document.getElementById('cancel_btn').addEventListener('click', () => window.location.replace("employees.html"))
+        document.getElementById('add_btn').addEventListener('click', () => window.location.replace("employees.html"))
+    </script>
+</html>
