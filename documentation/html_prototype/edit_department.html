@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <title>Department - 1</title>
+    </head>
+    <body>
+        <header>
+            <div class="header">
+                <a href="departments.html">Departments</a>
+                <a href="employees.html">Employees</a>
+            </div>
+        </header>
+        <main>
+            <main>
+                <div class="item">
+                    <h2>Department 1</h2>
+                    <form>
+                        <div>
+                            <label for="dep_name">Department's name:</label>
+                            <input type="text" name="dep_name" id="dep_name" value="Finance">
+                        </div>
+                    </form>
+                    <div>
+                        <button class="btn edit-btn" id="save_btn">Save</button>
+                        <button class="btn delete-btn" id="cancel_btn">Cancel</button>
+                    </div>
+                </div>
+            </main>
+        </main>
+    </body>
+
+    <script type="text/javascript">
+        document.getElementById('cancel_btn').addEventListener('click', () => window.location.replace("departments.html"))
+        document.getElementById('save_btn').addEventListener('click', () => window.location.replace("departments.html"))
+    </script>
+</html>

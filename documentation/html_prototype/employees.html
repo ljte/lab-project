@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <title>Employees</title>
+    </head>
+    <body>
+        <header>
+            <div class="header">
+                <a href="departments.html">Departments</a>
+                <a href="employees.html" style="text-decoration: underline; color: rgba(68, 70, 67, 1);">Employees</a>
+            </div>
+        </header>
+        <main>
+            <div class="fiters">
+                <form>
+                    <div class="upper-filters">
+                        <input type="button" name="add-department" value="New Employee" class="btn add-btn" id="add_btn">
+                        <div class="search-bar">
+                            <input type="text" name="search" placeholder="Search for employee">
+                            <button>Search</button>
+                        </div>
+                    </div>
+                    <div class="lower-filters">
+                        <label for="bday">Filter by birthday</label>
+                        <input type="date" name="bday" max="2002-12-31" min="1960-01-01" id="bday">
+                        <label for="start-date">or by the period from</label>
+                        <input type="date" name="start-date" max="2002-12-31" min="1960-01-01" id="start-date">
+                        <label for="end-date">to</label>
+                        <input type="date" name="end-date" max="2002-12-31" min="1960-01-01" id="end-date">
+                        <div>
+                            <label for="depart-combo">Filter by department</label>
+                            <select class="combo" name="depart-combo" id="depart-combo">
+                                <option disabled selected>Choose a department</option>
+                                <option value="finance_dep">Finance department</option>
+                                <option value="sales_dep">Sales department</option>
+                                <option value="hr_dep">Human Resource department</option>
+                                <option value="management_dep">Management department</option>
+                                <option value="marketing_dep">Marketing department</option>
+                                <option value="production_dep">Production department</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <table>
+                <tr class="table-headers">
+                    <td>Employee ID</td>
+                    <td>Employee fullname</td>
+                    <td>Department's name</td>
+                    <td>Employee salary</td>
+                    <td>Birthday</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Anna Dobrush</td>
+                    <td>Finance department</td>
+                    <td>345$</td>
+                    <td>23.05.1988</td>
+                    <td><button class="btn edit-btn">Edit</button></td>
+                    <td><button class="btn delete-btn">Delete</button></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Andrey Semenov</td>
+                    <td>Management department</td>
+                    <td>756$</td>
+                    <td>14.03.1996</td>
+                    <td><button class="btn edit-btn">Edit</button></td>
+                    <td><button class="btn delete-btn">Delete</button></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Semen Ivanov</td>
+                    <td><a href="department">Production department</td>
+                    <td>323$</td>
+                    <td>26.05.1984</td>
+                    <td><button class="btn edit-btn">Edit</button></td>
+                    <td><button class="btn delete-btn">Delete</button></td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Ivan Semenov</td>
+                    <td>Marketing department</td>
+                    <td>432$</td>
+                    <td>05.07.1990</td>
+                    <td><button class="btn edit-btn">Edit</button></td>
+                    <td><button class="btn delete-btn">Delete</button></td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Victoria Mantur</td>
+                    <td>Sales department</td>
+                    <td>654$</td>
+                    <td>23.05.1987</td>
+                    <td><button class="btn edit-btn">Edit</button></td>
+                    <td><button class="btn delete-btn">Delete</button></td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>Maksim Leshko</td>
+                    <td>Human Resource department</td>
+                    <td>432$</td>
+                    <td>12.02.1990</td>
+                    <td><button class="btn edit-btn">Edit</button></td>
+                    <td><button class="btn delete-btn">Delete</button></td>
+                </tr>
+            </table>
+        </main>
+    </body>
+    <script type="text/javascript" src="./script.js"></script>
+</html>
