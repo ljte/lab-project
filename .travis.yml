@@ -5,6 +5,7 @@ python:
 install: pip install -r requirements.txt
 
 script:
+  - pylint department-app/tests
   - coverage run department-app/tests
 after-success:
   - coveralls
