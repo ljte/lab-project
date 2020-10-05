@@ -21,6 +21,6 @@ The user of the app will be able to:
 ## Installation
 coming soon
 
-####Coveralls
+
 
 [![Coverage Status](https://coveralls.io/repos/github/ljte/lab-project/badge.svg?branch=working_branch)](https://coveralls.io/github/ljte/lab-project?branch=working_branch)
