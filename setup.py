@@ -8,7 +8,7 @@ with open("./README.md", 'r') as rm:
 packages = [f'department-app/{package}'
             for package in setuptools.find_packages(where="department-app")]
 
-install_requires = [req.requirement
+install_requires = [str(req.requirement)
                     for req in parse_requirements("./requirements.txt",
                                                   session={})]
 
