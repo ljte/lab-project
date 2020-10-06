@@ -8,9 +8,9 @@ with open("./README.md", 'r') as rm:
 packages = [f'department-app/{package}'
             for package in setuptools.find_packages(where="department-app")]
 
-install_requires = [str(req.requirement)
-                    for req in parse_requirements("./requirements.txt",
-                                                  session={})]
+dependencies = [str(req.requirement)
+                for req in parse_requirements("./requirements.txt",
+                                              session={})]
 
 setuptools.setup(
     name="department-app",
@@ -23,5 +23,5 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/ljte/lab-project",
     packages=packages,
-    install_requires=install_requires
+    install_requires=dependencies
 )
