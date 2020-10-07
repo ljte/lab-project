@@ -23,5 +23,6 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/ljte/lab-project",
     packages=packages,
-    install_requires=dependencies
+    install_requires=dependencies,
+    test_suite='department-app/tests'
 )
