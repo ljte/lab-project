@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/ljte/lab-project.svg?branch=master)](https://travis-ci.com/ljte/lab-project) [![Coverage Status](https://coveralls.io/repos/github/ljte/lab-project/badge.svg?branch=master)](https://coveralls.io/github/ljte/lab-project?branch=master)
+
 ## Table of Contents
 * [General Info](#general-info)
 * [Application](#application)
@@ -11,7 +13,7 @@ This project is going to use modern web technologies to work with Department and
 The user of the app will be able to:
 -  See the list of departments;
 -  See the list of employees;
--  Add, remove and edit departments; 
+-  Add, remove and edit departments;
 -  Add, remove and edit employees;
 
 ## Technologies
