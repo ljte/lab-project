@@ -2,5 +2,5 @@
 omit =
     department-app/tests/*
     department-app/migrations/*
-    venv/lib/python3.8/site-packages/*
+    */site-packages/*
     setup.py

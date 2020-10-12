@@ -5,9 +5,6 @@ from pip._internal.req import parse_requirements
 with open("./README.md", 'r') as rm:
     long_description = rm.read()
 
-packages = [f'department_app/{package}'
-            for package in setuptools.find_packages(where="department_app")]
-
 dependencies = [str(req.requirement)
                 for req in parse_requirements("./requirements.txt",
                                               session={})]
@@ -22,7 +19,7 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/ljte/lab-project",
-    packages=packages,
+    packages=setuptools.find_packages(),
     install_requires=dependencies,
     test_suite='department_app/tests'
 )
