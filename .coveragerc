@@ -1,3 +1,6 @@
 [run]
 omit =
-    department-app/tests
+    department-app/tests/*
+    department-app/migrations/*
+    */site-packages/*
+    setup.py

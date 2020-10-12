@@ -18,7 +18,46 @@ The user of the app will be able to:
 
 ## Technologies
 -  Python 3.8
--  ...
+-  Flask 1.1.2
+-  Flask-SQLAlchemy 2.4.4
+-  Flask-Migrate 2.5.3
+-  Postgresql 12.4
+
 
 ## Installation
-coming soon
+install virtualenv
+```
+pip install virtualenv
+```
+create virtual environment
+```
+virtualenv venv
+```
+activate venv
+on Linux or Mac:
+```
+source venv/bin/activate
+```
+on Windows:
+```
+venv/Scripts/activate.bat
+```
+install requirements
+```
+pip install -r requirements.txt
+```
+or
+```
+python setup.py install
+```
+to create database you need to run the following commands
+```
+python manage.py db migrate
+python manage.py db upgrade
+```
+this will create two tables Department and Employee in your database
+and the commands above are used to make migrations and also you can use
+```
+python manage.py db downgrade
+``` 
+to cancel the upgrade
