@@ -1,10 +1,10 @@
 import unittest
 from datetime import date
 
+from werkzeug.exceptions import BadRequest, NotFound
+
 from department_app import service
 from department_app.models import Department, Employee
-
-from werkzeug.exceptions import BadRequest, NotFound
 
 
 service.reload_db()

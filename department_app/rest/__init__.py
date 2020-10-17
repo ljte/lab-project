@@ -1,3 +1,6 @@
+import logging
+from datetime import datetime
+
 from flask_restful import Resource
 from flask import request, jsonify
 from werkzeug.exceptions import HTTPException, BadRequest
@@ -5,8 +8,6 @@ from werkzeug.exceptions import HTTPException, BadRequest
 from department_app import service
 from department_app.models import Department, Employee
 
-import logging
-from datetime import datetime
 
 # create logger
 logger = logging.getLogger(__name__)
@@ -54,9 +55,9 @@ class DepartmentApi(Resource):
 
         try:
             dep = service.get_or_404(Department, department_id)
-        except HTTPException as e:
-            logger.exception(e.description)
-            return {'error': e.description}, e.code
+        except HTTPException as exc:
+            logger.exception(exc.description)
+            return {'error': exc.description}, exc.code
         else:
             response = jsonify(dep.to_dict())
             return response.json, 200
@@ -76,11 +77,11 @@ class DepartmentApi(Resource):
 
             dep = Department(name=name.strip())
             service.insert_into_db(Department, dep)
-        except HTTPException as e:
-            logger.exception(e.description)
-            return {'error': e.description}, e.code
+        except HTTPException as exc:
+            logger.exception(exc.description)
+            return {'error': exc.description}, exc.code
         else:
-            logger.info(f"Added {dep.name}")
+            logger.info("Added %s", dep.name)
             response = jsonify(dep.to_dict())
             return response.json, 201
 
@@ -92,18 +93,16 @@ class DepartmentApi(Resource):
 
            department_id: the id of the department to updated
         """
-        if department_id is None:
-            return {'error': "id wasn't specified"}, 400
 
         try:
             dep = service.get_or_404(Department, department_id)
             new_name = request.form['dep_name']
             service.update_department_name(dep, new_name)
-        except HTTPException as e:
-            logger.exception(e.description)
-            return {'error': e.description}, e.code
+        except HTTPException as exc:
+            logger.exception(exc.description)
+            return {'error': exc.description}, exc.code
         else:
-            logger.info(f"Updated {dep.name}")
+            logger.info("Updated %s", dep.name)
             response = jsonify(dep.to_dict())
             return response.json, 200
 
@@ -117,14 +116,11 @@ class DepartmentApi(Resource):
            department_id: the id of the department to delete
         """
 
-        if department_id is None:
-            return {'error': "id wasn't specified"}, 400
-
         try:
             dep = service.get_or_404(Department, department_id)
-        except HTTPException as e:
-            logger.exception(e.description)
-            return {'error': e.description}, e.code
+        except HTTPException as exc:
+            logger.exception(exc.description)
+            return {'error': exc.description}, exc.code
         else:
             service.delete_from_db(Department, dep)
             return '', 204
@@ -159,9 +155,9 @@ class EmployeeApi(Resource):
 
         try:
             emp = service.get_or_404(Employee, employee_id)
-        except HTTPException as e:
-            logger.exception(e.description)
-            return {'error': e.description}, e.code
+        except HTTPException as exc:
+            logger.exception(exc.description)
+            return {'error': exc.description}, exc.code
         else:
             response = jsonify(emp.to_dict())
             return response.json, 200
@@ -181,9 +177,9 @@ class EmployeeApi(Resource):
                 dep_id = Department.query.filter_by(name=request.form['dep_name']).first().id
                 salary = float(request.form['salary'])
             except ValueError:
-                raise BadRequest('Salary must be numeric')
+                raise BadRequest('Salary must be numeric') from ValueError
             except AttributeError:
-                raise BadRequest(f"Unknown department {request.form['dep_name']}")
+                raise BadRequest(f"Unknown department {request.form['dep_name']}") from AttributeError
 
             if not Employee.validate_fullname(fullname):
                 raise BadRequest("Invalid employee's name")
@@ -192,17 +188,17 @@ class EmployeeApi(Resource):
                            salary=salary, department_id=dep_id)
 
             service.insert_into_db(Employee, emp)
-            logger.info(f"Added employee - {emp.fullname}")
+            logger.info("Added employee - %s", emp.fullname)
             response = jsonify(emp.to_dict())
             return response.json, 201
 
-        except HTTPException as e:
-            logger.exception(e)
-            return {'error': e.description}, e.code
+        except HTTPException as exc:
+            logger.exception(exc)
+            return {'error': exc.description}, exc.code
 
-        except ValueError as e:
-            logger.exception(e)
-            return {'error': str(e)}, 400
+        except ValueError as exc:
+            logger.exception(exc)
+            return {'error': str(exc)}, 400
 
     def put(self, employee_id=None):
         """update the employee with the given id.
@@ -214,20 +210,17 @@ class EmployeeApi(Resource):
            employee_id: the id of the employee to return
         """
 
-        if employee_id is None:
-            return {'error': "id wasn't specified"}, 400
-
         try:
             emp = service.get_or_404(Employee, employee_id)
             service.update_employee(emp, dict(request.form))
-        except HTTPException as e:
-            logger.exception(e.description)
-            return {'error': e.description}, e.code
-        except ValueError as e:
-            logger.exception(e)
-            return {'error': str(e)}, 400
+        except HTTPException as exc:
+            logger.exception(exc.description)
+            return {'error': exc.description}, exc.code
+        except ValueError as exc:
+            logger.exception(exc)
+            return {'error': str(exc)}, 400
         else:
-            logger.info(f"Updated employee - {emp.fullname}")
+            logger.info("Updated employee - %s", emp.fullname)
             response = jsonify(emp.to_dict())
             return response.json, 200
 
@@ -238,15 +231,12 @@ class EmployeeApi(Resource):
            if employee exists then delete him and return 204
         """
 
-        if employee_id is None:
-            return {'error': "id wasn't specified"}, 400
-
         try:
             emp = service.get_or_404(Employee, employee_id)
-        except HTTPException as e:
-            logger.exception(e.description)
-            return {'error': e.description}, e.code
+        except HTTPException as exc:
+            logger.exception(exc.description)
+            return {'error': exc.description}, exc.code
         else:
-            logger.info(f"Deleted employee - {emp.fullname}")
+            logger.info("Deleted employee - %s", emp.fullname)
             service.delete_from_db(Employee, emp)
             return '', 204

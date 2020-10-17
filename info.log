@@ -8451,3 +8451,31 @@ Traceback (most recent call last):
   File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 121, in update_employee
     raise BadRequest("Uknown department name")
 werkzeug.exceptions.BadRequest: 400 Bad Request: Uknown department name
+2020-10-17 12:42:57,880:ERROR:__init__:id must be an integer
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 125, in delete
+    dep = service.get_or_404(Department, department_id)
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 29, in get_or_404
+    raise BadRequest('id must be an integer')
+werkzeug.exceptions.BadRequest: 400 Bad Request: id must be an integer
+2020-10-17 12:42:59,751:ERROR:__init__:id must be an integer
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 246, in delete
+    emp = service.get_or_404(Employee, employee_id)
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 29, in get_or_404
+    raise BadRequest('id must be an integer')
+werkzeug.exceptions.BadRequest: 400 Bad Request: id must be an integer
+2020-10-17 12:45:15,615:ERROR:__init__:invalid id
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 235, in delete
+    emp = service.get_or_404(Employee, employee_id)
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 29, in get_or_404
+    raise BadRequest('invalid id')
+werkzeug.exceptions.BadRequest: 400 Bad Request: invalid id
+2020-10-17 12:45:21,377:ERROR:__init__:id
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 235, in delete
+    emp = service.get_or_404(Employee, employee_id)
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 29, in get_or_404
+    raise BadRequest('id')
+werkzeug.exceptions.BadRequest: 400 Bad Request: id

@@ -1,6 +1,6 @@
-from department_app import db
-
 from sqlalchemy.sql import func
+
+from department_app import db
 
 
 class Department(db.Model):
@@ -53,10 +53,10 @@ class Department(db.Model):
             return False
 
         # if a number occurs in department's name return False
-        for c in name:
-            if c == " ":
+        for letter in name:
+            if letter == " ":
                 pass
-            elif c.isdigit():
+            elif letter.isdigit():
                 return False
 
         # if the department already exists return False
@@ -121,10 +121,10 @@ class Employee(db.Model):
         if len(fullname.split()) < 2:
             return False
 
-        for c in fullname:
-            if c == ' ':
+        for letter in fullname:
+            if letter == ' ':
                 pass
-            if c.isdigit():
+            if letter.isdigit():
                 return False
 
         return True

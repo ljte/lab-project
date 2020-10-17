@@ -1,10 +1,10 @@
-from department_app import db
-from department_app.models import Department, Employee
+from datetime import date
 
 from werkzeug.exceptions import BadRequest
 import requests
 
-from datetime import date
+from department_app import db
+from department_app.models import Department, Employee
 
 
 def get_all(model):
@@ -26,7 +26,7 @@ def get_or_404(model, record_id):
        record_id: an integer representing an id of some record in the DB
     """
     if not isinstance(record_id, int):
-        raise BadRequest('id must be an integer')
+        raise BadRequest('invalid id')
     return model.query.get_or_404(record_id,
                                   description="The requested record was not found")
 
@@ -94,22 +94,19 @@ def update_employee(emp, fields: dict):
         emp.fullname = fullname
     except KeyError:
         num_of_valid_keys -= 1
-        pass
 
     try:
         emp.bday = fields['bday']
     except KeyError:
         num_of_valid_keys -= 1
-        pass
 
     try:
         salary = float(fields['salary'])
         emp.salary = salary
     except KeyError:
         num_of_valid_keys -= 1
-        pass
     except ValueError:
-        raise BadRequest('Salary must be numeric')
+        raise BadRequest('Salary must be numeric') from AttributeError
 
     try:
         # if the department does not exist than the dep is set to None
@@ -118,9 +115,8 @@ def update_employee(emp, fields: dict):
         emp.department_id = dep.id
     except KeyError:
         num_of_valid_keys -= 1
-        pass
     except AttributeError:
-        raise BadRequest("Uknown department name")
+        raise BadRequest("Uknown department name") from AttributeError
 
     if num_of_valid_keys == 0:
         raise BadRequest('provide some fields to update')

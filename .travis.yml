@@ -6,8 +6,16 @@ install:
   - python -m pip install -U pip
   - python setup.py install
 
+services:
+  - postgresql
+
+before_script:
+  - psql -c 'create database test;' -U postgres
+  - python manage.py db upgrade
+  - gunicorn "run:run()"
+
 script:
-  - pylint department_app/tests
+  - pylint department_app/
   - coverage run setup.py test
 after-success:
   - coveralls
