@@ -10,9 +10,9 @@ services:
   - postgresql
 
 before_script:
-  - psql -c "create user_1 with password '12345';"
+  - psql -c "create user_1 with password '12345';" -U postreg
   - psql -c 'create database test;' -U postgres
-  - psql -c 'grant all privileges on testdatabase  to user_1;'
+  - psql -c 'grant all privileges on testdatabase  to user_1;' -U postgres
   - python manage.py db upgrade
   - gunicorn "run:run()"
 
