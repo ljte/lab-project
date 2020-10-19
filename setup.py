@@ -1,4 +1,5 @@
 import setuptools
+import unittest
 from pip._internal.req import parse_requirements
 
 
@@ -8,6 +9,13 @@ with open("./README.md", 'r') as rm:
 dependencies = [str(req.requirement)
                 for req in parse_requirements("./requirements.txt",
                                               session={})]
+
+
+def find_tests():
+    test_loader = unittest.TestLoader()
+    test_suite = test_loader.discover('department_app/tests', pattern='test_*.py')
+    return test_suite
+
 
 setuptools.setup(
     name="department_app",
@@ -21,5 +29,5 @@ setuptools.setup(
     url="https://github.com/ljte/lab-project",
     packages=setuptools.find_packages(),
     install_requires=dependencies,
-    test_suite='department_app/tests'
+    test_suite='setup.find_tests'
 )

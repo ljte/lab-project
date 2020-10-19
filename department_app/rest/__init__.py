@@ -37,92 +37,106 @@ class DepartmentApi(Resource):
     ]
 
     def get(self, department_id=None):
-        """get the department through restapi
-           if the department's is not given then
-           all the departments will be returned
-           else the department with the specified if
-           will be returned.
-           return 404 if the department with the given
-           id does not exist or return 400 if the type
-           of the given id is not int
+        """get the department with the specified id.
+           if department does not exist return 404,
+           if department_id is not int return 400,
+           if department_id is None return the list
+           of all the departments
 
-           department_id: the id of the department that will be returned
+           department_id: the id of department to return
         """
         if department_id is None:
             deps = service.get_all(Department)
-            response = jsonify({'departments': [dep.to_dict() for dep in deps]})
+            response = jsonify({'departments':
+                                [dep.to_dict() for dep in deps]})
             return response.json, 200
 
         try:
-            dep = service.get_or_404(Department, department_id)
+            dep = service.get_or_404(Department, id=department_id)
         except HTTPException as exc:
             logger.exception(exc.description)
-            return {'error': exc.description}, exc.code
+            return {'message': exc.description}, exc.code
         else:
             response = jsonify(dep.to_dict())
             return response.json, 200
 
     def post(self):
-        """add a new department to the DB.
-           if the name is not valid then
-           the error message is returned
-           if it is valid the departments
-           gets added to the DB and return
-           201 code with the department
+        """insert the new department into the db.
+           if department already exists return 400,
+           if department's name is not valid return 400.
+           else add the department and return 201
         """
-        try:
-            name = request.form['dep_name']
-            if not Department.validate_name(name):
-                raise BadRequest("Invalid department's name")
 
-            dep = Department(name=name.strip())
-            service.insert_into_db(Department, dep)
+        try:
+            name = request.form['name']
+            if Department.validate_name(name):
+                try:
+                    dep_id = request.form['id']
+                except KeyError:
+                    dep_id = service.get_id(Department)
+
+                dep = Department(id=dep_id, name=name)
+                service.insert_into_db(dep)
+            else:
+                raise BadRequest("invalid department's name '%s'" % name)
+        except KeyError:
+            return {'message': "Please specify department's name"}, 400
         except HTTPException as exc:
             logger.exception(exc.description)
-            return {'error': exc.description}, exc.code
+            return {'message': exc.description}, exc.code
         else:
-            logger.info("Added %s", dep.name)
+            logger.info('Added %s' % dep)
             response = jsonify(dep.to_dict())
             return response.json, 201
 
     def put(self, department_id=None):
-        """update the department with the given id.
-           check if the new department's name is valid
-           if not then return 400, if it is valid then
-           return 200 and update the department
+        """update the department's name.
+           if department_id is None return 400,
+           if department_id is not int return 404,
+           if department does not exist return 404,
+           else update  the department and return 204
 
-           department_id: the id of the department to updated
+           department_id: the id of the department that is going to be updated
         """
+        if department_id is None:
+            return {'message': "Please specify the department's id"}, 400
 
         try:
-            dep = service.get_or_404(Department, department_id)
-            new_name = request.form['dep_name']
-            service.update_department_name(dep, new_name)
+            name = request.form['name']
+            if Department.validate_name(name):
+                dep = service.get_or_404(Department, id=department_id)
+                service.update_record(Department, dep, **request.form)
+            else:
+                raise BadRequest("invalid department's name %s" % name)
+        except KeyError:
+            return {'message': "Please specify the department's name"}, 400
         except HTTPException as exc:
             logger.exception(exc.description)
-            return {'error': exc.description}, exc.code
+            return {'message': exc.description}, exc.code
         else:
-            logger.info("Updated %s", dep.name)
-            response = jsonify(dep.to_dict())
-            return response.json, 200
+            logger.info('Updated %s' % dep)
+            return '', 204
 
     def delete(self, department_id=None):
-        """delete the department with the given id.
-           if the department does not exist return 404.
-           if the type of the id is not int then return 400.
-           if the department does exist then return 204 and
-           delete it from the DB.
+        """delete department with the given id.
+           if department does not exist return 404,
+           if department_id in not int return 404,
+           else delete the department and return 204
 
-           department_id: the id of the department to delete
+           department_id: the id of the department that is going to be deleted
         """
 
+        if department_id is None:
+            return {'message': "Please specify the department's id"}, 400
+
         try:
-            dep = service.get_or_404(Department, department_id)
+            dep = service.get_or_404(Department, id=department_id)
         except HTTPException as exc:
             logger.exception(exc.description)
-            return {'error': exc.description}, exc.code
+            return {'message': exc.description}, exc.code
         else:
-            service.delete_from_db(Department, dep)
+            logger.info('Deleted %s' % dep)
+            service.delete_from_db(dep)
             return '', 204
 
 
@@ -137,106 +151,125 @@ class EmployeeApi(Resource):
     ]
 
     def get(self, employee_id=None):
-        """get the employee information.
-           if employee does not exist
-           return 404, if the employee_id
-           is not an integer then return 400.
-           if the employee is presented in the DB
-           then return json-formatted response and 200.
-           if the employee_id is not specified then
-           return all the employees.
+        """get the employee with the specified id.
+           if employee does not exist return 404,
+           if employee_id is not int return 400,
+           if employee_id is None return the list
+           of all the employees
 
-           employee_id: the id of the employee to return
+           employee_id: the id of department to return
         """
         if employee_id is None:
             emps = service.get_all(Employee)
-            response = jsonify({'employees': [emp.to_dict() for emp in emps]})
+            response = jsonify({'employees':
+                                [emp.to_dict() for emp in emps]})
             return response.json, 200
 
         try:
-            emp = service.get_or_404(Employee, employee_id)
+            emp = service.get_or_404(Employee, id=employee_id)
         except HTTPException as exc:
             logger.exception(exc.description)
-            return {'error': exc.description}, exc.code
+            return {'message': exc.description}, exc.code
         else:
             response = jsonify(emp.to_dict())
             return response.json, 200
 
     def post(self):
-        """add a new employee to the DB.
-           if the invalid fullname or invalid salary or
-           invalid bday were given error message
-
-           return a new employee and 201 code
+        """insert the new employee into the db.
+           if employee already exists return 400,
+           if employee's data is not valid return 400.
+           else add the employee and return 201
         """
+
         try:
+            # try to get all the necessary fields for posting a department
+            # if something is missing then the KeyError is raised and gets processed
             fullname = request.form['fullname']
-            bday = datetime.strptime(request.form['bday'], '%Y-%m-%d').date()
+            bday = datetime.strptime(request.form['bday'], '%Y-%m-%d'),
+            salary = float(request.form['salary'])
+            dep_id = service.get_or_404(Department,
+                                        name=request.form['dep_name']).id
+            # validate the department's name
+            if Employee.validate_fullname(fullname):
+                # get the id if it was not given then just
+                # set the id to be equal to the id of the last department + 1
+                try:
+                    emp_id = request.form['id']
+                except KeyError:
+                    emp_id = service.get_id(Employee)
+                emp = Employee(
+                    id=emp_id,
+                    fullname=fullname,
+                    bday=bday,
+                    salary=salary,
+                    department_id=dep_id
+                )
+                service.insert_into_db(emp)
+            else:
+                raise BadRequest("invalid employee's name '%s'" % fullname)
 
-            try:
-                dep_id = Department.query.filter_by(name=request.form['dep_name']).first().id
-                salary = float(request.form['salary'])
-            except ValueError:
-                raise BadRequest('Salary must be numeric') from ValueError
-            except AttributeError:
-                raise BadRequest(f"Unknown department {request.form['dep_name']}") from AttributeError
+        except KeyError:
+            return {'message': "Employee must have fullname, birthday, salary and department fields"}, 400
 
-            if not Employee.validate_fullname(fullname):
-                raise BadRequest("Invalid employee's name")
+        except HTTPException as exc:
+            logger.exception(exc.description)
+            return {'message': exc.description}, exc.code
 
-            emp = Employee(fullname=fullname, bday=bday,
-                           salary=salary, department_id=dep_id)
+        except ValueError as exc:
+            logger.exception(exc)
+            return {'message': str(exc)}, 400
 
-            service.insert_into_db(Employee, emp)
-            logger.info("Added employee - %s", emp.fullname)
+        else:
+            logger.info('Added %s' % emp)
             response = jsonify(emp.to_dict())
             return response.json, 201
 
-        except HTTPException as exc:
-            logger.exception(exc)
-            return {'error': exc.description}, exc.code
-
-        except ValueError as exc:
-            logger.exception(exc)
-            return {'error': str(exc)}, 400
-
     def put(self, employee_id=None):
-        """update the employee with the given id.
-           if the employee does not exist return 404.
-           if the employee_id is not int return 400.
-           if the employee exists then return 200 and
-           the updated employee
+        """update the employee's name.
+           if employee_id is None return 400,
+           if employee_id is not int return 404,
+           if employee does not exist return 404,
+           else update  the employee and return 204
 
-           employee_id: the id of the employee to return
+           employee_id: the id of the employee that is going to be updated
         """
+        if employee_id is None:
+            return {'message': "Please specify the employee's id"}, 400
 
         try:
-            emp = service.get_or_404(Employee, employee_id)
-            service.update_employee(emp, dict(request.form))
+            if Employee.validate_fullname(request.form['fullname']):
+                emp = service.get_or_404(Employee, id=employee_id)
+                service.update_record(Employee, emp, **request.form)
+            else:
+                return {'message': "invalid employee's fullname"}, 400
+
+        except KeyError:
+            return {'message': "invalid employee's fields"}, 400
         except HTTPException as exc:
             logger.exception(exc.description)
-            return {'error': exc.description}, exc.code
-        except ValueError as exc:
-            logger.exception(exc)
-            return {'error': str(exc)}, 400
+            return {'message': exc.description}, exc.code
         else:
-            logger.info("Updated employee - %s", emp.fullname)
-            response = jsonify(emp.to_dict())
-            return response.json, 200
+            logger.info('Updated %s' % emp)
+            return '', 204
 
     def delete(self, employee_id=None):
-        """delete the employee with the given id
-           if the employee does not exist return 404.
-           if the employee_id has invalid type return 400.
-           if employee exists then delete him and return 204
+        """delete employee with the given id.
+           if employee does not exist return 404,
+           if employee_id in not int return 404,
+           else delete the employee and return 204
+
+           employee_id: the id of the employee that is going to be deleted
         """
 
+        if employee_id is None:
+            return {'message': "Please specify the employee's id"}, 400
+
         try:
-            emp = service.get_or_404(Employee, employee_id)
+            emp = service.get_or_404(Employee, id=employee_id)
         except HTTPException as exc:
             logger.exception(exc.description)
-            return {'error': exc.description}, exc.code
+            return {'message': exc.description}, exc.code
         else:
-            logger.info("Deleted employee - %s", emp.fullname)
-            service.delete_from_db(Employee, emp)
+            logger.info('Deleted %s' % emp)
+            service.delete_from_db(emp)
             return '', 204

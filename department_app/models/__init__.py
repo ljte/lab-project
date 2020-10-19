@@ -43,6 +43,9 @@ class Department(db.Model):
     def validate_name(cls, name):
         """check if the name is valid"""
 
+        if not isinstance(name, str):
+            return False
+
         # if name is empty or if it consists only of spaces return False
         if name == '' or name.isspace():
             return False
