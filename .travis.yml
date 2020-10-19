@@ -13,10 +13,7 @@ before_script:
   - psql -c "CREATE DATABASE test;" -U postgres
   - psql -c "CREATE USER user_1 WITH PASSWORD '12345';" -U postgres
   - psql -c "ALTER USER user_1 WITH Superuser Createrole Createdb;" -U postgres
-  - psql -c "\c test" -U postgres
-  - psql -c "create table department (id integer PRIMARY KEY, name varchar(255) NOT NULL);" -U postgres
-  - psql -c "\dt" -U postgres
-  - psql -c "\c postgres" -U postgres
+  - python manage.py db upgrade
   - psql -c "\dt" -U postgres
   - gunicorn "run:run()" &
 
