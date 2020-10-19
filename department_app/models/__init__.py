@@ -1,3 +1,5 @@
+"""database models"""
+
 from sqlalchemy.sql import func
 
 from department_app import db
@@ -87,7 +89,7 @@ class Employee(db.Model):
                                  backref=db.backref('employees', lazy=True))
 
     def __repr__(self):
-        return f"Employee({self.fullname}, {self.bday}, {self.salary}, {self.department_id})"
+        return f"Employee({self.id}, {self.fullname}, {self.bday}, {self.salary}, {self.department_id})"
 
     def __eq__(self, other):
         return self.id == other.id

@@ -1,16 +1,26 @@
+"""test database services"""
+
 import unittest
 from datetime import date
 
 from werkzeug.exceptions import BadRequest, NotFound
 
-from department_app import service
+from department_app import service, db, app
 from department_app.models import Department, Employee
+from department_app.config import TestConfig
 
 
 class TestService(unittest.TestCase):
 
-    def test_get_all(self):
+    @classmethod
+    def setUpClass(cls):
+        app.config.from_object(TestConfig)
+        db.create_all()
+        #service.insert_into_db(Department(id=2, name='Marketing department'))
+        #service.insert_into_db(Employee(id=2, fullname='Sergey Nemko',
+                                        #bday=date(1998, 12, 25), salary=555, department_id=1))
 
+    def test_get_all(self):
         self.assertListEqual(service.get_all(Department), Department.query.all())
         self.assertListEqual(service.get_all(Employee), Employee.query.all())
 
@@ -33,6 +43,7 @@ class TestService(unittest.TestCase):
             service.get_or_404(12312, id=1)
 
     def test_delete_from_db(self):
+
         service.insert_into_db(Department(id=100, name='Delete department'))
         service.insert_into_db(Employee(id=100, fullname='Delete Employee',
                                         bday=date(1998, 12, 24), salary=231, department_id=1))
@@ -51,6 +62,7 @@ class TestService(unittest.TestCase):
             service.delete_from_db(124)
 
     def test_insert_into_db(self):
+
         dep = Department(id=150, name='Insert department')
         emp = Employee(id=150, fullname='Insert Employee',
                        bday=date(1994, 10, 23), salary=321, department_id=1)
@@ -69,6 +81,7 @@ class TestService(unittest.TestCase):
         service.delete_from_db(emp)
 
     def test_update_department(self):
+
         dep = Department(id=200, name='Update department')
         service.insert_into_db(dep)
 
@@ -84,6 +97,7 @@ class TestService(unittest.TestCase):
             service.update_record(Department, dep)
 
     def test_update_employee(self):
+
         emp = Employee(id=200, fullname='Update Employee',
                        bday=date(1998, 11, 14), salary=312, department_id=1)
         service.insert_into_db(emp)

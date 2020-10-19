@@ -22,7 +22,7 @@ stream_handler = logging.StreamHandler()
 stream_handler.setLevel(logging.DEBUG)
 
 logger.addHandler(file_handler)
-logger.addHandler(stream_handler)
+# logger.addHandler(stream_handler)
 
 
 # api classes
@@ -185,7 +185,7 @@ class EmployeeApi(Resource):
             # try to get all the necessary fields for posting a department
             # if something is missing then the KeyError is raised and gets processed
             fullname = request.form['fullname']
-            bday = datetime.strptime(request.form['bday'], '%Y-%m-%d'),
+            bday = datetime.strptime(request.form['bday'], '%Y-%m-%d')
             salary = float(request.form['salary'])
             dep_id = service.get_or_404(Department,
                                         name=request.form['dep_name']).id
@@ -237,14 +237,16 @@ class EmployeeApi(Resource):
             return {'message': "Please specify the employee's id"}, 400
 
         try:
-            if Employee.validate_fullname(request.form['fullname']):
-                emp = service.get_or_404(Employee, id=employee_id)
-                service.update_record(Employee, emp, **request.form)
-            else:
-                return {'message': "invalid employee's fullname"}, 400
+            emp = service.get_or_404(Employee, id=employee_id)
+            form = dict(request.form)
+            try:
+                if Employee.validate_fullname(request.form['fullname']):
+                    service.update_record(Employee, emp, **form)
+                else:
+                    return {'message': "invalid employee's fullname"}, 400
+            except KeyError:
+                service.update_record(Employee, emp, **form)
 
-        except KeyError:
-            return {'message': "invalid employee's fields"}, 400
         except HTTPException as exc:
             logger.exception(exc.description)
             return {'message': exc.description}, exc.code

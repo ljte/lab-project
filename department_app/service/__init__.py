@@ -1,6 +1,7 @@
-from datetime import date
+"""database services"""
 
-from werkzeug.exceptions import BadRequest
+from datetime import datetime
+
 from flask import abort
 
 from department_app import db
@@ -52,8 +53,8 @@ def insert_into_db(record):
         db.session.rollback()
         db.session.add(record)
         db.session.commit()
-    except Exception as exc:
-        abort(500, 'Failed to insert the record %s' % record)
+    except Exception:
+        abort(500, 'Failed to insert %s' % record)
 
 
 def delete_from_db(record):
@@ -84,10 +85,15 @@ def update_record(model, record, **new_fields):
 
     if new_fields:
         try:
+            # doing it just because sqlite test does not work otherwise
+            try:
+                new_fields['bday'] = datetime.strptime(str(new_fields['bday']), '%Y-%m-%d').date()
+            except KeyError:
+                pass
             model.query.filter_by(id=record.id).update(new_fields)
             db.session.commit()
-        except Exception:
-            abort(400, 'Failed to update %s' % record)
+        except Exception as e:
+            abort(400, "Failed to update %s" % str(e))
     else:
         abort(400, 'no fields to update were given')
 

@@ -11,11 +11,6 @@ services:
 
 before_script:
   - psql -c "CREATE DATABASE test;" -U postgres
-  - psql -c "CREATE USER user_1 WITH PASSWORD '12345';" -U postgres
-  - psql -c "ALTER USER user_1 WITH Superuser Createrole Createdb;" -U postgres
-  - python manage.py db upgrade
-  - psql -c "\dt" -U postgres
-  - gunicorn "run:run()" &
 
 script:
   - pylint department_app/
