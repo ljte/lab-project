@@ -12,9 +12,11 @@ url = 'http://localhost:5000/api'
 
 
 class TestRest(unittest.TestCase):
+    """class for testing restful"""
 
     @classmethod
     def setUpClass(cls):
+        """setup db"""
         app.config.from_object(TestConfig)
         db.create_all()
         service.insert_into_db(Department(id=1, name='Management department'))
@@ -23,6 +25,7 @@ class TestRest(unittest.TestCase):
         cls.tester = app.test_client()
 
     def test_get_all_departments(self):
+        """test getting all the departments"""
 
         response = self.tester.get(f'{url}/departments')
 
@@ -32,6 +35,7 @@ class TestRest(unittest.TestCase):
                                                              dep in service.get_all(Department)]})
 
     def test_get_department(self):
+        """test getting a single department"""
 
         response = self.tester.get(f'{url}/departments/1')
 
@@ -43,6 +47,7 @@ class TestRest(unittest.TestCase):
         self.assertEqual(self.tester.get(f'{url}/departments/gasg').status_code, 404)
 
     def test_post_department(self):
+        """test creating a new department"""
 
         response = self.tester.post(f'{url}/departments/', data={'id': 333, 'name': 'Post department'})
 
@@ -58,7 +63,7 @@ class TestRest(unittest.TestCase):
         service.delete_from_db(dep)
 
     def test_put_department(self):
-
+        """test updating an existing department"""
         dep = Department(id=500, name='Update department')
         service.insert_into_db(dep)
 
@@ -77,6 +82,7 @@ class TestRest(unittest.TestCase):
         service.delete_from_db(dep)
 
     def test_delete_department(self):
+        """test deleting an existing department"""
 
         dep = Department(id=501, name='Delete department')
         service.insert_into_db(dep)
@@ -93,6 +99,7 @@ class TestRest(unittest.TestCase):
         self.assertEqual(self.tester.delete(f'{url}/departments/gas').status_code, 404)
 
     def test_get_all_employees(self):
+        """test getting all the employees"""
 
         response = self.tester.get(f'{url}/employees')
 
@@ -102,6 +109,7 @@ class TestRest(unittest.TestCase):
                                                            emp in service.get_all(Employee)]})
 
     def test_get_employee(self):
+        """test getting a single employee"""
 
         response = self.tester.get(f'{url}/employees/1')
 
@@ -113,6 +121,7 @@ class TestRest(unittest.TestCase):
         self.assertEqual(self.tester.get(f'{url}/employees/gasg').status_code, 404)
 
     def test_post_employee(self):
+        """test creating a new employee"""
 
         response = self.tester.post(f'{url}/employees/', data={'id': 333,
                                                                'fullname': 'Post Employee',
@@ -152,6 +161,7 @@ class TestRest(unittest.TestCase):
         service.delete_from_db(emp)
 
     def test_put_employee(self):
+        """test updating an existing employee"""
 
         emp = Employee(id=500, fullname='Update employee',
                        bday=date(1998, 10, 1), salary=312, department_id=1)
@@ -178,6 +188,7 @@ class TestRest(unittest.TestCase):
         service.delete_from_db(emp)
 
     def test_delete_employee(self):
+        """test deleting an existing employee"""
 
         emp = Employee(id=1000, fullname='Delete employee',
                        bday=date(1999, 10, 11), salary=555, department_id=1)
