@@ -14,8 +14,7 @@ before_script:
   - psql -c "CREATE USER user_1 WITH PASSWORD '12345';" -U postgres
   - python manage.py db upgrade
   - psql -c "\c test"
-  - psql -c "INSERT INTO department (id, name) VALUES (1, 'Management department');" -U postgres
-  - psql -c "INSERT INTO employee (id, fullname, bday, salary, department_id) VALUES (1, 'Sergey Nemko', '1998-12-25', 555.0, 1);" -U postgres
+  - psql -c "\dt"
   - gunicorn "run:run()" &
 script:
   - pylint department_app/
