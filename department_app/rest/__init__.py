@@ -85,7 +85,7 @@ class DepartmentApi(Resource):
             logger.exception(exc.description)
             return {'message': exc.description}, exc.code
         else:
-            logger.info('Added %s' % dep)
+            logger.info('Added %s', dep)
             response = jsonify(dep.to_dict())
             return response.json, 201
 
@@ -114,7 +114,7 @@ class DepartmentApi(Resource):
             logger.exception(exc.description)
             return {'message': exc.description}, exc.code
         else:
-            logger.info('Updated %s' % dep)
+            logger.info('Updated %s', dep)
             return '', 204
 
     def delete(self, department_id=None):
@@ -135,7 +135,7 @@ class DepartmentApi(Resource):
             logger.exception(exc.description)
             return {'message': exc.description}, exc.code
         else:
-            logger.info('Deleted %s' % dep)
+            logger.info('Deleted %s', dep)
             service.delete_from_db(dep)
             return '', 204
 
@@ -220,7 +220,7 @@ class EmployeeApi(Resource):
             return {'message': str(exc)}, 400
 
         else:
-            logger.info('Added %s' % emp)
+            logger.info('Added %s', emp)
             response = jsonify(emp.to_dict())
             return response.json, 201
 
@@ -251,7 +251,7 @@ class EmployeeApi(Resource):
             logger.exception(exc.description)
             return {'message': exc.description}, exc.code
         else:
-            logger.info('Updated %s' % emp)
+            logger.info('Updated %s', emp)
             return '', 204
 
     def delete(self, employee_id=None):
@@ -272,6 +272,6 @@ class EmployeeApi(Resource):
             logger.exception(exc.description)
             return {'message': exc.description}, exc.code
         else:
-            logger.info('Deleted %s' % emp)
+            logger.info('Deleted %s', emp)
             service.delete_from_db(emp)
             return '', 204
