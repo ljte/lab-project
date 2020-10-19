@@ -15,7 +15,8 @@ before_script:
   - psql -c "ALTER USER user_1 WITH Superuser Createrole Createdb;" -U postgres
   - python manage.py db upgrade
   - psql -c "\du" -U postgres
-  - psql -c "\c test \dt" -U postgres
+  - psql -c "\c test" -U postgres
+  - psql -c "\dt" -U postgres
   - gunicorn "run:run()" &
 
 script:
