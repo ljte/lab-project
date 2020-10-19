@@ -92,8 +92,8 @@ def update_record(model, record, **new_fields):
                 pass
             model.query.filter_by(id=record.id).update(new_fields)
             db.session.commit()
-        except Exception as e:
-            abort(400, "Failed to update %s" % str(e))
+        except Exception:
+            abort(400, "Failed to update %s" % record)
     else:
         abort(400, 'no fields to update were given')
 
