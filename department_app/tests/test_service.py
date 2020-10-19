@@ -16,9 +16,9 @@ class TestService(unittest.TestCase):
     def setUpClass(cls):
         app.config.from_object(TestConfig)
         db.create_all()
-        #service.insert_into_db(Department(id=2, name='Marketing department'))
-        #service.insert_into_db(Employee(id=2, fullname='Sergey Nemko',
-                                        #bday=date(1998, 12, 25), salary=555, department_id=1))
+        # service.insert_into_db(Department(id=2, name='Marketing department'))
+        # service.insert_into_db(Employee(id=2, fullname='Sergey Nemko',
+        #                                 bday=date(1998, 12, 25), salary=555, department_id=1))
 
     def test_get_all(self):
         self.assertListEqual(service.get_all(Department), Department.query.all())
