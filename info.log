@@ -6852,3 +6852,1638 @@ Traceback (most recent call last):
   File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
     raise self.mapping[code](*args, **kwargs)
 werkzeug.exceptions.NotFound: 404 Not Found: The record was not found
+2020-10-19 14:16:50,180:INFO:__init__:Deleted Department(Delete department)
+2020-10-19 14:16:50,234:ERROR:__init__:The record was not found
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 37, in get_or_404
+    return model.query.filter_by(**criterion).first_or_404()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py", line 432, in first_or_404
+    abort(404, description=description)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 133, in delete
+    dep = service.get_or_404(Department, id=department_id)
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 39, in get_or_404
+    abort(404, 'The record was not found')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The record was not found
+2020-10-19 14:16:50,243:ERROR:__init__:The record was not found
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type integer: "gas"
+LINE 3: WHERE department.id = 'gas' 
+                              ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 37, in get_or_404
+    return model.query.filter_by(**criterion).first_or_404()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py", line 430, in first_or_404
+    rv = self.first()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3402, in first
+    ret = list(self[0:1])
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3176, in __getitem__
+    return list(res)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3508, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3533, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1124, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1316, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1510, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.DataError: (psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type integer: "gas"
+LINE 3: WHERE department.id = 'gas' 
+                              ^
+
+[SQL: SELECT department.id AS department_id, department.name AS department_name 
+FROM department 
+WHERE department.id = %(id_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'id_1': 'gas', 'param_1': 1}]
+(Background on this error at: http://sqlalche.me/e/13/9h9h)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 133, in delete
+    dep = service.get_or_404(Department, id=department_id)
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 39, in get_or_404
+    abort(404, 'The record was not found')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The record was not found
+2020-10-19 14:16:50,271:INFO:__init__:Deleted Employee(Delete employee, 1999-10-11, 555.0, 1)
+2020-10-19 14:16:50,292:ERROR:__init__:The record was not found
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 37, in get_or_404
+    return model.query.filter_by(**criterion).first_or_404()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py", line 432, in first_or_404
+    abort(404, description=description)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 268, in delete
+    emp = service.get_or_404(Employee, id=employee_id)
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 39, in get_or_404
+    abort(404, 'The record was not found')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The record was not found
+2020-10-19 14:16:50,296:ERROR:__init__:The record was not found
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type integer: "gas"
+LINE 3: WHERE employee.id = 'gas' 
+                            ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 37, in get_or_404
+    return model.query.filter_by(**criterion).first_or_404()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py", line 430, in first_or_404
+    rv = self.first()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3402, in first
+    ret = list(self[0:1])
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3176, in __getitem__
+    return list(res)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3508, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3533, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1124, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1316, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1510, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.DataError: (psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type integer: "gas"
+LINE 3: WHERE employee.id = 'gas' 
+                            ^
+
+[SQL: SELECT employee.id AS employee_id, employee.fullname AS employee_fullname, employee.bday AS employee_bday, employee.salary AS employee_salary, employee.department_id AS employee_department_id 
+FROM employee 
+WHERE employee.id = %(id_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'id_1': 'gas', 'param_1': 1}]
+(Background on this error at: http://sqlalche.me/e/13/9h9h)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 268, in delete
+    emp = service.get_or_404(Employee, id=employee_id)
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 39, in get_or_404
+    abort(404, 'The record was not found')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The record was not found
+2020-10-19 14:16:50,331:ERROR:__init__:The record was not found
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 37, in get_or_404
+    return model.query.filter_by(**criterion).first_or_404()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py", line 432, in first_or_404
+    abort(404, description=description)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 55, in get
+    dep = service.get_or_404(Department, id=department_id)
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 39, in get_or_404
+    abort(404, 'The record was not found')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The record was not found
+2020-10-19 14:16:50,335:ERROR:__init__:The record was not found
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type integer: "gasg"
+LINE 3: WHERE department.id = 'gasg' 
+                              ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 37, in get_or_404
+    return model.query.filter_by(**criterion).first_or_404()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py", line 430, in first_or_404
+    rv = self.first()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3402, in first
+    ret = list(self[0:1])
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3176, in __getitem__
+    return list(res)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3508, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3533, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1124, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1316, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1510, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.DataError: (psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type integer: "gasg"
+LINE 3: WHERE department.id = 'gasg' 
+                              ^
+
+[SQL: SELECT department.id AS department_id, department.name AS department_name 
+FROM department 
+WHERE department.id = %(id_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'id_1': 'gasg', 'param_1': 1}]
+(Background on this error at: http://sqlalche.me/e/13/9h9h)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 55, in get
+    dep = service.get_or_404(Department, id=department_id)
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 39, in get_or_404
+    abort(404, 'The record was not found')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The record was not found
+2020-10-19 14:16:50,345:ERROR:__init__:The record was not found
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 37, in get_or_404
+    return model.query.filter_by(**criterion).first_or_404()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py", line 432, in first_or_404
+    abort(404, description=description)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 169, in get
+    emp = service.get_or_404(Employee, id=employee_id)
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 39, in get_or_404
+    abort(404, 'The record was not found')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The record was not found
+2020-10-19 14:16:50,348:ERROR:__init__:The record was not found
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type integer: "gasg"
+LINE 3: WHERE employee.id = 'gasg' 
+                            ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 37, in get_or_404
+    return model.query.filter_by(**criterion).first_or_404()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py", line 430, in first_or_404
+    rv = self.first()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3402, in first
+    ret = list(self[0:1])
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3176, in __getitem__
+    return list(res)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3508, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3533, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1124, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1316, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1510, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.DataError: (psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type integer: "gasg"
+LINE 3: WHERE employee.id = 'gasg' 
+                            ^
+
+[SQL: SELECT employee.id AS employee_id, employee.fullname AS employee_fullname, employee.bday AS employee_bday, employee.salary AS employee_salary, employee.department_id AS employee_department_id 
+FROM employee 
+WHERE employee.id = %(id_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'id_1': 'gasg', 'param_1': 1}]
+(Background on this error at: http://sqlalche.me/e/13/9h9h)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 169, in get
+    emp = service.get_or_404(Employee, id=employee_id)
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 39, in get_or_404
+    abort(404, 'The record was not found')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The record was not found
+2020-10-19 14:16:50,370:INFO:__init__:Added Department(Post department)
+2020-10-19 14:16:50,386:ERROR:__init__:invalid department's name ''
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 81, in post
+    raise BadRequest("invalid department's name '%s'" % name)
+werkzeug.exceptions.BadRequest: 400 Bad Request: invalid department's name ''
+2020-10-19 14:16:50,437:INFO:__init__:Added Employee(Post Employee, 1998-12-30, 500.0, 1)
+2020-10-19 14:16:50,458:ERROR:__init__:invalid employee's name ''
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 209, in post
+    raise BadRequest("invalid employee's name '%s'" % fullname)
+werkzeug.exceptions.BadRequest: 400 Bad Request: invalid employee's name ''
+2020-10-19 14:16:50,461:ERROR:__init__:time data '1997-15-1' does not match format '%Y-%m-%d'
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 188, in post
+    bday = datetime.strptime(request.form['bday'], '%Y-%m-%d'),
+  File "/usr/lib/python3.8/_strptime.py", line 568, in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+  File "/usr/lib/python3.8/_strptime.py", line 349, in _strptime
+    raise ValueError("time data %r does not match format %r" %
+ValueError: time data '1997-15-1' does not match format '%Y-%m-%d'
+2020-10-19 14:16:50,463:ERROR:__init__:could not convert string to float: 'gas'
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 189, in post
+    salary = float(request.form['salary'])
+ValueError: could not convert string to float: 'gas'
+2020-10-19 14:16:50,467:ERROR:__init__:The record was not found
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 37, in get_or_404
+    return model.query.filter_by(**criterion).first_or_404()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py", line 432, in first_or_404
+    abort(404, description=description)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 190, in post
+    dep_id = service.get_or_404(Department,
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 39, in get_or_404
+    abort(404, 'The record was not found')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The record was not found
+2020-10-19 14:16:50,519:INFO:__init__:Updated Department(Super department)
+2020-10-19 14:16:50,523:ERROR:__init__:The record was not found
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type integer: "gsa"
+LINE 3: WHERE department.id = 'gsa' 
+                              ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 37, in get_or_404
+    return model.query.filter_by(**criterion).first_or_404()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py", line 430, in first_or_404
+    rv = self.first()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3402, in first
+    ret = list(self[0:1])
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3176, in __getitem__
+    return list(res)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3508, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3533, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1124, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1316, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1510, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.DataError: (psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type integer: "gsa"
+LINE 3: WHERE department.id = 'gsa' 
+                              ^
+
+[SQL: SELECT department.id AS department_id, department.name AS department_name 
+FROM department 
+WHERE department.id = %(id_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'id_1': 'gsa', 'param_1': 1}]
+(Background on this error at: http://sqlalche.me/e/13/9h9h)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 107, in put
+    dep = service.get_or_404(Department, id=department_id)
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 39, in get_or_404
+    abort(404, 'The record was not found')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The record was not found
+2020-10-19 14:16:50,526:ERROR:__init__:invalid department's name 
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 110, in put
+    raise BadRequest("invalid department's name %s" % name)
+werkzeug.exceptions.BadRequest: 400 Bad Request: invalid department's name 
+2020-10-19 14:16:50,580:INFO:__init__:Updated Employee(Super employee, 1995-05-05, 555.0, 1)
+2020-10-19 14:16:50,583:ERROR:__init__:The record was not found
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type integer: "gsa"
+LINE 3: WHERE employee.id = 'gsa' 
+                            ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 37, in get_or_404
+    return model.query.filter_by(**criterion).first_or_404()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py", line 430, in first_or_404
+    rv = self.first()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3402, in first
+    ret = list(self[0:1])
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3176, in __getitem__
+    return list(res)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3508, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3533, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1124, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1316, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1510, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.DataError: (psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type integer: "gsa"
+LINE 3: WHERE employee.id = 'gsa' 
+                            ^
+
+[SQL: SELECT employee.id AS employee_id, employee.fullname AS employee_fullname, employee.bday AS employee_bday, employee.salary AS employee_salary, employee.department_id AS employee_department_id 
+FROM employee 
+WHERE employee.id = %(id_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'id_1': 'gsa', 'param_1': 1}]
+(Background on this error at: http://sqlalche.me/e/13/9h9h)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 241, in put
+    emp = service.get_or_404(Employee, id=employee_id)
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 39, in get_or_404
+    abort(404, 'The record was not found')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The record was not found
+2020-10-19 14:16:51,130:INFO:__init__:Deleted Department(Delete department)
+2020-10-19 14:16:51,130:INFO:__init__:Deleted Department(Delete department)
+2020-10-19 14:16:51,166:ERROR:__init__:The record was not found
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 37, in get_or_404
+    return model.query.filter_by(**criterion).first_or_404()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py", line 432, in first_or_404
+    abort(404, description=description)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 133, in delete
+    dep = service.get_or_404(Department, id=department_id)
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 39, in get_or_404
+    abort(404, 'The record was not found')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The record was not found
+2020-10-19 14:16:51,166:ERROR:__init__:The record was not found
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 37, in get_or_404
+    return model.query.filter_by(**criterion).first_or_404()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py", line 432, in first_or_404
+    abort(404, description=description)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 133, in delete
+    dep = service.get_or_404(Department, id=department_id)
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 39, in get_or_404
+    abort(404, 'The record was not found')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The record was not found
+2020-10-19 14:16:51,174:ERROR:__init__:The record was not found
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type integer: "gas"
+LINE 3: WHERE department.id = 'gas' 
+                              ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 37, in get_or_404
+    return model.query.filter_by(**criterion).first_or_404()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py", line 430, in first_or_404
+    rv = self.first()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3402, in first
+    ret = list(self[0:1])
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3176, in __getitem__
+    return list(res)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3508, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3533, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1124, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1316, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1510, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.DataError: (psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type integer: "gas"
+LINE 3: WHERE department.id = 'gas' 
+                              ^
+
+[SQL: SELECT department.id AS department_id, department.name AS department_name 
+FROM department 
+WHERE department.id = %(id_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'id_1': 'gas', 'param_1': 1}]
+(Background on this error at: http://sqlalche.me/e/13/9h9h)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 133, in delete
+    dep = service.get_or_404(Department, id=department_id)
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 39, in get_or_404
+    abort(404, 'The record was not found')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The record was not found
+2020-10-19 14:16:51,174:ERROR:__init__:The record was not found
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type integer: "gas"
+LINE 3: WHERE department.id = 'gas' 
+                              ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 37, in get_or_404
+    return model.query.filter_by(**criterion).first_or_404()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py", line 430, in first_or_404
+    rv = self.first()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3402, in first
+    ret = list(self[0:1])
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3176, in __getitem__
+    return list(res)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3508, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3533, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1124, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1316, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1510, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.DataError: (psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type integer: "gas"
+LINE 3: WHERE department.id = 'gas' 
+                              ^
+
+[SQL: SELECT department.id AS department_id, department.name AS department_name 
+FROM department 
+WHERE department.id = %(id_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'id_1': 'gas', 'param_1': 1}]
+(Background on this error at: http://sqlalche.me/e/13/9h9h)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 133, in delete
+    dep = service.get_or_404(Department, id=department_id)
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 39, in get_or_404
+    abort(404, 'The record was not found')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The record was not found
+2020-10-19 14:16:51,254:INFO:__init__:Deleted Employee(Delete employee, 1999-10-11, 555.0, 1)
+2020-10-19 14:16:51,254:INFO:__init__:Deleted Employee(Delete employee, 1999-10-11, 555.0, 1)
+2020-10-19 14:16:51,489:ERROR:__init__:The record was not found
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 37, in get_or_404
+    return model.query.filter_by(**criterion).first_or_404()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py", line 432, in first_or_404
+    abort(404, description=description)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 268, in delete
+    emp = service.get_or_404(Employee, id=employee_id)
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 39, in get_or_404
+    abort(404, 'The record was not found')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The record was not found
+2020-10-19 14:16:51,489:ERROR:__init__:The record was not found
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 37, in get_or_404
+    return model.query.filter_by(**criterion).first_or_404()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py", line 432, in first_or_404
+    abort(404, description=description)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 268, in delete
+    emp = service.get_or_404(Employee, id=employee_id)
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 39, in get_or_404
+    abort(404, 'The record was not found')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The record was not found
+2020-10-19 14:16:51,497:ERROR:__init__:The record was not found
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type integer: "gas"
+LINE 3: WHERE employee.id = 'gas' 
+                            ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 37, in get_or_404
+    return model.query.filter_by(**criterion).first_or_404()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py", line 430, in first_or_404
+    rv = self.first()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3402, in first
+    ret = list(self[0:1])
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3176, in __getitem__
+    return list(res)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3508, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3533, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1124, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1316, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1510, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.DataError: (psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type integer: "gas"
+LINE 3: WHERE employee.id = 'gas' 
+                            ^
+
+[SQL: SELECT employee.id AS employee_id, employee.fullname AS employee_fullname, employee.bday AS employee_bday, employee.salary AS employee_salary, employee.department_id AS employee_department_id 
+FROM employee 
+WHERE employee.id = %(id_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'id_1': 'gas', 'param_1': 1}]
+(Background on this error at: http://sqlalche.me/e/13/9h9h)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 268, in delete
+    emp = service.get_or_404(Employee, id=employee_id)
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 39, in get_or_404
+    abort(404, 'The record was not found')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The record was not found
+2020-10-19 14:16:51,497:ERROR:__init__:The record was not found
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type integer: "gas"
+LINE 3: WHERE employee.id = 'gas' 
+                            ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 37, in get_or_404
+    return model.query.filter_by(**criterion).first_or_404()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py", line 430, in first_or_404
+    rv = self.first()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3402, in first
+    ret = list(self[0:1])
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3176, in __getitem__
+    return list(res)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3508, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3533, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1124, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1316, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1510, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.DataError: (psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type integer: "gas"
+LINE 3: WHERE employee.id = 'gas' 
+                            ^
+
+[SQL: SELECT employee.id AS employee_id, employee.fullname AS employee_fullname, employee.bday AS employee_bday, employee.salary AS employee_salary, employee.department_id AS employee_department_id 
+FROM employee 
+WHERE employee.id = %(id_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'id_1': 'gas', 'param_1': 1}]
+(Background on this error at: http://sqlalche.me/e/13/9h9h)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 268, in delete
+    emp = service.get_or_404(Employee, id=employee_id)
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 39, in get_or_404
+    abort(404, 'The record was not found')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The record was not found
+2020-10-19 14:16:51,546:ERROR:__init__:The record was not found
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 37, in get_or_404
+    return model.query.filter_by(**criterion).first_or_404()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py", line 432, in first_or_404
+    abort(404, description=description)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 55, in get
+    dep = service.get_or_404(Department, id=department_id)
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 39, in get_or_404
+    abort(404, 'The record was not found')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The record was not found
+2020-10-19 14:16:51,546:ERROR:__init__:The record was not found
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 37, in get_or_404
+    return model.query.filter_by(**criterion).first_or_404()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py", line 432, in first_or_404
+    abort(404, description=description)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 55, in get
+    dep = service.get_or_404(Department, id=department_id)
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 39, in get_or_404
+    abort(404, 'The record was not found')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The record was not found
+2020-10-19 14:16:51,549:ERROR:__init__:The record was not found
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type integer: "gasg"
+LINE 3: WHERE department.id = 'gasg' 
+                              ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 37, in get_or_404
+    return model.query.filter_by(**criterion).first_or_404()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py", line 430, in first_or_404
+    rv = self.first()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3402, in first
+    ret = list(self[0:1])
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3176, in __getitem__
+    return list(res)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3508, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3533, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1124, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1316, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1510, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.DataError: (psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type integer: "gasg"
+LINE 3: WHERE department.id = 'gasg' 
+                              ^
+
+[SQL: SELECT department.id AS department_id, department.name AS department_name 
+FROM department 
+WHERE department.id = %(id_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'id_1': 'gasg', 'param_1': 1}]
+(Background on this error at: http://sqlalche.me/e/13/9h9h)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 55, in get
+    dep = service.get_or_404(Department, id=department_id)
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 39, in get_or_404
+    abort(404, 'The record was not found')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The record was not found
+2020-10-19 14:16:51,549:ERROR:__init__:The record was not found
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type integer: "gasg"
+LINE 3: WHERE department.id = 'gasg' 
+                              ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 37, in get_or_404
+    return model.query.filter_by(**criterion).first_or_404()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py", line 430, in first_or_404
+    rv = self.first()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3402, in first
+    ret = list(self[0:1])
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3176, in __getitem__
+    return list(res)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3508, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3533, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1124, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1316, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1510, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.DataError: (psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type integer: "gasg"
+LINE 3: WHERE department.id = 'gasg' 
+                              ^
+
+[SQL: SELECT department.id AS department_id, department.name AS department_name 
+FROM department 
+WHERE department.id = %(id_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'id_1': 'gasg', 'param_1': 1}]
+(Background on this error at: http://sqlalche.me/e/13/9h9h)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 55, in get
+    dep = service.get_or_404(Department, id=department_id)
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 39, in get_or_404
+    abort(404, 'The record was not found')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The record was not found
+2020-10-19 14:16:51,561:ERROR:__init__:The record was not found
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 37, in get_or_404
+    return model.query.filter_by(**criterion).first_or_404()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py", line 432, in first_or_404
+    abort(404, description=description)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 169, in get
+    emp = service.get_or_404(Employee, id=employee_id)
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 39, in get_or_404
+    abort(404, 'The record was not found')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The record was not found
+2020-10-19 14:16:51,561:ERROR:__init__:The record was not found
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 37, in get_or_404
+    return model.query.filter_by(**criterion).first_or_404()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py", line 432, in first_or_404
+    abort(404, description=description)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 169, in get
+    emp = service.get_or_404(Employee, id=employee_id)
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 39, in get_or_404
+    abort(404, 'The record was not found')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The record was not found
+2020-10-19 14:16:51,564:ERROR:__init__:The record was not found
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type integer: "gasg"
+LINE 3: WHERE employee.id = 'gasg' 
+                            ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 37, in get_or_404
+    return model.query.filter_by(**criterion).first_or_404()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py", line 430, in first_or_404
+    rv = self.first()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3402, in first
+    ret = list(self[0:1])
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3176, in __getitem__
+    return list(res)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3508, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3533, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1124, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1316, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1510, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.DataError: (psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type integer: "gasg"
+LINE 3: WHERE employee.id = 'gasg' 
+                            ^
+
+[SQL: SELECT employee.id AS employee_id, employee.fullname AS employee_fullname, employee.bday AS employee_bday, employee.salary AS employee_salary, employee.department_id AS employee_department_id 
+FROM employee 
+WHERE employee.id = %(id_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'id_1': 'gasg', 'param_1': 1}]
+(Background on this error at: http://sqlalche.me/e/13/9h9h)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 169, in get
+    emp = service.get_or_404(Employee, id=employee_id)
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 39, in get_or_404
+    abort(404, 'The record was not found')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The record was not found
+2020-10-19 14:16:51,564:ERROR:__init__:The record was not found
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type integer: "gasg"
+LINE 3: WHERE employee.id = 'gasg' 
+                            ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 37, in get_or_404
+    return model.query.filter_by(**criterion).first_or_404()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py", line 430, in first_or_404
+    rv = self.first()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3402, in first
+    ret = list(self[0:1])
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3176, in __getitem__
+    return list(res)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3508, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3533, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1124, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1316, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1510, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.DataError: (psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type integer: "gasg"
+LINE 3: WHERE employee.id = 'gasg' 
+                            ^
+
+[SQL: SELECT employee.id AS employee_id, employee.fullname AS employee_fullname, employee.bday AS employee_bday, employee.salary AS employee_salary, employee.department_id AS employee_department_id 
+FROM employee 
+WHERE employee.id = %(id_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'id_1': 'gasg', 'param_1': 1}]
+(Background on this error at: http://sqlalche.me/e/13/9h9h)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 169, in get
+    emp = service.get_or_404(Employee, id=employee_id)
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 39, in get_or_404
+    abort(404, 'The record was not found')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The record was not found
+2020-10-19 14:16:51,759:INFO:__init__:Added Department(Post department)
+2020-10-19 14:16:51,759:INFO:__init__:Added Department(Post department)
+2020-10-19 14:16:51,764:ERROR:__init__:invalid department's name ''
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 81, in post
+    raise BadRequest("invalid department's name '%s'" % name)
+werkzeug.exceptions.BadRequest: 400 Bad Request: invalid department's name ''
+2020-10-19 14:16:51,764:ERROR:__init__:invalid department's name ''
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 81, in post
+    raise BadRequest("invalid department's name '%s'" % name)
+werkzeug.exceptions.BadRequest: 400 Bad Request: invalid department's name ''
+2020-10-19 14:16:52,170:INFO:__init__:Added Employee(Post Employee, 1998-12-30, 500.0, 1)
+2020-10-19 14:16:52,170:INFO:__init__:Added Employee(Post Employee, 1998-12-30, 500.0, 1)
+2020-10-19 14:16:52,192:ERROR:__init__:invalid employee's name ''
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 209, in post
+    raise BadRequest("invalid employee's name '%s'" % fullname)
+werkzeug.exceptions.BadRequest: 400 Bad Request: invalid employee's name ''
+2020-10-19 14:16:52,192:ERROR:__init__:invalid employee's name ''
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 209, in post
+    raise BadRequest("invalid employee's name '%s'" % fullname)
+werkzeug.exceptions.BadRequest: 400 Bad Request: invalid employee's name ''
+2020-10-19 14:16:52,197:ERROR:__init__:time data '1997-15-1' does not match format '%Y-%m-%d'
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 188, in post
+    bday = datetime.strptime(request.form['bday'], '%Y-%m-%d'),
+  File "/usr/lib/python3.8/_strptime.py", line 568, in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+  File "/usr/lib/python3.8/_strptime.py", line 349, in _strptime
+    raise ValueError("time data %r does not match format %r" %
+ValueError: time data '1997-15-1' does not match format '%Y-%m-%d'
+2020-10-19 14:16:52,197:ERROR:__init__:time data '1997-15-1' does not match format '%Y-%m-%d'
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 188, in post
+    bday = datetime.strptime(request.form['bday'], '%Y-%m-%d'),
+  File "/usr/lib/python3.8/_strptime.py", line 568, in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+  File "/usr/lib/python3.8/_strptime.py", line 349, in _strptime
+    raise ValueError("time data %r does not match format %r" %
+ValueError: time data '1997-15-1' does not match format '%Y-%m-%d'
+2020-10-19 14:16:52,200:ERROR:__init__:could not convert string to float: 'gas'
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 189, in post
+    salary = float(request.form['salary'])
+ValueError: could not convert string to float: 'gas'
+2020-10-19 14:16:52,200:ERROR:__init__:could not convert string to float: 'gas'
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 189, in post
+    salary = float(request.form['salary'])
+ValueError: could not convert string to float: 'gas'
+2020-10-19 14:16:52,207:ERROR:__init__:The record was not found
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 37, in get_or_404
+    return model.query.filter_by(**criterion).first_or_404()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py", line 432, in first_or_404
+    abort(404, description=description)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 190, in post
+    dep_id = service.get_or_404(Department,
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 39, in get_or_404
+    abort(404, 'The record was not found')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The record was not found
+2020-10-19 14:16:52,207:ERROR:__init__:The record was not found
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 37, in get_or_404
+    return model.query.filter_by(**criterion).first_or_404()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py", line 432, in first_or_404
+    abort(404, description=description)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 190, in post
+    dep_id = service.get_or_404(Department,
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 39, in get_or_404
+    abort(404, 'The record was not found')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The record was not found
+2020-10-19 14:16:52,791:INFO:__init__:Updated Department(Super department)
+2020-10-19 14:16:52,791:INFO:__init__:Updated Department(Super department)
+2020-10-19 14:16:52,803:ERROR:__init__:The record was not found
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type integer: "gsa"
+LINE 3: WHERE department.id = 'gsa' 
+                              ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 37, in get_or_404
+    return model.query.filter_by(**criterion).first_or_404()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py", line 430, in first_or_404
+    rv = self.first()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3402, in first
+    ret = list(self[0:1])
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3176, in __getitem__
+    return list(res)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3508, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3533, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1124, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1316, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1510, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.DataError: (psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type integer: "gsa"
+LINE 3: WHERE department.id = 'gsa' 
+                              ^
+
+[SQL: SELECT department.id AS department_id, department.name AS department_name 
+FROM department 
+WHERE department.id = %(id_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'id_1': 'gsa', 'param_1': 1}]
+(Background on this error at: http://sqlalche.me/e/13/9h9h)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 107, in put
+    dep = service.get_or_404(Department, id=department_id)
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 39, in get_or_404
+    abort(404, 'The record was not found')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The record was not found
+2020-10-19 14:16:52,803:ERROR:__init__:The record was not found
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type integer: "gsa"
+LINE 3: WHERE department.id = 'gsa' 
+                              ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 37, in get_or_404
+    return model.query.filter_by(**criterion).first_or_404()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py", line 430, in first_or_404
+    rv = self.first()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3402, in first
+    ret = list(self[0:1])
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3176, in __getitem__
+    return list(res)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3508, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3533, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1124, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1316, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1510, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.DataError: (psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type integer: "gsa"
+LINE 3: WHERE department.id = 'gsa' 
+                              ^
+
+[SQL: SELECT department.id AS department_id, department.name AS department_name 
+FROM department 
+WHERE department.id = %(id_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'id_1': 'gsa', 'param_1': 1}]
+(Background on this error at: http://sqlalche.me/e/13/9h9h)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 107, in put
+    dep = service.get_or_404(Department, id=department_id)
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 39, in get_or_404
+    abort(404, 'The record was not found')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The record was not found
+2020-10-19 14:16:52,812:ERROR:__init__:invalid department's name 
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 110, in put
+    raise BadRequest("invalid department's name %s" % name)
+werkzeug.exceptions.BadRequest: 400 Bad Request: invalid department's name 
+2020-10-19 14:16:52,812:ERROR:__init__:invalid department's name 
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 110, in put
+    raise BadRequest("invalid department's name %s" % name)
+werkzeug.exceptions.BadRequest: 400 Bad Request: invalid department's name 
+2020-10-19 14:16:53,380:INFO:__init__:Updated Employee(Super employee, 1995-05-05, 555.0, 1)
+2020-10-19 14:16:53,380:INFO:__init__:Updated Employee(Super employee, 1995-05-05, 555.0, 1)
+2020-10-19 14:16:53,391:ERROR:__init__:The record was not found
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type integer: "gsa"
+LINE 3: WHERE employee.id = 'gsa' 
+                            ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 37, in get_or_404
+    return model.query.filter_by(**criterion).first_or_404()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py", line 430, in first_or_404
+    rv = self.first()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3402, in first
+    ret = list(self[0:1])
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3176, in __getitem__
+    return list(res)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3508, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3533, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1124, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1316, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1510, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.DataError: (psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type integer: "gsa"
+LINE 3: WHERE employee.id = 'gsa' 
+                            ^
+
+[SQL: SELECT employee.id AS employee_id, employee.fullname AS employee_fullname, employee.bday AS employee_bday, employee.salary AS employee_salary, employee.department_id AS employee_department_id 
+FROM employee 
+WHERE employee.id = %(id_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'id_1': 'gsa', 'param_1': 1}]
+(Background on this error at: http://sqlalche.me/e/13/9h9h)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 241, in put
+    emp = service.get_or_404(Employee, id=employee_id)
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 39, in get_or_404
+    abort(404, 'The record was not found')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The record was not found
+2020-10-19 14:16:53,391:ERROR:__init__:The record was not found
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type integer: "gsa"
+LINE 3: WHERE employee.id = 'gsa' 
+                            ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 37, in get_or_404
+    return model.query.filter_by(**criterion).first_or_404()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py", line 430, in first_or_404
+    rv = self.first()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3402, in first
+    ret = list(self[0:1])
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3176, in __getitem__
+    return list(res)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3508, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3533, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1124, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1316, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1510, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.DataError: (psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type integer: "gsa"
+LINE 3: WHERE employee.id = 'gsa' 
+                            ^
+
+[SQL: SELECT employee.id AS employee_id, employee.fullname AS employee_fullname, employee.bday AS employee_bday, employee.salary AS employee_salary, employee.department_id AS employee_department_id 
+FROM employee 
+WHERE employee.id = %(id_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'id_1': 'gsa', 'param_1': 1}]
+(Background on this error at: http://sqlalche.me/e/13/9h9h)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/__init__.py", line 241, in put
+    emp = service.get_or_404(Employee, id=employee_id)
+  File "/home/ljte/Projects/lab-project/department_app/service/__init__.py", line 39, in get_or_404
+    abort(404, 'The record was not found')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The record was not found
