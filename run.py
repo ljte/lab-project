@@ -1,4 +1,7 @@
-from department_app import app
+from department_app import create_app
+
+
+app = create_app()
 
 
 def run():

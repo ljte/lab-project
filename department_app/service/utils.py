@@ -4,7 +4,7 @@ from datetime import datetime
 
 from flask import abort
 
-from department_app import db
+from department_app.models import db
 
 
 def get_all(model):

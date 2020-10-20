@@ -3,7 +3,7 @@
 from sqlalchemy.sql import func
 
 from department_app.models.employee import Employee
-from department_app import db
+from department_app.models import db
 
 
 class Department(db.Model):

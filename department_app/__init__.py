@@ -1,30 +1,25 @@
 """application initialization"""
 
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from flask_script import Manager
-from flask_migrate import Migrate, MigrateCommand
-from flask_restful import Api
+from flask_migrate import Migrate
 
 from department_app.config import Config
+from department_app.rest import rest_blueprint
+from department_app.models import db
 
 
-app = Flask(__name__)
-app.config.from_object(Config)
-
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
-
-manager = Manager(app)
-manager.add_command('db', MigrateCommand)
+migrate = Migrate()
 
 
-from department_app.models.department import Department
-from department_app.models.employee import Employee
-from department_app.rest.department_api import DepartmentApi
-from department_app.rest.employee_api import EmployeeApi
+def create_app(app_config=Config):
+    """basically it is an application factory"""
+    app = Flask(__name__)
+    app.config.from_object(app_config)
 
+    db.init_app(app)
 
-api = Api(app)
-api.add_resource(DepartmentApi, *DepartmentApi.urls)
-api.add_resource(EmployeeApi, *EmployeeApi.urls)
+    migrate.init_app(app, db, directory='department_app/migrations')
+
+    app.register_blueprint(rest_blueprint)
+
+    return app

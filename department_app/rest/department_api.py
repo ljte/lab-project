@@ -1,4 +1,6 @@
-"""rest api for employees"""
+"""rest api for departments"""
+
+import logging
 
 from flask_restful import Resource
 from flask import request, jsonify
@@ -6,7 +8,21 @@ from werkzeug.exceptions import HTTPException, BadRequest
 
 from department_app.models.department import Department
 from department_app.service import utils
-from department_app.rest import logger
+
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+
+formatter = logging.Formatter('%(asctime)s:%(levelname)s:%(module)s:%(message)s')
+
+file_handler = logging.FileHandler('info.log')
+file_handler.setFormatter(formatter)
+
+stream_handler = logging.StreamHandler()
+stream_handler.setLevel(logging.DEBUG)
+
+logger.addHandler(file_handler)
+logger.addHandler(stream_handler)
 
 
 class DepartmentApi(Resource):
@@ -15,8 +31,7 @@ class DepartmentApi(Resource):
     urls = [
         '/api/departments',
         '/api/departments/',
-        '/api/departments/<int:department_id>',
-        '/api/departments/<string:department_id>'
+        '/api/departments/<int:department_id>'
     ]
 
     def get(self, department_id=None):
@@ -53,11 +68,7 @@ class DepartmentApi(Resource):
         try:
             name = request.form['name']
             if Department.validate_name(name):
-                try:
-                    dep_id = request.form['id']
-                except KeyError:
-                    dep_id = utils.get_id(Department)
-
+                dep_id = request.form.get('id', utils.get_id(Department))
                 dep = Department(id=dep_id, name=name)
                 utils.insert_into_db(dep)
             else:
