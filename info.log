@@ -29702,3 +29702,27 @@ Traceback (most recent call last):
   File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
     raise self.mapping[code](*args, **kwargs)
 werkzeug.exceptions.BadRequest: 400 Bad Request: Failed to update Entity '<class 'department_app.models.Employee'>' has no property 'dep_name'
+2020-10-20 17:16:45,956:ERROR:employee_api:The record was not found
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 38, in get_or_404
+    return model.query.filter_by(**criterion).first_or_404()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py", line 432, in first_or_404
+    abort(404, description=description)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 41, in get
+    emp = utils.get_or_404(Employee, id=employee_id)
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 40, in get_or_404
+    abort(404, 'The record was not found')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The record was not found

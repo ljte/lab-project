@@ -3,9 +3,9 @@
 import unittest
 from datetime import date
 
-from department_app import service, app, db
-from department_app.models import Department, Employee
-from department_app.config import  TestConfig
+from department_app.service import utils
+from department_app import app, db, Department, Employee
+from department_app.config import TestConfig
 
 
 URL = 'http://localhost:5000/api'
@@ -19,9 +19,9 @@ class TestRest(unittest.TestCase):
         """setup db"""
         app.config.from_object(TestConfig)
         db.create_all()
-        service.insert_into_db(Department(id=1, name='Management department'))
-        service.insert_into_db(Employee(id=1, fullname='Sergey Nemko',
-                                        bday=date(1998, 12, 25), salary=555, department_id=1))
+        utils.insert_into_db(Department(id=1, name='Management department'))
+        utils.insert_into_db(Employee(id=1, fullname='Sergey Nemko',
+                                      bday=date(1998, 12, 25), salary=555, department_id=1))
         cls.tester = app.test_client()
 
     def test_get_all_departments(self):
@@ -32,7 +32,7 @@ class TestRest(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content_type, 'application/json')
         self.assertDictEqual(response.json, {'departments': [dep.to_dict() for
-                                                             dep in service.get_all(Department)]})
+                                                             dep in utils.get_all(Department)]})
 
     def test_get_department(self):
         """test getting a single department"""
@@ -41,7 +41,7 @@ class TestRest(unittest.TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content_type, 'application/json')
-        self.assertDictEqual(response.json, service.get_or_404(Department, id=1).to_dict())
+        self.assertDictEqual(response.json, utils.get_or_404(Department, id=1).to_dict())
 
         self.assertEqual(self.tester.get(f'{URL}/departments/-1231').status_code, 404)
         self.assertEqual(self.tester.get(f'{URL}/departments/gasg').status_code, 404)
@@ -52,22 +52,22 @@ class TestRest(unittest.TestCase):
         response = self.tester.post(f'{URL}/departments/',
                                     data={'id': 333, 'name': 'Post department'})
 
-        dep = service.get_or_404(Department, id=333)
+        dep = utils.get_or_404(Department, id=333)
 
         self.assertEqual(response.status_code, 201)
         self.assertEqual(response.content_type, 'application/json')
-        self.assertIn(dep, service.get_all(Department))
+        self.assertIn(dep, utils.get_all(Department))
 
         self.assertEqual(self.tester.post(f'{URL}/departments/',
                                           data={'id': 333, 'name': ''}).status_code, 400)
         self.assertEqual(self.tester.post(f'{URL}/departments/').status_code, 400)
 
-        service.delete_from_db(dep)
+        utils.delete_from_db(dep)
 
     def test_put_department(self):
         """test updating an existing department"""
         dep = Department(id=500, name='Update department')
-        service.insert_into_db(dep)
+        utils.insert_into_db(dep)
 
         response = self.tester.put(f'{URL}/departments/500', data={'name': 'Super department'})
 
@@ -83,20 +83,20 @@ class TestRest(unittest.TestCase):
         self.assertEqual(self.tester.put(f'{URL}/departments/1',
                                          data={'name': ''}).status_code, 400)
 
-        service.delete_from_db(dep)
+        utils.delete_from_db(dep)
 
     def test_delete_department(self):
         """test deleting an existing department"""
 
         dep = Department(id=501, name='Delete department')
-        service.insert_into_db(dep)
+        utils.insert_into_db(dep)
 
         response = self.tester.delete(f'{URL}/departments/501')
 
         self.assertEqual(response.status_code, 204)
         self.assertEqual(response.content_type, 'application/json')
 
-        self.assertNotIn(dep, service.get_all(Department))
+        self.assertNotIn(dep, utils.get_all(Department))
 
         self.assertEqual(self.tester.delete(f'{URL}/departments/').status_code, 400)
         self.assertEqual(self.tester.delete(f'{URL}/departments/-123').status_code, 404)
@@ -110,7 +110,7 @@ class TestRest(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content_type, 'application/json')
         self.assertDictEqual(response.json, {'employees': [emp.to_dict() for
-                                                           emp in service.get_all(Employee)]})
+                                                           emp in utils.get_all(Employee)]})
 
     def test_get_employee(self):
         """test getting a single employee"""
@@ -119,7 +119,7 @@ class TestRest(unittest.TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content_type, 'application/json')
-        self.assertDictEqual(response.json, service.get_or_404(Employee, id=1).to_dict())
+        self.assertDictEqual(response.json, utils.get_or_404(Employee, id=1).to_dict())
 
         self.assertEqual(self.tester.get(f'{URL}/employees/-1231').status_code, 404)
         self.assertEqual(self.tester.get(f'{URL}/employees/gasg').status_code, 404)
@@ -134,11 +134,11 @@ class TestRest(unittest.TestCase):
                                           'salary': 500,
                                           'dep_name': 'Management department'})
 
-        emp = service.get_or_404(Employee, id=333)
+        emp = utils.get_or_404(Employee, id=333)
 
         self.assertEqual(response.status_code, 201)
         self.assertEqual(response.content_type, 'application/json')
-        self.assertIn(emp, service.get_all(Employee))
+        self.assertIn(emp, utils.get_all(Employee))
 
         self.assertEqual(self.tester.post(f'{URL}/employees/',
                                           data={'fullname': ''}).status_code, 400)
@@ -168,14 +168,14 @@ class TestRest(unittest.TestCase):
                                                 'dep_name': ''
                                                 }).status_code, 404)
 
-        service.delete_from_db(emp)
+        utils.delete_from_db(emp)
 
     def test_put_employee(self):
         """test updating an existing employee"""
 
         emp = Employee(id=500, fullname='Update employee',
                        bday=date(1998, 10, 1), salary=312, department_id=1)
-        service.insert_into_db(emp)
+        utils.insert_into_db(emp)
         response = self.tester.put(f'{URL}/employees/500',
                                    data={'fullname': 'Super employee',
                                          'bday': date(1995, 5, 5),
@@ -201,21 +201,21 @@ class TestRest(unittest.TestCase):
         self.assertEqual(self.tester.put(f'{URL}/employees/1',
                                          data={'dep_name': 'gsaas'}).status_code, 400)
 
-        service.delete_from_db(emp)
+        utils.delete_from_db(emp)
 
     def test_delete_employee(self):
         """test deleting an existing employee"""
 
         emp = Employee(id=1000, fullname='Delete employee',
                        bday=date(1999, 10, 11), salary=555, department_id=1)
-        service.insert_into_db(emp)
+        utils.insert_into_db(emp)
 
         response = self.tester.delete(f'{URL}/employees/1000')
 
         self.assertEqual(response.status_code, 204)
         self.assertEqual(response.content_type, 'application/json')
 
-        self.assertNotIn(emp, service.get_all(Department))
+        self.assertNotIn(emp, utils.get_all(Department))
 
         self.assertEqual(self.tester.delete(f'{URL}/employees/').status_code, 400)
         self.assertEqual(self.tester.delete(f'{URL}/employees/-123').status_code, 404)
