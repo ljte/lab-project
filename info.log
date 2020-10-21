@@ -31719,3 +31719,1279 @@ Traceback (most recent call last):
   File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
     raise self.mapping[code](*args, **kwargs)
 werkzeug.exceptions.BadRequest: 400 Bad Request: Failed to update Employee(1, Sergey Nemko, 1998-12-25, 555.0, 1)
+2020-10-21 18:09:49,159:INFO:department_api:Deleted Department(Delete department)
+2020-10-21 18:09:49,238:INFO:employee_api:Deleted Employee(2, Delete employee, 1999-10-11, 555.0, 1)
+2020-10-21 18:09:49,312:INFO:department_api:Added Department(Post department)
+2020-10-21 18:09:49,317:ERROR:department_api:invalid department's name ''
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/department_api.py", line 58, in post
+    raise BadRequest("invalid department's name '%s'" % name)
+werkzeug.exceptions.BadRequest: 400 Bad Request: invalid department's name ''
+2020-10-21 18:09:49,324:INFO:employee_api:Added Employee(2, Post Employee, 1998-12-30, 500.0, 1)
+2020-10-21 18:09:49,330:ERROR:employee_api:invalid employee's name ''
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 74, in post
+    raise BadRequest("invalid employee's name '%s'" % fullname)
+werkzeug.exceptions.BadRequest: 400 Bad Request: invalid employee's name ''
+2020-10-21 18:09:49,331:ERROR:employee_api:time data '1997-15-1' does not match format '%Y-%m-%d'
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 59, in post
+    bday = datetime.strptime(request.form['bday'], '%Y-%m-%d')
+  File "/usr/lib/python3.8/_strptime.py", line 568, in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+  File "/usr/lib/python3.8/_strptime.py", line 349, in _strptime
+    raise ValueError("time data %r does not match format %r" %
+ValueError: time data '1997-15-1' does not match format '%Y-%m-%d'
+2020-10-21 18:09:49,332:ERROR:employee_api:could not convert string to float: 'gas'
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 60, in post
+    salary = float(request.form['salary'])
+ValueError: could not convert string to float: 'gas'
+2020-10-21 18:09:49,334:ERROR:employee_api:The record was not found
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 38, in get_or_404
+    return model.query.filter_by(**criterion).first_or_404()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py", line 432, in first_or_404
+    abort(404, description=description)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 61, in post
+    dep_id = utils.get_or_404(Department,
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 40, in get_or_404
+    abort(404, 'The record was not found')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The record was not found
+2020-10-21 18:09:49,340:ERROR:department_api:The record was not found
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 38, in get_or_404
+    return model.query.filter_by(**criterion).first_or_404()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py", line 432, in first_or_404
+    abort(404, description=description)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/department_api.py", line 84, in put
+    dep = utils.get_or_404(Department, id=department_id)
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 40, in get_or_404
+    abort(404, 'The record was not found')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The record was not found
+2020-10-21 18:09:49,345:INFO:employee_api:Updated Employee(2, Super employee, 1995-05-05, 555.0, 1)
+2020-10-21 18:09:49,349:ERROR:employee_api:The record was not found
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 38, in get_or_404
+    return model.query.filter_by(**criterion).first_or_404()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py", line 432, in first_or_404
+    abort(404, description=description)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 105, in put
+    emp = utils.get_or_404(Employee, id=employee_id)
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 40, in get_or_404
+    abort(404, 'The record was not found')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The record was not found
+2020-10-21 18:09:49,351:ERROR:employee_api:no fields to update were given
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 108, in put
+    if Employee.validate_fullname(request.form['fullname']):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/datastructures.py", line 442, in __getitem__
+    raise exceptions.BadRequestKeyError(key)
+werkzeug.exceptions.BadRequestKeyError: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 113, in put
+    utils.update_record(Employee, emp, **form)
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 98, in update_record
+    abort(400, 'no fields to update were given')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.BadRequest: 400 Bad Request: no fields to update were given
+2020-10-21 18:09:49,356:ERROR:employee_api:Failed to update Employee(1, Sergey Nemko, 1998-12-25, 555.0, 1)
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 108, in put
+    if Employee.validate_fullname(request.form['fullname']):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/datastructures.py", line 442, in __getitem__
+    raise exceptions.BadRequestKeyError(key)
+werkzeug.exceptions.BadRequestKeyError: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1204, in _execute_context
+    context = constructor(dialect, self, conn, *args)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 839, in _init_compiled
+    param.append(processors[key](compiled_params[key]))
+ValueError: could not convert string to float: 'gsa'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 93, in update_record
+    model.query.filter_by(id=record.id).update(new_fields)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 4036, in update
+    update_op.exec_()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1697, in exec_
+    self._do_exec()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1893, in _do_exec
+    self._execute_stmt(update_stmt)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1702, in _execute_stmt
+    self.result = self.query._execute_crud(stmt, self.mapper)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3541, in _execute_crud
+    return conn.execute(stmt, self._params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1124, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1206, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1510, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1204, in _execute_context
+    context = constructor(dialect, self, conn, *args)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 839, in _init_compiled
+    param.append(processors[key](compiled_params[key]))
+sqlalchemy.exc.StatementError: (builtins.ValueError) could not convert string to float: 'gsa'
+[SQL: UPDATE employee SET salary=? WHERE employee.id = ?]
+[parameters: [immutabledict({})]]
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 113, in put
+    utils.update_record(Employee, emp, **form)
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 96, in update_record
+    abort(400, "Failed to update %s" % record)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.BadRequest: 400 Bad Request: Failed to update Employee(1, Sergey Nemko, 1998-12-25, 555.0, 1)
+2020-10-21 18:09:49,433:ERROR:employee_api:Failed to update Employee(1, Sergey Nemko, 1998-12-25, 555.0, 1)
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 108, in put
+    if Employee.validate_fullname(request.form['fullname']):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/datastructures.py", line 442, in __getitem__
+    raise exceptions.BadRequestKeyError(key)
+werkzeug.exceptions.BadRequestKeyError: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 90, in update_record
+    new_fields['bday'] = datetime.strptime(str(new_fields['bday']), '%Y-%m-%d').date()
+  File "/usr/lib/python3.8/_strptime.py", line 568, in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+  File "/usr/lib/python3.8/_strptime.py", line 349, in _strptime
+    raise ValueError("time data %r does not match format %r" %
+ValueError: time data '1992-20-12' does not match format '%Y-%m-%d'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 113, in put
+    utils.update_record(Employee, emp, **form)
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 96, in update_record
+    abort(400, "Failed to update %s" % record)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.BadRequest: 400 Bad Request: Failed to update Employee(1, Sergey Nemko, 1998-12-25, 555.0, 1)
+2020-10-21 18:09:49,441:ERROR:employee_api:Failed to update Employee(1, Sergey Nemko, 1998-12-25, 555.0, 1)
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 108, in put
+    if Employee.validate_fullname(request.form['fullname']):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/datastructures.py", line 442, in __getitem__
+    raise exceptions.BadRequestKeyError(key)
+werkzeug.exceptions.BadRequestKeyError: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/base.py", line 406, in _entity_descriptor
+    return getattr(entity, key)
+AttributeError: type object 'Employee' has no attribute 'dep_name'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 93, in update_record
+    model.query.filter_by(id=record.id).update(new_fields)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 4036, in update
+    update_op.exec_()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1696, in exec_
+    self._do_pre_synchronize()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1769, in _do_pre_synchronize
+    self._additional_evaluators(evaluator_compiler)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1941, in _additional_evaluators
+    values = self._resolved_values_keys_as_propnames
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1860, in _resolved_values_keys_as_propnames
+    for k, v in self._resolved_values:
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1847, in _resolved_values
+    desc = _entity_descriptor(self.mapper, k)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/base.py", line 408, in _entity_descriptor
+    util.raise_(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+sqlalchemy.exc.InvalidRequestError: Entity '<class 'department_app.models.employee.Employee'>' has no property 'dep_name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 113, in put
+    utils.update_record(Employee, emp, **form)
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 96, in update_record
+    abort(400, "Failed to update %s" % record)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.BadRequest: 400 Bad Request: Failed to update Employee(1, Sergey Nemko, 1998-12-25, 555.0, 1)
+2020-10-21 18:10:23,671:INFO:department_api:Deleted Department(Delete department)
+2020-10-21 18:10:23,679:INFO:employee_api:Deleted Employee(2, Delete employee, 1999-10-11, 555.0, 1)
+2020-10-21 18:10:23,707:INFO:department_api:Added Department(Post department)
+2020-10-21 18:10:23,711:ERROR:department_api:invalid department's name ''
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/department_api.py", line 58, in post
+    raise BadRequest("invalid department's name '%s'" % name)
+werkzeug.exceptions.BadRequest: 400 Bad Request: invalid department's name ''
+2020-10-21 18:10:23,718:INFO:employee_api:Added Employee(2, Post Employee, 1998-12-30, 500.0, 1)
+2020-10-21 18:10:23,723:ERROR:employee_api:invalid employee's name ''
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 74, in post
+    raise BadRequest("invalid employee's name '%s'" % fullname)
+werkzeug.exceptions.BadRequest: 400 Bad Request: invalid employee's name ''
+2020-10-21 18:10:23,724:ERROR:employee_api:time data '1997-15-1' does not match format '%Y-%m-%d'
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 59, in post
+    bday = datetime.strptime(request.form['bday'], '%Y-%m-%d')
+  File "/usr/lib/python3.8/_strptime.py", line 568, in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+  File "/usr/lib/python3.8/_strptime.py", line 349, in _strptime
+    raise ValueError("time data %r does not match format %r" %
+ValueError: time data '1997-15-1' does not match format '%Y-%m-%d'
+2020-10-21 18:10:23,726:ERROR:employee_api:could not convert string to float: 'gas'
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 60, in post
+    salary = float(request.form['salary'])
+ValueError: could not convert string to float: 'gas'
+2020-10-21 18:10:23,727:ERROR:employee_api:The record was not found
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 38, in get_or_404
+    return model.query.filter_by(**criterion).first_or_404()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py", line 432, in first_or_404
+    abort(404, description=description)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 61, in post
+    dep_id = utils.get_or_404(Department,
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 40, in get_or_404
+    abort(404, 'The record was not found')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The record was not found
+2020-10-21 18:10:23,732:ERROR:department_api:The record was not found
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 38, in get_or_404
+    return model.query.filter_by(**criterion).first_or_404()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py", line 432, in first_or_404
+    abort(404, description=description)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/department_api.py", line 84, in put
+    dep = utils.get_or_404(Department, id=department_id)
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 40, in get_or_404
+    abort(404, 'The record was not found')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The record was not found
+2020-10-21 18:10:23,738:INFO:employee_api:Updated Employee(2, Super employee, 1995-05-05, 555.0, 1)
+2020-10-21 18:10:23,742:ERROR:employee_api:The record was not found
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 38, in get_or_404
+    return model.query.filter_by(**criterion).first_or_404()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py", line 432, in first_or_404
+    abort(404, description=description)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 105, in put
+    emp = utils.get_or_404(Employee, id=employee_id)
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 40, in get_or_404
+    abort(404, 'The record was not found')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The record was not found
+2020-10-21 18:10:23,745:ERROR:employee_api:no fields to update were given
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 108, in put
+    if Employee.validate_fullname(request.form['fullname']):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/datastructures.py", line 442, in __getitem__
+    raise exceptions.BadRequestKeyError(key)
+werkzeug.exceptions.BadRequestKeyError: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 113, in put
+    utils.update_record(Employee, emp, **form)
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 98, in update_record
+    abort(400, 'no fields to update were given')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.BadRequest: 400 Bad Request: no fields to update were given
+2020-10-21 18:10:23,751:ERROR:employee_api:Failed to update Employee(1, Sergey Nemko, 1998-12-25, 555.0, 1)
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 108, in put
+    if Employee.validate_fullname(request.form['fullname']):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/datastructures.py", line 442, in __getitem__
+    raise exceptions.BadRequestKeyError(key)
+werkzeug.exceptions.BadRequestKeyError: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1204, in _execute_context
+    context = constructor(dialect, self, conn, *args)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 839, in _init_compiled
+    param.append(processors[key](compiled_params[key]))
+ValueError: could not convert string to float: 'gsa'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 93, in update_record
+    model.query.filter_by(id=record.id).update(new_fields)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 4036, in update
+    update_op.exec_()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1697, in exec_
+    self._do_exec()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1893, in _do_exec
+    self._execute_stmt(update_stmt)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1702, in _execute_stmt
+    self.result = self.query._execute_crud(stmt, self.mapper)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3541, in _execute_crud
+    return conn.execute(stmt, self._params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1124, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1206, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1510, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1204, in _execute_context
+    context = constructor(dialect, self, conn, *args)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 839, in _init_compiled
+    param.append(processors[key](compiled_params[key]))
+sqlalchemy.exc.StatementError: (builtins.ValueError) could not convert string to float: 'gsa'
+[SQL: UPDATE employee SET salary=? WHERE employee.id = ?]
+[parameters: [immutabledict({})]]
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 113, in put
+    utils.update_record(Employee, emp, **form)
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 96, in update_record
+    abort(400, "Failed to update %s" % record)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.BadRequest: 400 Bad Request: Failed to update Employee(1, Sergey Nemko, 1998-12-25, 555.0, 1)
+2020-10-21 18:10:23,755:ERROR:employee_api:Failed to update Employee(1, Sergey Nemko, 1998-12-25, 555.0, 1)
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 108, in put
+    if Employee.validate_fullname(request.form['fullname']):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/datastructures.py", line 442, in __getitem__
+    raise exceptions.BadRequestKeyError(key)
+werkzeug.exceptions.BadRequestKeyError: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 90, in update_record
+    new_fields['bday'] = datetime.strptime(str(new_fields['bday']), '%Y-%m-%d').date()
+  File "/usr/lib/python3.8/_strptime.py", line 568, in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+  File "/usr/lib/python3.8/_strptime.py", line 349, in _strptime
+    raise ValueError("time data %r does not match format %r" %
+ValueError: time data '1992-20-12' does not match format '%Y-%m-%d'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 113, in put
+    utils.update_record(Employee, emp, **form)
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 96, in update_record
+    abort(400, "Failed to update %s" % record)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.BadRequest: 400 Bad Request: Failed to update Employee(1, Sergey Nemko, 1998-12-25, 555.0, 1)
+2020-10-21 18:10:23,757:ERROR:employee_api:Failed to update Employee(1, Sergey Nemko, 1998-12-25, 555.0, 1)
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 108, in put
+    if Employee.validate_fullname(request.form['fullname']):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/datastructures.py", line 442, in __getitem__
+    raise exceptions.BadRequestKeyError(key)
+werkzeug.exceptions.BadRequestKeyError: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/base.py", line 406, in _entity_descriptor
+    return getattr(entity, key)
+AttributeError: type object 'Employee' has no attribute 'dep_name'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 93, in update_record
+    model.query.filter_by(id=record.id).update(new_fields)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 4036, in update
+    update_op.exec_()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1696, in exec_
+    self._do_pre_synchronize()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1769, in _do_pre_synchronize
+    self._additional_evaluators(evaluator_compiler)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1941, in _additional_evaluators
+    values = self._resolved_values_keys_as_propnames
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1860, in _resolved_values_keys_as_propnames
+    for k, v in self._resolved_values:
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1847, in _resolved_values
+    desc = _entity_descriptor(self.mapper, k)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/base.py", line 408, in _entity_descriptor
+    util.raise_(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+sqlalchemy.exc.InvalidRequestError: Entity '<class 'department_app.models.employee.Employee'>' has no property 'dep_name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 113, in put
+    utils.update_record(Employee, emp, **form)
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 96, in update_record
+    abort(400, "Failed to update %s" % record)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.BadRequest: 400 Bad Request: Failed to update Employee(1, Sergey Nemko, 1998-12-25, 555.0, 1)
+2020-10-21 18:10:48,840:INFO:department_api:Deleted Department(Delete department)
+2020-10-21 18:10:48,848:INFO:employee_api:Deleted Employee(2, Delete employee, 1999-10-11, 555.0, 1)
+2020-10-21 18:10:48,876:INFO:department_api:Added Department(Post department)
+2020-10-21 18:10:48,881:ERROR:department_api:invalid department's name ''
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/department_api.py", line 58, in post
+    raise BadRequest("invalid department's name '%s'" % name)
+werkzeug.exceptions.BadRequest: 400 Bad Request: invalid department's name ''
+2020-10-21 18:10:48,886:INFO:employee_api:Added Employee(2, Post Employee, 1998-12-30, 500.0, 1)
+2020-10-21 18:10:48,892:ERROR:employee_api:invalid employee's name ''
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 74, in post
+    raise BadRequest("invalid employee's name '%s'" % fullname)
+werkzeug.exceptions.BadRequest: 400 Bad Request: invalid employee's name ''
+2020-10-21 18:10:48,894:ERROR:employee_api:time data '1997-15-1' does not match format '%Y-%m-%d'
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 59, in post
+    bday = datetime.strptime(request.form['bday'], '%Y-%m-%d')
+  File "/usr/lib/python3.8/_strptime.py", line 568, in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+  File "/usr/lib/python3.8/_strptime.py", line 349, in _strptime
+    raise ValueError("time data %r does not match format %r" %
+ValueError: time data '1997-15-1' does not match format '%Y-%m-%d'
+2020-10-21 18:10:48,895:ERROR:employee_api:could not convert string to float: 'gas'
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 60, in post
+    salary = float(request.form['salary'])
+ValueError: could not convert string to float: 'gas'
+2020-10-21 18:10:48,897:ERROR:employee_api:The record was not found
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 38, in get_or_404
+    return model.query.filter_by(**criterion).first_or_404()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py", line 432, in first_or_404
+    abort(404, description=description)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 61, in post
+    dep_id = utils.get_or_404(Department,
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 40, in get_or_404
+    abort(404, 'The record was not found')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The record was not found
+2020-10-21 18:10:48,902:INFO:department_api:Updated Department(Super department)
+2020-10-21 18:10:48,906:ERROR:department_api:invalid department's name 
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/department_api.py", line 87, in put
+    raise BadRequest("invalid department's name %s" % name)
+werkzeug.exceptions.BadRequest: 400 Bad Request: invalid department's name 
+2020-10-21 18:10:48,912:INFO:employee_api:Updated Employee(2, Super employee, 1995-05-05, 555.0, 1)
+2020-10-21 18:10:48,915:ERROR:employee_api:The record was not found
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 38, in get_or_404
+    return model.query.filter_by(**criterion).first_or_404()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py", line 432, in first_or_404
+    abort(404, description=description)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 105, in put
+    emp = utils.get_or_404(Employee, id=employee_id)
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 40, in get_or_404
+    abort(404, 'The record was not found')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The record was not found
+2020-10-21 18:10:48,916:ERROR:employee_api:no fields to update were given
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 108, in put
+    if Employee.validate_fullname(request.form['fullname']):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/datastructures.py", line 442, in __getitem__
+    raise exceptions.BadRequestKeyError(key)
+werkzeug.exceptions.BadRequestKeyError: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 113, in put
+    utils.update_record(Employee, emp, **form)
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 98, in update_record
+    abort(400, 'no fields to update were given')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.BadRequest: 400 Bad Request: no fields to update were given
+2020-10-21 18:10:48,921:ERROR:employee_api:Failed to update Employee(1, Sergey Nemko, 1998-12-25, 555.0, 1)
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 108, in put
+    if Employee.validate_fullname(request.form['fullname']):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/datastructures.py", line 442, in __getitem__
+    raise exceptions.BadRequestKeyError(key)
+werkzeug.exceptions.BadRequestKeyError: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1204, in _execute_context
+    context = constructor(dialect, self, conn, *args)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 839, in _init_compiled
+    param.append(processors[key](compiled_params[key]))
+ValueError: could not convert string to float: 'gsa'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 93, in update_record
+    model.query.filter_by(id=record.id).update(new_fields)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 4036, in update
+    update_op.exec_()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1697, in exec_
+    self._do_exec()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1893, in _do_exec
+    self._execute_stmt(update_stmt)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1702, in _execute_stmt
+    self.result = self.query._execute_crud(stmt, self.mapper)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3541, in _execute_crud
+    return conn.execute(stmt, self._params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1124, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1206, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1510, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1204, in _execute_context
+    context = constructor(dialect, self, conn, *args)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 839, in _init_compiled
+    param.append(processors[key](compiled_params[key]))
+sqlalchemy.exc.StatementError: (builtins.ValueError) could not convert string to float: 'gsa'
+[SQL: UPDATE employee SET salary=? WHERE employee.id = ?]
+[parameters: [immutabledict({})]]
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 113, in put
+    utils.update_record(Employee, emp, **form)
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 96, in update_record
+    abort(400, "Failed to update %s" % record)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.BadRequest: 400 Bad Request: Failed to update Employee(1, Sergey Nemko, 1998-12-25, 555.0, 1)
+2020-10-21 18:10:48,926:ERROR:employee_api:Failed to update Employee(1, Sergey Nemko, 1998-12-25, 555.0, 1)
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 108, in put
+    if Employee.validate_fullname(request.form['fullname']):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/datastructures.py", line 442, in __getitem__
+    raise exceptions.BadRequestKeyError(key)
+werkzeug.exceptions.BadRequestKeyError: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 90, in update_record
+    new_fields['bday'] = datetime.strptime(str(new_fields['bday']), '%Y-%m-%d').date()
+  File "/usr/lib/python3.8/_strptime.py", line 568, in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+  File "/usr/lib/python3.8/_strptime.py", line 349, in _strptime
+    raise ValueError("time data %r does not match format %r" %
+ValueError: time data '1992-20-12' does not match format '%Y-%m-%d'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 113, in put
+    utils.update_record(Employee, emp, **form)
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 96, in update_record
+    abort(400, "Failed to update %s" % record)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.BadRequest: 400 Bad Request: Failed to update Employee(1, Sergey Nemko, 1998-12-25, 555.0, 1)
+2020-10-21 18:10:48,929:ERROR:employee_api:Failed to update Employee(1, Sergey Nemko, 1998-12-25, 555.0, 1)
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 108, in put
+    if Employee.validate_fullname(request.form['fullname']):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/datastructures.py", line 442, in __getitem__
+    raise exceptions.BadRequestKeyError(key)
+werkzeug.exceptions.BadRequestKeyError: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/base.py", line 406, in _entity_descriptor
+    return getattr(entity, key)
+AttributeError: type object 'Employee' has no attribute 'dep_name'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 93, in update_record
+    model.query.filter_by(id=record.id).update(new_fields)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 4036, in update
+    update_op.exec_()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1696, in exec_
+    self._do_pre_synchronize()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1769, in _do_pre_synchronize
+    self._additional_evaluators(evaluator_compiler)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1941, in _additional_evaluators
+    values = self._resolved_values_keys_as_propnames
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1860, in _resolved_values_keys_as_propnames
+    for k, v in self._resolved_values:
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1847, in _resolved_values
+    desc = _entity_descriptor(self.mapper, k)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/base.py", line 408, in _entity_descriptor
+    util.raise_(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+sqlalchemy.exc.InvalidRequestError: Entity '<class 'department_app.models.employee.Employee'>' has no property 'dep_name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 113, in put
+    utils.update_record(Employee, emp, **form)
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 96, in update_record
+    abort(400, "Failed to update %s" % record)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.BadRequest: 400 Bad Request: Failed to update Employee(1, Sergey Nemko, 1998-12-25, 555.0, 1)
+2020-10-21 18:10:49,195:INFO:department_api:Deleted Department(Delete department)
+2020-10-21 18:10:49,195:INFO:department_api:Deleted Department(Delete department)
+2020-10-21 18:10:49,202:INFO:employee_api:Deleted Employee(2, Delete employee, 1999-10-11, 555.0, 1)
+2020-10-21 18:10:49,202:INFO:employee_api:Deleted Employee(2, Delete employee, 1999-10-11, 555.0, 1)
+2020-10-21 18:10:49,230:INFO:department_api:Added Department(Post department)
+2020-10-21 18:10:49,230:INFO:department_api:Added Department(Post department)
+2020-10-21 18:10:49,233:ERROR:department_api:invalid department's name ''
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/department_api.py", line 58, in post
+    raise BadRequest("invalid department's name '%s'" % name)
+werkzeug.exceptions.BadRequest: 400 Bad Request: invalid department's name ''
+2020-10-21 18:10:49,233:ERROR:department_api:invalid department's name ''
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/department_api.py", line 58, in post
+    raise BadRequest("invalid department's name '%s'" % name)
+werkzeug.exceptions.BadRequest: 400 Bad Request: invalid department's name ''
+2020-10-21 18:10:49,238:INFO:employee_api:Added Employee(2, Post Employee, 1998-12-30, 500.0, 1)
+2020-10-21 18:10:49,238:INFO:employee_api:Added Employee(2, Post Employee, 1998-12-30, 500.0, 1)
+2020-10-21 18:10:49,244:ERROR:employee_api:invalid employee's name ''
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 74, in post
+    raise BadRequest("invalid employee's name '%s'" % fullname)
+werkzeug.exceptions.BadRequest: 400 Bad Request: invalid employee's name ''
+2020-10-21 18:10:49,244:ERROR:employee_api:invalid employee's name ''
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 74, in post
+    raise BadRequest("invalid employee's name '%s'" % fullname)
+werkzeug.exceptions.BadRequest: 400 Bad Request: invalid employee's name ''
+2020-10-21 18:10:49,245:ERROR:employee_api:time data '1997-15-1' does not match format '%Y-%m-%d'
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 59, in post
+    bday = datetime.strptime(request.form['bday'], '%Y-%m-%d')
+  File "/usr/lib/python3.8/_strptime.py", line 568, in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+  File "/usr/lib/python3.8/_strptime.py", line 349, in _strptime
+    raise ValueError("time data %r does not match format %r" %
+ValueError: time data '1997-15-1' does not match format '%Y-%m-%d'
+2020-10-21 18:10:49,245:ERROR:employee_api:time data '1997-15-1' does not match format '%Y-%m-%d'
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 59, in post
+    bday = datetime.strptime(request.form['bday'], '%Y-%m-%d')
+  File "/usr/lib/python3.8/_strptime.py", line 568, in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+  File "/usr/lib/python3.8/_strptime.py", line 349, in _strptime
+    raise ValueError("time data %r does not match format %r" %
+ValueError: time data '1997-15-1' does not match format '%Y-%m-%d'
+2020-10-21 18:10:49,246:ERROR:employee_api:could not convert string to float: 'gas'
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 60, in post
+    salary = float(request.form['salary'])
+ValueError: could not convert string to float: 'gas'
+2020-10-21 18:10:49,246:ERROR:employee_api:could not convert string to float: 'gas'
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 60, in post
+    salary = float(request.form['salary'])
+ValueError: could not convert string to float: 'gas'
+2020-10-21 18:10:49,248:ERROR:employee_api:The record was not found
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 38, in get_or_404
+    return model.query.filter_by(**criterion).first_or_404()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py", line 432, in first_or_404
+    abort(404, description=description)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 61, in post
+    dep_id = utils.get_or_404(Department,
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 40, in get_or_404
+    abort(404, 'The record was not found')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The record was not found
+2020-10-21 18:10:49,248:ERROR:employee_api:The record was not found
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 38, in get_or_404
+    return model.query.filter_by(**criterion).first_or_404()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py", line 432, in first_or_404
+    abort(404, description=description)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 61, in post
+    dep_id = utils.get_or_404(Department,
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 40, in get_or_404
+    abort(404, 'The record was not found')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The record was not found
+2020-10-21 18:10:49,253:INFO:department_api:Updated Department(Super department)
+2020-10-21 18:10:49,253:INFO:department_api:Updated Department(Super department)
+2020-10-21 18:10:49,257:ERROR:department_api:invalid department's name 
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/department_api.py", line 87, in put
+    raise BadRequest("invalid department's name %s" % name)
+werkzeug.exceptions.BadRequest: 400 Bad Request: invalid department's name 
+2020-10-21 18:10:49,257:ERROR:department_api:invalid department's name 
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/department_api.py", line 87, in put
+    raise BadRequest("invalid department's name %s" % name)
+werkzeug.exceptions.BadRequest: 400 Bad Request: invalid department's name 
+2020-10-21 18:10:49,264:INFO:employee_api:Updated Employee(2, Super employee, 1995-05-05, 555.0, 1)
+2020-10-21 18:10:49,264:INFO:employee_api:Updated Employee(2, Super employee, 1995-05-05, 555.0, 1)
+2020-10-21 18:10:49,267:ERROR:employee_api:The record was not found
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 38, in get_or_404
+    return model.query.filter_by(**criterion).first_or_404()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py", line 432, in first_or_404
+    abort(404, description=description)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 105, in put
+    emp = utils.get_or_404(Employee, id=employee_id)
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 40, in get_or_404
+    abort(404, 'The record was not found')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The record was not found
+2020-10-21 18:10:49,267:ERROR:employee_api:The record was not found
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 38, in get_or_404
+    return model.query.filter_by(**criterion).first_or_404()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py", line 432, in first_or_404
+    abort(404, description=description)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 105, in put
+    emp = utils.get_or_404(Employee, id=employee_id)
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 40, in get_or_404
+    abort(404, 'The record was not found')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.NotFound: 404 Not Found: The record was not found
+2020-10-21 18:10:49,268:ERROR:employee_api:no fields to update were given
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 108, in put
+    if Employee.validate_fullname(request.form['fullname']):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/datastructures.py", line 442, in __getitem__
+    raise exceptions.BadRequestKeyError(key)
+werkzeug.exceptions.BadRequestKeyError: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 113, in put
+    utils.update_record(Employee, emp, **form)
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 98, in update_record
+    abort(400, 'no fields to update were given')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.BadRequest: 400 Bad Request: no fields to update were given
+2020-10-21 18:10:49,268:ERROR:employee_api:no fields to update were given
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 108, in put
+    if Employee.validate_fullname(request.form['fullname']):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/datastructures.py", line 442, in __getitem__
+    raise exceptions.BadRequestKeyError(key)
+werkzeug.exceptions.BadRequestKeyError: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 113, in put
+    utils.update_record(Employee, emp, **form)
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 98, in update_record
+    abort(400, 'no fields to update were given')
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.BadRequest: 400 Bad Request: no fields to update were given
+2020-10-21 18:10:49,273:ERROR:employee_api:Failed to update Employee(1, Sergey Nemko, 1998-12-25, 555.0, 1)
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 108, in put
+    if Employee.validate_fullname(request.form['fullname']):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/datastructures.py", line 442, in __getitem__
+    raise exceptions.BadRequestKeyError(key)
+werkzeug.exceptions.BadRequestKeyError: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1204, in _execute_context
+    context = constructor(dialect, self, conn, *args)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 839, in _init_compiled
+    param.append(processors[key](compiled_params[key]))
+ValueError: could not convert string to float: 'gsa'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 93, in update_record
+    model.query.filter_by(id=record.id).update(new_fields)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 4036, in update
+    update_op.exec_()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1697, in exec_
+    self._do_exec()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1893, in _do_exec
+    self._execute_stmt(update_stmt)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1702, in _execute_stmt
+    self.result = self.query._execute_crud(stmt, self.mapper)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3541, in _execute_crud
+    return conn.execute(stmt, self._params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1124, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1206, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1510, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1204, in _execute_context
+    context = constructor(dialect, self, conn, *args)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 839, in _init_compiled
+    param.append(processors[key](compiled_params[key]))
+sqlalchemy.exc.StatementError: (builtins.ValueError) could not convert string to float: 'gsa'
+[SQL: UPDATE employee SET salary=? WHERE employee.id = ?]
+[parameters: [immutabledict({})]]
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 113, in put
+    utils.update_record(Employee, emp, **form)
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 96, in update_record
+    abort(400, "Failed to update %s" % record)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.BadRequest: 400 Bad Request: Failed to update Employee(1, Sergey Nemko, 1998-12-25, 555.0, 1)
+2020-10-21 18:10:49,273:ERROR:employee_api:Failed to update Employee(1, Sergey Nemko, 1998-12-25, 555.0, 1)
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 108, in put
+    if Employee.validate_fullname(request.form['fullname']):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/datastructures.py", line 442, in __getitem__
+    raise exceptions.BadRequestKeyError(key)
+werkzeug.exceptions.BadRequestKeyError: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1204, in _execute_context
+    context = constructor(dialect, self, conn, *args)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 839, in _init_compiled
+    param.append(processors[key](compiled_params[key]))
+ValueError: could not convert string to float: 'gsa'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 93, in update_record
+    model.query.filter_by(id=record.id).update(new_fields)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 4036, in update
+    update_op.exec_()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1697, in exec_
+    self._do_exec()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1893, in _do_exec
+    self._execute_stmt(update_stmt)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1702, in _execute_stmt
+    self.result = self.query._execute_crud(stmt, self.mapper)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 3541, in _execute_crud
+    return conn.execute(stmt, self._params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1124, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1206, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1510, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1204, in _execute_context
+    context = constructor(dialect, self, conn, *args)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 839, in _init_compiled
+    param.append(processors[key](compiled_params[key]))
+sqlalchemy.exc.StatementError: (builtins.ValueError) could not convert string to float: 'gsa'
+[SQL: UPDATE employee SET salary=? WHERE employee.id = ?]
+[parameters: [immutabledict({})]]
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 113, in put
+    utils.update_record(Employee, emp, **form)
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 96, in update_record
+    abort(400, "Failed to update %s" % record)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.BadRequest: 400 Bad Request: Failed to update Employee(1, Sergey Nemko, 1998-12-25, 555.0, 1)
+2020-10-21 18:10:49,275:ERROR:employee_api:Failed to update Employee(1, Sergey Nemko, 1998-12-25, 555.0, 1)
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 108, in put
+    if Employee.validate_fullname(request.form['fullname']):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/datastructures.py", line 442, in __getitem__
+    raise exceptions.BadRequestKeyError(key)
+werkzeug.exceptions.BadRequestKeyError: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 90, in update_record
+    new_fields['bday'] = datetime.strptime(str(new_fields['bday']), '%Y-%m-%d').date()
+  File "/usr/lib/python3.8/_strptime.py", line 568, in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+  File "/usr/lib/python3.8/_strptime.py", line 349, in _strptime
+    raise ValueError("time data %r does not match format %r" %
+ValueError: time data '1992-20-12' does not match format '%Y-%m-%d'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 113, in put
+    utils.update_record(Employee, emp, **form)
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 96, in update_record
+    abort(400, "Failed to update %s" % record)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.BadRequest: 400 Bad Request: Failed to update Employee(1, Sergey Nemko, 1998-12-25, 555.0, 1)
+2020-10-21 18:10:49,275:ERROR:employee_api:Failed to update Employee(1, Sergey Nemko, 1998-12-25, 555.0, 1)
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 108, in put
+    if Employee.validate_fullname(request.form['fullname']):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/datastructures.py", line 442, in __getitem__
+    raise exceptions.BadRequestKeyError(key)
+werkzeug.exceptions.BadRequestKeyError: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 90, in update_record
+    new_fields['bday'] = datetime.strptime(str(new_fields['bday']), '%Y-%m-%d').date()
+  File "/usr/lib/python3.8/_strptime.py", line 568, in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+  File "/usr/lib/python3.8/_strptime.py", line 349, in _strptime
+    raise ValueError("time data %r does not match format %r" %
+ValueError: time data '1992-20-12' does not match format '%Y-%m-%d'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 113, in put
+    utils.update_record(Employee, emp, **form)
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 96, in update_record
+    abort(400, "Failed to update %s" % record)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.BadRequest: 400 Bad Request: Failed to update Employee(1, Sergey Nemko, 1998-12-25, 555.0, 1)
+2020-10-21 18:10:49,278:ERROR:employee_api:Failed to update Employee(1, Sergey Nemko, 1998-12-25, 555.0, 1)
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 108, in put
+    if Employee.validate_fullname(request.form['fullname']):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/datastructures.py", line 442, in __getitem__
+    raise exceptions.BadRequestKeyError(key)
+werkzeug.exceptions.BadRequestKeyError: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/base.py", line 406, in _entity_descriptor
+    return getattr(entity, key)
+AttributeError: type object 'Employee' has no attribute 'dep_name'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 93, in update_record
+    model.query.filter_by(id=record.id).update(new_fields)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 4036, in update
+    update_op.exec_()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1696, in exec_
+    self._do_pre_synchronize()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1769, in _do_pre_synchronize
+    self._additional_evaluators(evaluator_compiler)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1941, in _additional_evaluators
+    values = self._resolved_values_keys_as_propnames
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1860, in _resolved_values_keys_as_propnames
+    for k, v in self._resolved_values:
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1847, in _resolved_values
+    desc = _entity_descriptor(self.mapper, k)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/base.py", line 408, in _entity_descriptor
+    util.raise_(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+sqlalchemy.exc.InvalidRequestError: Entity '<class 'department_app.models.employee.Employee'>' has no property 'dep_name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 113, in put
+    utils.update_record(Employee, emp, **form)
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 96, in update_record
+    abort(400, "Failed to update %s" % record)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.BadRequest: 400 Bad Request: Failed to update Employee(1, Sergey Nemko, 1998-12-25, 555.0, 1)
+2020-10-21 18:10:49,278:ERROR:employee_api:Failed to update Employee(1, Sergey Nemko, 1998-12-25, 555.0, 1)
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 108, in put
+    if Employee.validate_fullname(request.form['fullname']):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/datastructures.py", line 442, in __getitem__
+    raise exceptions.BadRequestKeyError(key)
+werkzeug.exceptions.BadRequestKeyError: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/base.py", line 406, in _entity_descriptor
+    return getattr(entity, key)
+AttributeError: type object 'Employee' has no attribute 'dep_name'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 93, in update_record
+    model.query.filter_by(id=record.id).update(new_fields)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 4036, in update
+    update_op.exec_()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1696, in exec_
+    self._do_pre_synchronize()
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1769, in _do_pre_synchronize
+    self._additional_evaluators(evaluator_compiler)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1941, in _additional_evaluators
+    values = self._resolved_values_keys_as_propnames
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1860, in _resolved_values_keys_as_propnames
+    for k, v in self._resolved_values:
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1847, in _resolved_values
+    desc = _entity_descriptor(self.mapper, k)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/orm/base.py", line 408, in _entity_descriptor
+    util.raise_(
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+sqlalchemy.exc.InvalidRequestError: Entity '<class 'department_app.models.employee.Employee'>' has no property 'dep_name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ljte/Projects/lab-project/department_app/rest/employee_api.py", line 113, in put
+    utils.update_record(Employee, emp, **form)
+  File "/home/ljte/Projects/lab-project/department_app/service/utils.py", line 96, in update_record
+    abort(400, "Failed to update %s" % record)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 822, in abort
+    return _aborter(status, *args, **kwargs)
+  File "/home/ljte/Projects/lab-project/venv/lib/python3.8/site-packages/werkzeug/exceptions.py", line 807, in __call__
+    raise self.mapping[code](*args, **kwargs)
+werkzeug.exceptions.BadRequest: 400 Bad Request: Failed to update Employee(1, Sergey Nemko, 1998-12-25, 555.0, 1)

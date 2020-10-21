@@ -1,6 +1,10 @@
 [run]
+source =
+    department_app/
+
 omit =
-    department-app/tests/*
-    department-app/migrations/*
-    */site-packages/*
+    department_app/tests/*
+    department_app/migrations/*
+    */lib/*
     setup.py
+    gunicorn.conf.py

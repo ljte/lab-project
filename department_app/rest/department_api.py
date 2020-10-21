@@ -1,28 +1,12 @@
 """rest api for departments"""
 
-import logging
-
 from flask_restful import Resource
 from flask import request, jsonify
 from werkzeug.exceptions import HTTPException, BadRequest
 
 from department_app.models.department import Department
 from department_app.service import utils
-
-
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
-
-formatter = logging.Formatter('%(asctime)s:%(levelname)s:%(module)s:%(message)s')
-
-file_handler = logging.FileHandler('info.log')
-file_handler.setFormatter(formatter)
-
-stream_handler = logging.StreamHandler()
-stream_handler.setLevel(logging.DEBUG)
-
-logger.addHandler(file_handler)
-logger.addHandler(stream_handler)
+from department_app.logger import logger
 
 
 class DepartmentApi(Resource):
@@ -68,8 +52,7 @@ class DepartmentApi(Resource):
         try:
             name = request.form['name']
             if Department.validate_name(name):
-                dep_id = request.form.get('id', utils.get_id(Department))
-                dep = Department(id=dep_id, name=name)
+                dep = Department(name=name)
                 utils.insert_into_db(dep)
             else:
                 raise BadRequest("invalid department's name '%s'" % name)

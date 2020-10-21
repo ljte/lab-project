@@ -7,9 +7,9 @@ from werkzeug.exceptions import BadRequest, NotFound
 
 from department_app.service import utils
 from department_app.models import db
-from department_app import create_app
 from department_app.models.department import Department
-from department_app.models.department import Employee
+from department_app.models.employee import Employee
+from department_app import create_app
 from department_app.config import TestConfig
 
 

@@ -96,9 +96,3 @@ def update_record(model, record, **new_fields):
             abort(400, "Failed to update %s" % record)
     else:
         abort(400, 'no fields to update were given')
-
-
-def get_id(model):
-    """return the if of the last record + 1"""
-    records = get_all(model)
-    return 1 if len(records) == 0 else records[-1].id + 1
