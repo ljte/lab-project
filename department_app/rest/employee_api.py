@@ -10,6 +10,10 @@ from department_app.logger import logger
 from department_app.models.department import Department
 from department_app.models.employee import Employee
 from department_app.service import utils
+<<<<<<< HEAD
+=======
+from department_app.logger import logger
+>>>>>>> bdfbb2eb82a8937b82458df15f448bd0a9cb9b53
 
 
 class EmployeeApi(Resource):

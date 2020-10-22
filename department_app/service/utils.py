@@ -96,4 +96,7 @@ def update_record(model, record, **new_fields):
     else:
         db.session.rollback()
         abort(400, 'no fields to update were given')
+<<<<<<< HEAD
 
+=======
+>>>>>>> bdfbb2eb82a8937b82458df15f448bd0a9cb9b53
