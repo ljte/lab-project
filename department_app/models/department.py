@@ -18,13 +18,13 @@ class Department(db.Model):
         return f"Department({self.name})"
 
     def __eq__(self, other):
-        return self.id == other.id
+        return self.id == other.id and self.name == other.name
 
     def to_dict(self):
         """transform the department into a dictionary"""
         data = {
-            'id': self.id,
             'name': self.name,
+            'id': self.id,
             'number_of_employees': self.number_of_employees(),
             'average_salary': self.average_salary()
         }

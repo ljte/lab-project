@@ -19,7 +19,7 @@ def get_all(model):
     try:
         return model.query.all()
     except Exception:
-        raise ValueError('given Model "%s" is invalid' % model) from None
+        raise ValueError(f'given Model "{model}" is invalid') from None
 
 
 def get_or_404(model, **criterion):
@@ -34,10 +34,7 @@ def get_or_404(model, **criterion):
        criterion: is a criterion on the function will filter
                   the result (e.g id=1 or name="Management department")
        """
-    try:
-        return model.query.filter_by(**criterion).first_or_404()
-    except Exception:
-        abort(404, 'The record was not found')
+    return model.query.filter_by(**criterion).first_or_404()
 
 
 def insert_into_db(record):
@@ -47,14 +44,14 @@ def insert_into_db(record):
        record: is an object of the model class
     """
     if not isinstance(record, db.Model):
-        abort(400, 'ivalid record %s' % record)
+        abort(400)
 
     try:
-        db.session.rollback()
         db.session.add(record)
         db.session.commit()
     except Exception:
-        abort(500, 'Failed to insert %s' % record)
+        db.session.rollback()
+        abort(500, f'Failed to insert {record}')
 
 
 def delete_from_db(record):
@@ -64,13 +61,14 @@ def delete_from_db(record):
        record: is an object of the model class
     """
     if not isinstance(record, db.Model):
-        abort(400, 'ivalid record %s' % record)
+        abort(400, f'ivalid record {record}')
 
     try:
         db.session.delete(record)
         db.session.commit()
     except Exception:
-        abort(500, 'can not delete record %s' % record)
+        db.session.rollback()
+        abort(500, f'can not delete record {record}')
 
 
 def update_record(model, record, **new_fields):
@@ -81,7 +79,7 @@ def update_record(model, record, **new_fields):
        new_fields: fields to update with
     """
     if not isinstance(record, db.Model):
-        abort(400, 'invalid record %s' % record)
+        abort(400, f'invalid record {record}')
 
     if new_fields:
         try:
@@ -93,12 +91,9 @@ def update_record(model, record, **new_fields):
             model.query.filter_by(id=record.id).update(new_fields)
             db.session.commit()
         except Exception:
-            abort(400, "Failed to update %s" % record)
+            db.session.rollback()
+            abort(400, f"Failed to update {record}")
     else:
+        db.session.rollback()
         abort(400, 'no fields to update were given')
 
-
-def get_id(model):
-    """return the if of the last record + 1"""
-    records = get_all(model)
-    return 1 if len(records) == 0 else records[-1].id + 1

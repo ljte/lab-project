@@ -10,13 +10,6 @@ dependencies = [str(req.requirement)
                 for req in parse_requirements("./requirements.txt",
                                               session={})]
 
-
-def find_tests():
-    test_loader = unittest.TestLoader()
-    test_suite = test_loader.discover('department_app/tests', pattern='test_*.py')
-    return test_suite
-
-
 setuptools.setup(
     name="department_app",
     version="1.0.0",
@@ -28,6 +21,5 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/ljte/lab-project",
     packages=setuptools.find_packages(),
-    install_requires=dependencies,
-    test_suite='setup.find_tests'
+    install_requires=dependencies
 )

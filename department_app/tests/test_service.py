@@ -7,9 +7,9 @@ from werkzeug.exceptions import BadRequest, NotFound
 
 from department_app.service import utils
 from department_app.models import db
-from department_app import create_app
 from department_app.models.department import Department
-from department_app.models.department import Employee
+from department_app.models.employee import Employee
+from department_app import create_app
 from department_app.config import TestConfig
 
 
@@ -128,6 +128,36 @@ class TetsService(unittest.TestCase):
 
             utils.delete_from_db(emp)
 
+    def test_validate_employee_name(self):
 
-if __name__ == "__main__":
-    unittest.main()
+        self.assertEqual(Employee.validate_fullname(''), False)
+        self.assertEqual(Employee.validate_fullname('  '), False)
+        self.assertEqual(Employee.validate_fullname('231312'), False)
+        self.assertEqual(Employee.validate_fullname('fsad'), False)
+        self.assertEqual(Employee.validate_fullname('dima 12321'), False)
+        self.assertEqual(Employee.validate_fullname('Semen Volun'), True)
+        self.assertEqual(Employee.validate_fullname('gasg gas'), True)
+
+    def test_validate_department_name(self):
+        with self.context():
+            self.assertEqual(Department.validate_name(''), False)
+            self.assertEqual(Department.validate_name(' '), False)
+            self.assertEqual(Department.validate_name('213'), False)
+            self.assertEqual(Department.validate_name('123 fas '), False)
+            self.assertEqual(Department.validate_name('Marketing'), False)
+            self.assertEqual(Department.validate_name('Marketing department'), False)
+            self.assertEqual(Department.validate_name('dep'), True)
+            self.assertEqual(Department.validate_name('Management'), True)
+
+    def test_count_employees(self):
+        with self.context():
+            dep = utils.get_or_404(Department, name='Marketing department')
+
+            self.assertEqual(dep.number_of_employees(), 1)
+
+    def test_average_salary(self):
+        with self.context():
+            dep = utils.get_or_404(Department, name='Marketing department')
+
+            self.assertEqual(dep.average_salary(), utils.get_or_404(Employee, department_id=dep.id).salary)
+

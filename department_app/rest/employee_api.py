@@ -1,30 +1,15 @@
 """rest api for employees"""
 
-import logging
 from datetime import datetime
 
-from flask_restful import Resource
 from flask import request, jsonify
+from flask_restful import Resource
 from werkzeug.exceptions import HTTPException, BadRequest
 
+from department_app.logger import logger
 from department_app.models.department import Department
 from department_app.models.employee import Employee
 from department_app.service import utils
-
-
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
-
-formatter = logging.Formatter('%(asctime)s:%(levelname)s:%(module)s:%(message)s')
-
-file_handler = logging.FileHandler('info.log')
-file_handler.setFormatter(formatter)
-
-stream_handler = logging.StreamHandler()
-stream_handler.setLevel(logging.DEBUG)
-
-logger.addHandler(file_handler)
-logger.addHandler(stream_handler)
 
 
 class EmployeeApi(Resource):
@@ -78,11 +63,7 @@ class EmployeeApi(Resource):
 
             # validate the employee's name
             if Employee.validate_fullname(fullname):
-                # get the id if it was not given then just
-                # set the id to be equal to the id of the last department + 1
-                emp_id = request.form.get('id', utils.get_id(Employee))
                 emp = Employee(
-                    id=emp_id,
                     fullname=fullname,
                     bday=bday,
                     salary=salary,

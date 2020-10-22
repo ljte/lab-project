@@ -34,17 +34,9 @@ class Employee(db.Model):
             'fullname': self.fullname,
             'bday': self.bday.strftime("%d-%m-%Y"),
             'salary': self.salary,
-            'department': self.department_name()
+            'department': self.department.name
         }
         return data
-
-    def department_name(self):
-        """get the name of the department"""
-        try:
-            dep_name = self.department.name
-        except AttributeError:
-            dep_name = None
-        return dep_name
 
     @staticmethod
     def validate_fullname(fullname):
