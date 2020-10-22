@@ -3,19 +3,19 @@
 import unittest
 from datetime import date
 
-from department_app.service import utils
 from department_app.models import db
-from department_app.models.employee import Employee
+from department_app.service import utils
 from department_app.models.department import Department
-from department_app import create_app
+from department_app.models.employee import Employee
 from department_app.config import TestConfig
+from department_app import create_app
 
 
 URL = 'http://localhost:5000/api'
 
 
-class TestRest(unittest.TestCase):
-    """class for testing restful"""
+class TestEmployeeRest(unittest.TestCase):
+    """class for testing employee restful api"""
 
     @classmethod
     def setUpClass(cls):

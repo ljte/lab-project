@@ -1,7 +1,7 @@
 """test rest api"""
 
-import unittest
 from datetime import date
+import unittest
 
 from department_app.service import utils
 from department_app.models import db
@@ -14,18 +14,18 @@ from department_app.config import TestConfig
 URL = 'http://localhost:5000/api'
 
 
-class TestRest(unittest.TestCase):
-    """class for testing restful"""
+class TestDeparmentRest(unittest.TestCase):
+    """class for testing department restful api"""
 
     @classmethod
     def setUpClass(cls):
         """setup db"""
         cls.app = create_app(app_config=TestConfig)
-        cls.tester = cls.app.test_client()
         cls.context = cls.app.app_context
+        cls.tester = cls.app.test_client()
         with cls.context():
             db.create_all()
-            utils.insert_into_db(Department(name='Management department'))
+            utils.insert_into_db(Department(name='Marketing department'))
             utils.insert_into_db(Employee(fullname='Sergey Nemko',
                                           bday=date(1998, 12, 25), salary=555, department_id=1))
 

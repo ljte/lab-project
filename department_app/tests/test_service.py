@@ -129,6 +129,7 @@ class TetsService(unittest.TestCase):
             utils.delete_from_db(emp)
 
     def test_validate_employee_name(self):
+        """test validating employee's name"""
 
         self.assertEqual(Employee.validate_fullname(''), False)
         self.assertEqual(Employee.validate_fullname('  '), False)
@@ -139,6 +140,7 @@ class TetsService(unittest.TestCase):
         self.assertEqual(Employee.validate_fullname('gasg gas'), True)
 
     def test_validate_department_name(self):
+        """test validating department's name"""
         with self.context():
             self.assertEqual(Department.validate_name(''), False)
             self.assertEqual(Department.validate_name(' '), False)
@@ -150,14 +152,15 @@ class TetsService(unittest.TestCase):
             self.assertEqual(Department.validate_name('Management'), True)
 
     def test_count_employees(self):
+        """test counting the number of department's employees"""
         with self.context():
             dep = utils.get_or_404(Department, name='Marketing department')
 
             self.assertEqual(dep.number_of_employees(), 1)
 
     def test_average_salary(self):
+        """test counting average department's salary"""
         with self.context():
             dep = utils.get_or_404(Department, name='Marketing department')
 
             self.assertEqual(dep.average_salary(), utils.get_or_404(Employee, department_id=dep.id).salary)
-
