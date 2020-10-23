@@ -34,7 +34,8 @@ def get_or_404(model, **criterion):
        criterion: is a criterion on the function will filter
                   the result (e.g id=1 or name="Management department")
        """
-    return model.query.filter_by(**criterion).first_or_404()
+    error_descr = f"The {model.__name__} with {criterion} was not found"
+    return model.query.filter_by(**criterion).first_or_404(description=error_descr)
 
 
 def insert_into_db(record):

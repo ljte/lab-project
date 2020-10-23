@@ -113,6 +113,8 @@ class DepartmentApi(Resource):
             logger.exception(exc.description)
             return {'message': exc.description}, exc.code
         else:
+            if dep.number_of_employees() != 0:
+                return {'message': 'Can not delete department (Department must have 0 employees to be deleted'}, 403
             logger.info('Deleted %s', dep)
             utils.delete_from_db(dep)
             return '', 204

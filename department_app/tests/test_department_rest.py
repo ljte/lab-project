@@ -50,6 +50,7 @@ class TestDeparmentRest(unittest.TestCase):
 
             self.assertEqual(self.tester.get(f'{URL}/departments/-1231').status_code, 404)
             self.assertEqual(self.tester.get(f'{URL}/departments/gasg').status_code, 404)
+            self.assertEqual(self.tester.get(f'{URL}/departments/5345').status_code, 404)
 
     def test_post_department(self):
         """test creating a new department"""
@@ -108,3 +109,5 @@ class TestDeparmentRest(unittest.TestCase):
             self.assertEqual(self.tester.delete(f'{URL}/departments/').status_code, 400)
             self.assertEqual(self.tester.delete(f'{URL}/departments/-123').status_code, 404)
             self.assertEqual(self.tester.delete(f'{URL}/departments/gas').status_code, 404)
+            self.assertEqual(self.tester.delete(f'{URL}/departments/645645').status_code, 404)
+

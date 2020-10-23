@@ -50,6 +50,7 @@ class TestEmployeeRest(unittest.TestCase):
 
             self.assertEqual(self.tester.get(f'{URL}/employees/-1231').status_code, 404)
             self.assertEqual(self.tester.get(f'{URL}/employees/gasg').status_code, 404)
+            self.assertEqual(self.tester.get(f'{URL}/employees/2532').status_code, 404)
 
     def test_post_employee(self):
         """test creating a new employee"""
@@ -154,3 +155,4 @@ class TestEmployeeRest(unittest.TestCase):
             self.assertEqual(self.tester.delete(f'{URL}/employees/').status_code, 400)
             self.assertEqual(self.tester.delete(f'{URL}/employees/-123').status_code, 404)
             self.assertEqual(self.tester.delete(f'{URL}/employees/gas').status_code, 404)
+            self.assertEqual(self.tester.delete(f'{URL}/employees/5342').status_code, 404)

@@ -43,6 +43,10 @@ class Employee(db.Model):
         """make sure that the given name is
            actually something that looks like a name
         """
+
+        if not isinstance(fullname, str):
+            return False
+
         # chech if the fullname is not empty or just spaces
         if fullname == '' or fullname.isspace():
             return False

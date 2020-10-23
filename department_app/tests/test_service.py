@@ -56,7 +56,7 @@ class TetsService(unittest.TestCase):
         with self.context():
             utils.insert_into_db(Department(id=100, name='Delete department'))
             utils.insert_into_db(Employee(id=100, fullname='Delete Employee',
-                                            bday=date(1998, 12, 24), salary=231, department_id=1))
+                                          bday=date(1998, 12, 24), salary=231, department_id=1))
 
             dep = utils.get_or_404(Department, name='Delete department')
             emp = utils.get_or_404(Employee, fullname='Delete Employee')
@@ -67,9 +67,10 @@ class TetsService(unittest.TestCase):
             self.assertNotIn(dep, Department.query.all())
             self.assertNotIn(emp, Employee.query.all())
 
-        with self.assertRaises(BadRequest):
-            utils.delete_from_db('gas')
-            utils.delete_from_db(124)
+            with self.assertRaises(BadRequest):
+                utils.delete_from_db(dep)
+                utils.delete_from_db('gas')
+                utils.delete_from_db(124)
 
     def test_insert_into_db(self):
         """test adding a new department or an employee"""
@@ -85,6 +86,7 @@ class TetsService(unittest.TestCase):
             self.assertIn(emp, Employee.query.all())
 
             with self.assertRaises(BadRequest):
+                utils.insert_into_db(dep)
                 utils.insert_into_db('gsd')
                 utils.insert_into_db(412)
 
@@ -138,6 +140,7 @@ class TetsService(unittest.TestCase):
         self.assertEqual(Employee.validate_fullname('dima 12321'), False)
         self.assertEqual(Employee.validate_fullname('Semen Volun'), True)
         self.assertEqual(Employee.validate_fullname('gasg gas'), True)
+        self.assertEqual(Employee.validate_fullname(12412), False)
 
     def test_validate_department_name(self):
         """test validating department's name"""
@@ -150,6 +153,8 @@ class TetsService(unittest.TestCase):
             self.assertEqual(Department.validate_name('Marketing department'), False)
             self.assertEqual(Department.validate_name('dep'), True)
             self.assertEqual(Department.validate_name('Management'), True)
+            self.assertEqual(Department.validate_name('Managementdepartment'), False)
+            self.assertEqual(Employee.validate_fullname(213), False)
 
     def test_count_employees(self):
         """test counting the number of department's employees"""
