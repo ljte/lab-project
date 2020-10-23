@@ -108,10 +108,11 @@ class TetsService(unittest.TestCase):
             self.assertEqual(dep.name, 'Super department')
 
             utils.delete_from_db(dep)
-
             with self.assertRaises(BadRequest):
                 utils.update_record('gas', dep, name='My department')
+            with self.assertRaises(BadRequest):
                 utils.update_record(Department, 12, name='My department')
+            with self.assertRaises(BadRequest):
                 utils.update_record(Department, dep)
 
     def test_update_employee(self):
