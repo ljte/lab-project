@@ -95,5 +95,4 @@ def update_record(model, record, **new_fields):
             db.session.rollback()
             abort(400, f"Failed to update {record}")
     else:
-        db.session.rollback()
         abort(400, 'no fields to update were given')

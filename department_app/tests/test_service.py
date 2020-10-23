@@ -3,7 +3,7 @@
 import unittest
 from datetime import date
 
-from werkzeug.exceptions import BadRequest, NotFound
+from werkzeug.exceptions import BadRequest, NotFound, InternalServerError
 
 from department_app.service import utils
 from department_app.models import db
@@ -68,9 +68,11 @@ class TetsService(unittest.TestCase):
             self.assertNotIn(emp, Employee.query.all())
 
             with self.assertRaises(BadRequest):
-                utils.delete_from_db(dep)
                 utils.delete_from_db('gas')
                 utils.delete_from_db(124)
+
+            with self.assertRaises(InternalServerError):
+                utils.delete_from_db(Department(name='Finance department'))
 
     def test_insert_into_db(self):
         """test adding a new department or an employee"""
@@ -86,9 +88,11 @@ class TetsService(unittest.TestCase):
             self.assertIn(emp, Employee.query.all())
 
             with self.assertRaises(BadRequest):
-                utils.insert_into_db(dep)
                 utils.insert_into_db('gsd')
                 utils.insert_into_db(412)
+
+            with self.assertRaises(InternalServerError):
+                utils.insert_into_db(Department(name='Marketing department'))
 
             utils.delete_from_db(dep)
             utils.delete_from_db(emp)
@@ -154,7 +158,7 @@ class TetsService(unittest.TestCase):
             self.assertEqual(Department.validate_name('dep'), True)
             self.assertEqual(Department.validate_name('Management'), True)
             self.assertEqual(Department.validate_name('Managementdepartment'), False)
-            self.assertEqual(Employee.validate_fullname(213), False)
+            self.assertEqual(Department.validate_name(213), False)
 
     def test_count_employees(self):
         """test counting the number of department's employees"""
