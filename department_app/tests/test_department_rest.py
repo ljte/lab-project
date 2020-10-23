@@ -110,4 +110,3 @@ class TestDeparmentRest(unittest.TestCase):
             self.assertEqual(self.tester.delete(f'{URL}/departments/-123').status_code, 404)
             self.assertEqual(self.tester.delete(f'{URL}/departments/gas').status_code, 404)
             self.assertEqual(self.tester.delete(f'{URL}/departments/645645').status_code, 404)
-
