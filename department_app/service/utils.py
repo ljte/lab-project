@@ -79,7 +79,7 @@ def update_record(model, record, **new_fields):
        record: a record to update
        new_fields: fields to update with
     """
-    if not isinstance(record, db.Model):
+    if not isinstance(record, model):
         abort(400, f'invalid record {record}')
 
     if new_fields:
