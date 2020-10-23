@@ -109,8 +109,8 @@ class TetsService(unittest.TestCase):
 
             utils.delete_from_db(dep)
             with self.assertRaises(BadRequest):
-                utils.update_record('gas', dep, name='My department')
                 utils.update_record(Department, 12, name='My department')
+                utils.update_record('gas', dep, name='My department')
                 utils.update_record(Department, dep)
 
     def test_update_employee(self):
@@ -127,8 +127,8 @@ class TetsService(unittest.TestCase):
             self.assertEqual(int(emp.salary), 500)
 
             with self.assertRaises(BadRequest):
-                utils.update_record('gas', emp, name='My Employee')
                 utils.update_record(Employee, 12, name='My Employee')
+                utils.update_record('gas', emp, name='My Employee')
                 utils.update_record(Employee, emp)
 
             utils.delete_from_db(emp)
