@@ -1,21 +1,27 @@
+"""application initialization"""
+
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from flask_script import Manager
-from flask_migrate import Migrate, MigrateCommand
+from flask_migrate import Migrate
 
-from configparser import ConfigParser
+from department_app.config import Config
+from department_app.models import db
+from department_app.rest import rest_blueprint
+
+migrate = Migrate()
 
 
-config = ConfigParser()
-config.read('../config.ini')
+def create_app(app_config=Config):
+    """basically it is an application factory"""
 
-app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = config['database']['uri']
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = bool(config['sqlalchemy']['track_modifications'])
+    # configure app
+    app = Flask(__name__)
+    app.config.from_object(app_config)
 
-db = SQLAlchemy(app)
-migrate = Migrate(app, db, directory=config['sqlalchemy']['migrations_dir'])
-manager = Manager(app)
-manager.add_command('db', MigrateCommand)
+    # init extensions
+    db.init_app(app)
+    migrate.init_app(app, db, directory='department_app/migrations')
 
-from department_app.models import Department, Employee
+    # register blueprints
+    app.register_blueprint(rest_blueprint)
+
+    return app

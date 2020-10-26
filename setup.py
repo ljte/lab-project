@@ -1,4 +1,5 @@
 import setuptools
+import unittest
 from pip._internal.req import parse_requirements
 
 
@@ -20,6 +21,5 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/ljte/lab-project",
     packages=setuptools.find_packages(),
-    install_requires=dependencies,
-    test_suite='department_app/tests'
+    install_requires=dependencies
 )

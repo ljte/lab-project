@@ -1,5 +1,6 @@
 .coverage
 .setup*
+*.log
 *.pyc
 .idea/*
 department_app.egg-info/*

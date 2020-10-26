@@ -6,9 +6,16 @@ install:
   - python -m pip install -U pip
   - python setup.py install
 
+services:
+  - postgresql
+
+before_script:
+  - psql -c "CREATE DATABASE test;" -U postgres
+
 script:
-  - pylint department_app/tests
+  - pylint --disable=no-self-use,too-few-public-methods,no-member,broad-except --max-line-length=120 department_app/
   - coverage run setup.py test
+
 after-success:
   - coveralls
 
