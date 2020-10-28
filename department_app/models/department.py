@@ -38,9 +38,13 @@ class Department(db.Model):
 
     def average_salary(self):
         """count average salary"""
-        return Employee.query.with_entities(
-                    func.avg(Employee.salary).label('avg_salary')
-                    ).filter_by(department_id=self.id).first()[0]
+        try:
+            average_salary = round(Employee.query.with_entities(
+                                      func.avg(Employee.salary).label('avg_salary')
+                                  ).filter_by(department_id=self.id).first()[0], 2)
+        except TypeError:
+            average_salary = 0
+        return average_salary
 
     @classmethod
     def validate_name(cls, name):

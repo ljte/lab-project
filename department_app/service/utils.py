@@ -1,10 +1,12 @@
 """interaction with databases"""
 
-from datetime import datetime
+from datetime import datetime, date
 
 from flask import abort
 
 from department_app.models import db
+from department_app.models.department import Department
+from department_app.models.employee import Employee
 
 
 def get_all(model):
@@ -96,3 +98,36 @@ def update_record(model, record, **new_fields):
             abort(400, f"Failed to update {record}")
     else:
         abort(400, 'no fields to update were given')
+
+
+def search_department_by_name(search_name: str):
+    """find all the department which names resemble to the given name
+
+    search_name: template name to search with
+    """
+    return Department.query.filter(Department.name.like(f'%{str(search_name).lower().title()}%')).all()
+
+
+def search_employees_by_fullname(search_name: str):
+    """find all the employees with fullname = search_name
+
+    search_name: template name to search with
+    """
+    return Employee.query.filter(Employee.fullname.like(f'%{str(search_name).lower().title()}%')).all()
+
+
+def filter_employees_by_bday(bday: date):
+    """return employees with the birthday of bday
+    """
+    if not isinstance(bday, date):
+        raise ValueError('invalid date format')
+    return Employee.query.filter(Employee.bday == bday).all()
+
+
+def filter_employees_by_date_period(start_date: date, end_date: date):
+    """return employees with the birthday inside the period from start_date to end_date
+    """
+    if not isinstance(start_date, date) or not isinstance(end_date, date):
+        raise ValueError('invalid date format')
+    emps = Employee.query.filter(Employee.bday >= start_date).all()
+    return [emp for emp in emps if emp.bday <= end_date]

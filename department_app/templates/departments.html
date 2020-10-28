@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+
+{% block header %}
+    <div class="header">
+        <a href="{{ url_for('departments.index') }}" style="text-decoration: underline; color: rgba(68, 70, 67, 1);">Departments</a>
+        <a href="{{ url_for('employees.index') }}">Employees</a>
+    </div>
+{% endblock header %}
+
+{% block main %}
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            <ul class="flashes"></ul>
+            {% for category, message in messages %}
+                <li class="flashed-message flash-{{ category }}">{{ message }}</li>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <div class="fiters">
+        <div class="upper-filters">
+            <a href="{{ url_for('departments.add') }}">
+                <input type="button" name="add-department" value="New Department" class="btn add-btn" id="add_btn">
+            </a>
+            <form method="POST" action="{{ url_for('departments.search') }}">
+                <div class="search-bar">
+                    <input type="text" name="search_string" placeholder="Search for department">
+                    <a href="{{ url_for('departments.search') }}"><button>Search</button></a>
+                </div>
+            </form>
+        </div>
+        <div class="lower-filters">
+            <form method="POST", action="{{ url_for('departments.filter_by_salary') }}">
+                <label for="comparison">Filter by the average salary</label>
+                <select class="combo" name="comparison" id="comparison">
+                    <option value=">">></option>
+                    <option value="<"><</option>
+                    <option value="=">=</option>
+                    <option value="<="><=</option>
+                    <option value=">=">>=</option>
+                </select>
+                <input type="number" name="average_salary" placeholder="Enter average salary" min=0>
+                <a href="{{ url_for('departments.filter_by_salary') }}"><button class="btn edit-btn">Filter</button></a>
+            </form>
+        </div>
+    </div>
+    <table>
+        <tr class="table-headers">
+            <td>Department ID</td>
+            <td>Department name</td>
+            <td>Number of employees</td>
+            <td>Average salary</td>
+            <td></td>
+            <td></td>
+        </tr>
+        {% for dep in departments%}
+            <tr>
+                <td>{{ dep.id }}</td>
+                <td>{{ dep.name }}</td>
+                <td>{{ dep.number_of_employees }}</td>
+                <td>{{ dep.average_salary }}$</td>
+                <td><a href="{{ url_for('departments.edit', department_id=dep.id) }}"><button class="btn edit-btn">Edit</button></a></td>
+                <td><a href="{{ url_for('departments.delete', department_id=dep.id) }}"><button class="btn delete-btn">Delete</button></a></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock main %}
+

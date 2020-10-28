@@ -156,3 +156,53 @@ class TestEmployeeRest(unittest.TestCase):
             self.assertEqual(self.tester.delete(f'{URL}/employees/-123').status_code, 404)
             self.assertEqual(self.tester.delete(f'{URL}/employees/gas').status_code, 404)
             self.assertEqual(self.tester.delete(f'{URL}/employees/5342').status_code, 404)
+
+    def test_filter_bday(self):
+        """test filtering employees by their birthday"""
+        with self.context():
+            response = self.tester.get(f'{URL}/employees/', data={'bday': date(1998, 12, 25)})
+
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(response.content_type, 'application/json')
+
+            self.assertEqual(response.json, {'employees': [emp.to_dict() for emp in utils.get_all(Employee)
+                                                           if emp.bday == date(1998, 12, 25)]})
+
+            self.assertEqual(self.tester.delete(f'{URL}/employees/', data={'bday': 1221}).status_code, 400)
+            self.assertEqual(self.tester.delete(f'{URL}/employees/', data={'bday': 'fasfas'}).status_code, 400)
+            self.assertEqual(self.tester.delete(f'{URL}/employees/', data={'bday': '32-12-1995'}).status_code, 400)
+
+    def test_filter_date_period(self):
+        """test getting the employees whose bday fall into the period
+        from start_data to end_date"""
+        with self.context():
+            self.tester.post(f'{URL}/employees',
+                             data={'fullname': 'Andrey Nemchenko',
+                                   'bday': date(1999, 12, 15),
+                                   'salary': 1241,
+                                   'dep_name': 'Management department'})
+
+            response = self.tester.get(f'{URL}/employees/filter_by_date_period', data={'start_date': '1995-12-31',
+                                                                                       'end_date': '2000-12-31'})
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(response.content_type, 'application/json')
+
+            self.assertEqual(response.json, {'employees': [emp.to_dict() for emp in utils.get_all(Employee)
+                                                           if date(1995, 12, 31) <= emp.bday <= date(2000, 12, 31)]})
+
+            self.assertEqual(self.tester.get(f'{URL}/employees/filter_by_date_period',
+                                             data={'start_date': 124,
+                                                   'end_date': '2000-12-31'}
+                                             ).status_code, 400)
+            self.assertEqual(self.tester.get(f'{URL}/employees/filter_by_date_period',
+                                             data={'start_date': '1995-12-31',
+                                                   'end_date': 312}
+                                             ).status_code, 400)
+            self.assertEqual(self.tester.get(f'{URL}/employees/filter_by_date_period',
+                                             data={'start_date': 'gsd',
+                                                   'end_date': '2000-12-31'}
+                                             ).status_code, 400)
+            self.assertEqual(self.tester.get(f'{URL}/employees/filter_by_date_period',
+                                             data={'start_date': '1995-12-31',
+                                                   'end_date': '312'}
+                                             ).status_code, 400)
