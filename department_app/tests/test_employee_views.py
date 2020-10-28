@@ -37,7 +37,7 @@ class TestViews(unittest.TestCase):
 
     def test_main_employees_page(self):
         """test that /employees page loads correctly"""
-        with cls.context():
+        with self.context():
             response = self.tester.get('/employees')
 
             assert b'Filter by birthday' in response.data
@@ -45,7 +45,7 @@ class TestViews(unittest.TestCase):
 
     def test_search_employee(self):
         """test that searching an employees by fullname works correctly"""
-        with cls.context():
+        with self.context():
             response = self.tester.get('/employees/search', data={'search_string': 'Andrey'})
 
             assert b'Andrey Bobrov' in response.data
@@ -55,7 +55,7 @@ class TestViews(unittest.TestCase):
 
     def test_filter_by_department(self):
         """test filtering employees by department """
-        with cls.context():
+        with self.context():
             response = self.tester.post('/employees/filter_by_department', data={'department': 'Marketing department'})
 
             assert b'Boris Nemchenko' in response.data
@@ -65,7 +65,7 @@ class TestViews(unittest.TestCase):
 
     def test_filter_by_bday(self):
         """test filtering employees by birthday"""
-        with cls.context():
+        with self.context():
             response = self.tester.post('/employees/filter_by_bday', data={'bday': '1992-06-23'})
 
             assert b'Andrey Bobrov' in response.data
@@ -84,7 +84,7 @@ class TestViews(unittest.TestCase):
     def test_filter_by_date_period(self):
         """test getting those employees whose birthday fall into
         the date period from start_date to end_date"""
-        with cls.context():
+        with self.context():
             response = self.tester.post('/employees/filter_by_bday', data={'start_date': '1992-01-01',
                                                                            'end_date': '1993-12-31'})
 
@@ -93,8 +93,9 @@ class TestViews(unittest.TestCase):
             assert b'Anna Volkova' not in response.data
             assert b'Vladimir Novikov' not in response.data
 
-            response = self.tester.post('/employees/filter_by_bday', data={'start_date': 124,
-                                                                           'end_date': '1993-12-31'}, follow_redirects=True)
+            response = self.tester.post('/employees/filter_by_bday',
+                                        data={'start_date': 124, 'end_date': '1993-12-31'},
+                                        follow_redirects=True)
             assert b'Dates must have YY-MM-DD format' in response.data
 
             response = self.tester.post('/employees/filter_by_bday', data={'start_date': '1992-01-01',

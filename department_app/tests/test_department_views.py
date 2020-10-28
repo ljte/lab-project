@@ -55,7 +55,7 @@ class TestViews(unittest.TestCase):
 
     def test_incorrect_search_view(self):
         """test that search function works correctly"""
-            with self.context():
+        with self.context():
             response = self.tester.get('/departments/search', data={'search_string': 12312})
 
             assert response.status_code == 200
