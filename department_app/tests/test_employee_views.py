@@ -3,7 +3,7 @@
 import unittest
 from datetime import date
 
-from department_app import create_app
+from department_app import create_app, db
 from department_app.models.department import Department, Employee
 from department_app.service import utils
 from department_app.config import TestConfig
@@ -19,6 +19,7 @@ class TestViews(unittest.TestCase):
         cls.context = app.app_context
         cls.tester = app.test_client()
         with cls.context():
+            db.create_all()
             deps = [Department(name='Finance department'),
                     Department(name='Management department'),
                     Department(name='Marketing department')]
