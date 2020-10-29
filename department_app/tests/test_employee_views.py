@@ -29,8 +29,8 @@
 #
 #             emps = [Employee(fullname='Andrey Bobrov', salary=644, bday=date(1992, 6, 23), department_id=deps[0].id),
 #                     Employee(fullname='Anna Volkova', salary=533, bday=date(1998, 10, 20), department_id=deps[1].id),
-#                     Employee(fullname='Boris Nemchenko', salary=512, bday=date(1993, 6, 15), department_id=deps[2].id),
-#                     Employee(fullname='Vladimir Novikov', salary=832, bday=date(1985, 9, 15), department_id=deps[2].id)]
+#                   Employee(fullname='Boris Nemchenko', salary=512, bday=date(1993, 6, 15), department_id=deps[2].id),
+#                   Employee(fullname='Vladimir Novikov', salary=832, bday=date(1985, 9, 15), department_id=deps[2].id)]
 #
 #             for emp in emps:
 #                 utils.insert_into_db(emp)
@@ -56,7 +56,7 @@
 #     def test_filter_by_department(self):
 #         """test filtering employees by department """
 #         with self.context():
-#             response = self.tester.post('/employees/filter_by_department', data={'department': 'Marketing department'})
+#            response = self.tester.post('/employees/filter_by_department', data={'department': 'Marketing department'})
 #
 #             assert b'Boris Nemchenko' in response.data
 #             assert b'Vladimir Novikov' in response.data
