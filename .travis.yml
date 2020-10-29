@@ -11,8 +11,7 @@ services:
 
 before_script:
   - psql -c "CREATE DATABASE test;" -U postgres
-  - psql -c "CREATE ROLE user_1 WITH SUPERUSER CREATEDB CREATEROLE LOGIN ENCRYPTED PASSWORD '12345';" -U postgres
-  - gunicorn "run:run()" &
+  - gunicorn "run:run(test=True)" &
 
 script:
   - pylint --disable=no-self-use,too-few-public-methods,no-member,broad-except,eval-used --max-line-length=120 department_app/
