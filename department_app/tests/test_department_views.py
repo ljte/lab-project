@@ -29,7 +29,8 @@
 #
 #             emps = [Employee(fullname='One Employee', salary=123, bday=date(1995, 12, 12), department_id=deps[0].id),
 #                     Employee(fullname='Two Employee', salary=700, bday=date(1995, 12, 12), department_id=deps[2].id),
-#                     Employee(fullname='Three Employee', salary=123, bday=date(1995, 12, 12), department_id=deps[1].id)]
+#                     Employee(fullname='Three Employee', salary=123, bday=date(1995, 12, 12), department_id=deps[1]
+#                     .id)]
 #
 #             for emp in emps:
 #                 utils.insert_into_db(emp)
