@@ -160,7 +160,7 @@ class TestEmployeeRest(unittest.TestCase):
     def test_filter_bday(self):
         """test filtering employees by their birthday"""
         with self.context():
-            response = self.tester.get(f'{URL}/employees/', data={'bday': date(1998, 12, 25)})
+            response = self.tester.get(f'{URL}/employees/filter_by_bday', data={'bday': date(1998, 12, 25)})
 
             self.assertEqual(response.status_code, 200)
             self.assertEqual(response.content_type, 'application/json')
@@ -168,9 +168,10 @@ class TestEmployeeRest(unittest.TestCase):
             self.assertEqual(response.json, {'employees': [emp.to_dict() for emp in utils.get_all(Employee)
                                                            if emp.bday == date(1998, 12, 25)]})
 
-            self.assertEqual(self.tester.delete(f'{URL}/employees/', data={'bday': 1221}).status_code, 400)
-            self.assertEqual(self.tester.delete(f'{URL}/employees/', data={'bday': 'fasfas'}).status_code, 400)
-            self.assertEqual(self.tester.delete(f'{URL}/employees/', data={'bday': '32-12-1995'}).status_code, 400)
+            self.assertEqual(self.tester.get(f'{URL}/employees/filter_by_bday', data={'bday': 1221}).status_code, 400)
+            self.assertEqual(self.tester.get(f'{URL}/employees/filter_by_bday', data={'bday': 'fasfas'}).status_code, 400)
+            self.assertEqual(self.tester.get(f'{URL}/employees/filter_by_bday',
+                                             data={'bday': '32-12-1995'}).status_code, 400)
 
     def test_filter_date_period(self):
         """test getting the employees whose bday fall into the period
@@ -206,3 +207,4 @@ class TestEmployeeRest(unittest.TestCase):
                                              data={'start_date': '1995-12-31',
                                                    'end_date': '312'}
                                              ).status_code, 400)
+            self.assertEqual(self.tester.get(f'{URL}/employees/filter_by_date_period').status_code, 400)
