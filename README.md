@@ -61,3 +61,13 @@ and the commands above are used to make migrations and also you can use
 python manage.py db downgrade
 ``` 
 to cancel the upgrade
+
+## Additional info
+After installing the app you can run a gunicorn or development server
+```
+gunicorn "run:run()" or python run.py
+```
+then open your browser and go to the localhost url to see the app,
+you can play around with it, add, change, delete some stuff.
+
+You can find working version on *mydepartments&employees.com*
