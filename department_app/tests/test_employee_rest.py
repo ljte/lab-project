@@ -169,7 +169,8 @@ class TestEmployeeRest(unittest.TestCase):
                                                            if emp.bday == date(1998, 12, 25)]})
 
             self.assertEqual(self.tester.get(f'{URL}/employees/filter_by_bday', data={'bday': 1221}).status_code, 400)
-            self.assertEqual(self.tester.get(f'{URL}/employees/filter_by_bday', data={'bday': 'fasfas'}).status_code, 400)
+            self.assertEqual(self.tester.get(f'{URL}/employees/filter_by_bday',
+                                             data={'bday': 'fasfas'}).status_code, 400)
             self.assertEqual(self.tester.get(f'{URL}/employees/filter_by_bday',
                                              data={'bday': '32-12-1995'}).status_code, 400)
 
