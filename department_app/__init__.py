@@ -8,6 +8,7 @@ from department_app.models import db
 from department_app.rest import rest_blueprint
 from department_app.views import department_bp, employees_bp
 
+
 migrate = Migrate()
 
 

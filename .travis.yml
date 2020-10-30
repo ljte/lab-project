@@ -11,7 +11,7 @@ services:
 
 before_script:
   - psql -c "CREATE DATABASE test;" -U postgres
-  - gunicorn "run:run(test=True)" &
+  - python run.py &
 
 script:
   - pylint --disable=no-self-use,too-few-public-methods,no-member,broad-except,eval-used --max-line-length=120 department_app/
