@@ -107,7 +107,7 @@ class TestDepartmentViews(unittest.TestCase):
         assert b'Invalid average salary' in response.data
 
         response = self.tester.post('/departments/filter_by_salary',
-                                    data={'comparison': 'asdg',
+                                    data={'comparison': 'asd',
                                           'average_salary': 123},
                                     follow_redirects=True)
-        assert b'Invalid comparison operator' in response.data
+        assert b'Wrong comparison operator' in response.data

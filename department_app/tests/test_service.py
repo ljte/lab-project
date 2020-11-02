@@ -216,3 +216,20 @@ class TetsService(unittest.TestCase):
             with self.assertRaises(ValueError):
                 utils.filter_employees_by_date_period(date(1995, 10, 25), 'afsfas')
                 utils.filter_employees_by_date_period('afsfas', date(1995, 10, 25))
+
+    def test_compare(self):
+        """test compare function"""
+
+        self.assertEqual(utils.compare(2, 1, '>'), True)
+        self.assertEqual(utils.compare(1, 2, '<'), True)
+        self.assertEqual(utils.compare(1, 1, '='), True)
+        self.assertEqual(utils.compare('6', '5', '>'), True)
+        self.assertEqual(utils.compare('a', 'a', '='), True)
+        self.assertEqual(utils.compare(1, 1, '>='), True)
+        self.assertEqual(utils.compare(2, 1, '>='), True)
+        self.assertEqual(utils.compare(1, 1, '<='), True)
+        self.assertEqual(utils.compare(2, 3, '<='), True)
+
+        with self.assertRaises(ValueError):
+            self.assertEqual(utils.compare(2, 1, 'asfa'), True)
+            self.assertEqual(utils.compare(2, 1, 124), True)

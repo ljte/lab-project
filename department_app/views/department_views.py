@@ -5,6 +5,8 @@ from flask import (
 )
 import requests
 
+from department_app.service import utils
+
 
 department_bp = Blueprint('departments', __name__,
                           template_folder='../templates')
@@ -110,13 +112,12 @@ def filter_by_salary():
 
         average_salary = float(average_salary)
         operator = form.get('comparison', '>')
-        if operator not in '><=>=<=':
-            flash('Invalid comparison operator', category='danger')
+        try:
+            deps = [dep for dep in requests.get(API_URL).json()['departments']
+                    if utils.compare(dep['average_salary'], average_salary, operator)]
+        except ValueError as exc:
+            flash(str(exc), category='info')
             return redirect(url_for('departments.index'))
-
-        operator = '==' if operator == '=' else operator
-        deps = [dep for dep in requests.get(API_URL).json()['departments']
-                if eval(f"{dep['average_salary']} {operator} {average_salary}")]
 
         return render_template('departments.html', departments=deps, title='Departments')
 

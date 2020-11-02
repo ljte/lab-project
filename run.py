@@ -1,5 +1,5 @@
 from department_app import create_app, db
-from department_app.service.utils import init_db_for_test
+from department_app.tests import init_db_for_test
 from department_app.config import TestConfig
 
 
