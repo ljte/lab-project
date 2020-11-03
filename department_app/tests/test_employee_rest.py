@@ -174,6 +174,8 @@ class TestEmployeeRest(unittest.TestCase):
             self.assertEqual(self.tester.get(f'{URL}/employees/filter_by_bday',
                                              data={'bday': '32-12-1995'}).status_code, 400)
 
+            self.assertEqual(self.tester.get(f'{URL}/employees/filter_by_bday').status_code, 400)
+
     def test_filter_date_period(self):
         """test getting the employees whose bday fall into the period
         from start_data to end_date"""

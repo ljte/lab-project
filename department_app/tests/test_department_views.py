@@ -55,6 +55,11 @@ class TestDepartmentViews(unittest.TestCase):
         assert b'Updated department' in response.data
         assert b'<td>Edit department</td>'not in response.data
 
+        response = self.tester.post("/departments/edit/124124",
+                                    data={'name': 'Updated department'},
+                                    follow_redirects=True)
+        assert b"was not found" in response.data
+
     def test_incorrect_edit_request(self):
         """test that editing a department works correctly"""
         response = self.tester.post("/departments/edit/1",
@@ -111,3 +116,6 @@ class TestDepartmentViews(unittest.TestCase):
                                           'average_salary': 123},
                                     follow_redirects=True)
         assert b'Wrong comparison operator' in response.data
+
+        response = self.tester.get('/departments/filter_by_salary', follow_redirects=True)
+        assert b'Filter by the average salary' in response.data

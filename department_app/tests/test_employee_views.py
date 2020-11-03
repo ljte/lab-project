@@ -43,6 +43,13 @@ class TestEmployeeViews(unittest.TestCase):
         assert b'Andrey Bobrov' not in response.data
         assert b'Anna Volkova' not in response.data
 
+        response = self.tester.post('/employees/filter_by_department', follow_redirects=True)
+        assert b"Choose a department&#39;s name" in response.data
+
+        response = self.tester.get('/employees/filter_by_department', follow_redirects=True)
+        assert b'Filter by birthday' in response.data
+        assert b'Filter by department' in response.data
+
     def test_filter_by_bday(self):
         """test filtering employees by birthday"""
         response = self.tester.post('/employees/filter_by_bday', data={'bday': '1992-06-23'})
@@ -114,6 +121,11 @@ class TestEmployeeViews(unittest.TestCase):
                                     follow_redirects=True)
         assert b"Failed to update" in response.data
 
+        response = self.tester.post('/employees/edit/242424',
+                                    data={'bday': 1231},
+                                    follow_redirects=True)
+        assert b"was not found" in response.data
+
     def test_post_employee(self):
         """test that posting a new employee work well"""
         response = self.tester.post('/employees/add', data={
@@ -157,6 +169,13 @@ class TestEmployeeViews(unittest.TestCase):
             'dep_name': 312
         }, follow_redirects=True)
         assert b'was not found' in response.data
+
+        response = self.tester.post('/employees/add', data={
+            'fullname': 'New Employee',
+            'salary': 124,
+            'bday': date(1995, 12, 31),
+        }, follow_redirects=True)
+        assert b'Choose a department' in response.data
 
     def test_delete_employee(self):
         """test that deleting an employee works well"""
