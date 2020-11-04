@@ -20,4 +20,3 @@ class TestConfig(Config):
     SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DB_URI')
     TESTING = True
     LIVESERVER_PORT = 5000
-
