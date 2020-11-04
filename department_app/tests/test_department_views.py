@@ -4,8 +4,8 @@ from unittest import mock
 
 from flask_testing import LiveServerTestCase, TestCase
 
-from department_app import create_app
-from department_app.config import LiveServerTest
+from department_app import create_app, db
+from department_app.config import TestConfig
 
 
 class TestDepartmentViews(TestCase, LiveServerTestCase):
@@ -33,7 +33,10 @@ class TestDepartmentViews(TestCase, LiveServerTestCase):
     ]
 
     def create_app(self):
-        return create_app(app_config=LiveServerTest)
+        app = create_app(app_config=TestConfig)
+        with app.app_context():
+            db.create_all()
+        return app
 
     @mock.patch('requests.Response.json', return_value={'departments': deps})
     def test_main_page(self, mock_departments):

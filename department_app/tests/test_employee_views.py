@@ -5,8 +5,8 @@ from datetime import date
 
 from flask_testing import TestCase, LiveServerTestCase
 
-from department_app import create_app
-from department_app.config import LiveServerTest
+from department_app import create_app, db
+from department_app.config import TestConfig
 
 
 class TestEmployeeViews(TestCase, LiveServerTestCase):
@@ -57,7 +57,10 @@ class TestEmployeeViews(TestCase, LiveServerTestCase):
     ]
 
     def create_app(self):
-        return create_app(app_config=LiveServerTest)
+        app = create_app(app_config=TestConfig)
+        with app.app_context():
+            db.create_all()
+        return app
 
     def setUp(self):
         self.url = f'{self.get_server_url()}/employees'

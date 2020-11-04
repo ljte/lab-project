@@ -19,9 +19,5 @@ class TestConfig(Config):
     """config for tests"""
     SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DB_URI')
     TESTING = True
-
-
-class LiveServerTest(Config):
-    """config fog tests with server"""
-    TESTING = True
     LIVESERVER_PORT = 5000
+
