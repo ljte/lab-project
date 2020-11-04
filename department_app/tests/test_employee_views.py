@@ -491,6 +491,8 @@ class TestEmployeeViews(TestCase, LiveServerTestCase):
         {'departments': deps},
         {'employees': emps},
         {'departments': deps},
+        {'employees': emps},
+        {'departments': deps},
     ])
     def test_filtering_by_department(self, mock_response):
         """test that filtering by department works correctly"""
@@ -512,5 +514,8 @@ class TestEmployeeViews(TestCase, LiveServerTestCase):
         self.assertNotIn(b'Andrey Bosko', response.data)
         self.assertNotIn(b'Semen Volkov', response.data)
         self.assertNotIn(b'Maksim Kolun', response.data)
+
+        response = self.client.get(f'{self.url}/filter_by_department', follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
 
         mock_response.assert_called()

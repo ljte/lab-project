@@ -234,6 +234,9 @@ class TestDepartmentViews(TestCase, LiveServerTestCase):
         self.assertIn(b'Management department', response.data)
         self.assertIn(b'Finance department', response.data)
 
+        response = self.client.get(f'{url}/departments/filter_by_salary', follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
+
         mock_response.assert_called()
 
     @mock.patch('requests.Response.json', return_value={'departments': deps})
