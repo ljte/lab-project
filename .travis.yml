@@ -11,10 +11,9 @@ services:
 
 before_script:
   - psql -c "CREATE DATABASE test;" -U postgres
-  - python run.py &
 
 script:
-  - pylint --disable=no-self-use,too-few-public-methods,no-member,broad-except --max-line-length=120 department_app/
+  - pylint --disable=no-self-use,too-few-public-methods,no-member,broad-except,too-many-public-methods --max-line-length=120 department_app/
   - coverage run setup.py test
 
 after-success:

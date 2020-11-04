@@ -26,6 +26,7 @@ class TestEmployeeRest(unittest.TestCase):
         with cls.context():
             db.create_all()
             utils.insert_into_db(Department(name='Management department'))
+            utils.insert_into_db(Department(name='Cool department'))
             utils.insert_into_db(Employee(fullname='Sergey Nemko',
                                           bday=date(1998, 12, 25), salary=555, department_id=1))
 
@@ -113,7 +114,8 @@ class TestEmployeeRest(unittest.TestCase):
                                        data={
                                            'fullname': 'Super employee',
                                            'bday': date(1995, 5, 5),
-                                           'salary': 555
+                                           'salary': 555,
+                                           'department': 'Cool department'
                                        })
 
             self.assertEqual(response.status_code, 204)
@@ -121,6 +123,7 @@ class TestEmployeeRest(unittest.TestCase):
             self.assertEqual(emp.fullname, 'Super employee')
             self.assertEqual(emp.bday, date(1995, 5, 5))
             self.assertEqual(emp.salary, 555)
+            self.assertEqual(emp.department.name, 'Cool department')
 
             self.assertEqual(self.tester.put(f'{URL}/employees/').status_code, 400)
             self.assertEqual(self.tester.put(f'{URL}/employees/gsa',
@@ -150,7 +153,7 @@ class TestEmployeeRest(unittest.TestCase):
             self.assertEqual(response.status_code, 204)
             self.assertEqual(response.content_type, 'application/json')
 
-            self.assertNotIn(emp, utils.get_all(Department))
+            self.assertNotIn(emp, utils.get_all(Employee))
 
             self.assertEqual(self.tester.delete(f'{URL}/employees/').status_code, 400)
             self.assertEqual(self.tester.delete(f'{URL}/employees/-123').status_code, 404)

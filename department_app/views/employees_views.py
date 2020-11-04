@@ -5,7 +5,6 @@ from datetime import datetime
 from flask import (
     Blueprint, render_template, request, redirect, url_for, flash
 )
-from werkzeug.exceptions import BadRequestKeyError
 import requests
 
 employees_bp = Blueprint('employees', __name__,
@@ -37,7 +36,7 @@ def add():
     """
     if request.method == 'POST':
         try:
-            # if department was not chosen then the BadRequestKeyError is raised
+            # if department was not chosen then the KeyError is raised
             form = dict(request.form)
             emp = {
                 'fullname': form['fullname'],
@@ -45,7 +44,7 @@ def add():
                 'salary': form['salary'],
                 'dep_name': form['dep_name']
             }
-        except (BadRequestKeyError, KeyError):
+        except KeyError:
             flash("Choose a department", category='danger')
             return redirect(url_for('employees.add'))
         response = requests.post(API_URL, data=emp)
@@ -71,7 +70,7 @@ def delete(employee_id: int):
     if response.status_code != 204:
         flash(response.json()['message'], category='danger')
     else:
-        flash(f"Succesfully deleted {emp['fullname']}", category='success')
+        flash(f"Successfully deleted {emp['fullname']}", category='success')
     return redirect(url_for('employees.index'))
 
 
@@ -95,7 +94,6 @@ def edit(employee_id: int):
 
         flash(f"Successfully updated {form['fullname']}", category='success')
         return redirect(url_for('employees.index'))
-
     emp['bday'] = datetime.strptime(emp['bday'], '%d-%m-%Y')
     deps = requests.get(DEP_API_URL).json()['departments']
     return render_template('edit_employee.html', title='Edit employee', emp=emp, departments=deps)
@@ -128,7 +126,6 @@ def filter_by_department():
 
         emps = [emp for emp in requests.get(API_URL).json()['employees']
                 if emp['department'] == dep_name]
-
         deps = requests.get(DEP_API_URL).json()['departments']
         return render_template(
             'employees.html',

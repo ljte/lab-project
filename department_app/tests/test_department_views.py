@@ -1,121 +1,273 @@
 """test department views"""
 
-import unittest
+from unittest import mock
 
-import requests
+from flask_testing import LiveServerTestCase, TestCase
 
 from department_app import create_app
-from department_app.config import TestConfig
+from department_app.config import LiveServerTest
 
 
-class TestDepartmentViews(unittest.TestCase):
-    """class for testing department views"""
+class TestDepartmentViews(TestCase, LiveServerTestCase):
+    """test department views"""
 
-    @classmethod
-    def setUpClass(cls):
-        """create app, test client and app context"""
-        app = create_app(app_config=TestConfig)
-        cls.tester = app.test_client()
+    deps = [
+        {
+            'id': 1,
+            'name': 'Marketing department',
+            'average_salary': 500.0,
+            'number_of_employees': 1
+        },
+        {
+            'id': 2,
+            'name': 'Management department',
+            'average_salary': 453.0,
+            'number_of_employees': 1
+        },
+        {
+            'id': 3,
+            'name': 'Finance department',
+            'average_salary': 0.0,
+            'number_of_employees': 0
+        },
+    ]
 
-    def test_main_departments_page(self):
-        """test that the department's index page loads correctly"""
-        page = self.tester.get('/')
-        assert page.status_code == 200
-        assert b'Filter by the average salary' in page.data
+    def create_app(self):
+        return create_app(app_config=LiveServerTest)
 
-    def test_correct_search_view(self):
-        """test that search function works correctly"""
-        response = self.tester.get('/departments/search', data={'search_string': 'Finance'})
+    @mock.patch('requests.Response.json', return_value={'departments': deps})
+    def test_main_page(self, mock_departments):
+        """test that main page opens correctly"""
+        response = self.client.get(self.get_server_url(), follow_redirects=True)
 
-        assert response.status_code == 200
+        self.assert200(response)
+        self.assertIn(b'Filter by the average salary', response.data)
 
-        assert b'Finance department' in response.data
-        assert b'Human Resource department' not in response.data
-        assert b'Accounting department' not in response.data
+        mock_departments.assert_called_once()
 
-    def test_incorrect_search_view(self):
-        """test that search function works correctly"""
-        response = self.tester.get('/departments/search', data={'search_string': 12312})
-
-        assert response.status_code == 200
-
-        assert b'Finance department' not in response.data
-        assert b'Human Resource department' not in response.data
-        assert b'Accounting department' not in response.data
-
-    def test_edit_request(self):
-        """test that editing a department works correctly"""
-        dep = requests.get('http://localhost:5000/api/departments',
-                           data={'search_string': 'edit'}).json()['departments'][0]
-
-        response = self.tester.post(f"/departments/edit/{dep['id']}",
-                                    data={'name': 'Updated department'},
+    @mock.patch('requests.post')
+    @mock.patch('requests.Response.json', return_value={'departments': deps})
+    def test_add_department_with_correct_input(self, mock_json, mock_response):
+        """test adding a department with correct values"""
+        mock_response.return_value.status_code = 201
+        url = self.get_server_url()
+        response = self.client.post(f'{url}/departments/add',
+                                    data={'name': 'Accounting department'},
                                     follow_redirects=True)
 
-        assert b'Updated department' in response.data
-        assert b'<td>Edit department</td>'not in response.data
+        self.assertIn(b'Successfully added', response.data)
 
-        response = self.tester.post("/departments/edit/124124",
-                                    data={'name': 'Updated department'},
+        mock_response.assert_called()
+        mock_json.assert_called()
+
+    def test_add_department_with_incorrect_input(self):
+        """test adding a department with incorrect values"""
+        url = self.get_server_url()
+        response = self.client.post(f'{url}/departments/add',
+                                    data={'name': 12312},
                                     follow_redirects=True)
-        assert b"was not found" in response.data
+        self.assertIn(b'invalid department&#39;s name', response.data)
 
-    def test_incorrect_edit_request(self):
-        """test that editing a department works correctly"""
-        response = self.tester.post("/departments/edit/1",
-                                    data={'name': 1231},
-                                    follow_redirects=True)
-        assert b"invalid department&#39;s name" in response.data
-
-        response = self.tester.post("/departments/edit/1",
+        response = self.client.post(f'{url}/departments/add',
                                     data={'name': 'somedepartment'},
                                     follow_redirects=True)
-        assert b"invalid department&#39;s name" in response.data
+        self.assertIn(b'invalid department&#39;s name', response.data)
 
-    def test_delete_view(self):
-        """test that deleting a department works correctly"""
-        dep = requests.get('http://localhost:5000/api/departments',
-                           data={'search_string': 'delete'}).json()['departments'][0]
+        response = self.client.post(f'{url}/departments/add',
+                                    data={'name': ''},
+                                    follow_redirects=True)
+        self.assertIn(b'invalid department&#39;s name', response.data)
 
-        response = self.tester.get(f"/departments/delete/{dep['id']}", follow_redirects=True)
-        assert b'Succesfully deleted' in response.data
-        assert b'<td>Delete department</td>' not in response.data
+    @mock.patch('requests.delete')
+    @mock.patch('requests.Response.json', side_effect=[deps[2], {'departments': deps}])
+    def test_deleting_existing_department(self, mock_json, mock_response):
+        """test that deleting an existing department works correctly"""
+        mock_response.return_value.status_code = 204
 
-        response = self.tester.get('/departments/delete/44252312', follow_redirects=True)
-        assert b'was not found' in response.data
+        url = self.get_server_url()
+        response = self.client.get(f'{url}/departments/delete/3', follow_redirects=True)
 
-    def test_post_view(self):
-        """test that posting a new department works correctly"""
-        response = self.tester.post('/departments/add', data={'name': 'New department'},
+        self.assertIn(b'Successfully deleted', response.data)
+
+        mock_json.assert_called()
+        mock_response.assert_called()
+
+    @mock.patch('requests.Response.json', side_effect=[
+        None,
+        {'message': 'Department was not found'},
+        {'departments': deps}
+    ])
+    def test_deleting_not_existing_department(self, mock_json):
+        """test that deleting a non existing department works correctly"""
+
+        url = self.get_server_url()
+        response = self.client.get(f'{url}/departments/delete/125252353215213', follow_redirects=True)
+
+        self.assertIn(b'Department was not found', response.data)
+
+        mock_json.assert_called()
+
+    @mock.patch('requests.Response.json', side_effect=[
+        None,
+        {'message': 'Department must have 0 employees to be deleted'},
+        {'departments': deps}
+    ])
+    def test_deleting_department_with_employees(self, mock_json):
+        """test that deleting a department with employees works correctly"""
+
+        url = self.get_server_url()
+        response = self.client.get(f'{url}/departments/delete/1', follow_redirects=True)
+
+        self.assertIn(b'Department must have 0 employees to be deleted', response.data)
+
+        mock_json.assert_called()
+
+    @mock.patch('requests.get')
+    @mock.patch('requests.put')
+    def test_editing_department_with_correct_input(self, mock_put_response, mock_get_response):
+        """test that editing a department work correctly"""
+        mock_put_response.return_value.status_code = 204
+        mock_get_response.return_value.status_code = 200
+        url = self.get_server_url()
+
+        response = self.client.post(f'{url}/departments/edit/1',
+                                    data={'name': 'New department'},
                                     follow_redirects=True)
 
-        assert b'Successfully added' in response.data
-        assert b'New department' in response.data
+        self.assertIn(b'Successfully changed', response.data)
 
-        response = self.tester.post('/departments/add', data={'name': 123},
+        mock_get_response.assert_called()
+        mock_put_response.assert_called()
+
+    @mock.patch('requests.Response.json', side_effect=[
+        {'message': 'Department was not found'},
+        {'departments': deps}
+    ])
+    def test_editing_not_existind_department(self, mock_json):
+        """test that editing a department work correctly"""
+        url = self.get_server_url()
+
+        response = self.client.post(f'{url}/departments/edit/12412412',
+                                    data={'name': 'New department'},
                                     follow_redirects=True)
-        assert b"invalid department&#39;s name" in response.data
 
-    def test_filter_by_avg_salary_department(self):
-        """test that filtering departments by avg salary works correctly"""
-        response = self.tester.post('/departments/filter_by_salary', data={'comparison': '>',
-                                                                           'average_salary': 650})
+        self.assertIn(b'Department was not found', response.data)
 
-        assert b'Accounting department' in response.data
-        assert b'Finance department' not in response.data
-        assert b'Human Resource department' not in response.data
+        mock_json.assert_called()
 
-        response = self.tester.post('/departments/filter_by_salary',
-                                    data={'comparison': '>',
-                                          'average_salary': 'agas'},
+    @mock.patch('requests.get')
+    @mock.patch('requests.Response.json', return_value={'message': "invalid department's name"})
+    def test_editing_existind_department_with_incorrect_input(self, mock_json, mock_get_response):
+        """test that editing a department work correctly"""
+        mock_get_response.return_value.status_code = 200
+        url = self.get_server_url()
+
+        response = self.client.post(f'{url}/departments/edit/1',
+                                    data={'name': 12412},
                                     follow_redirects=True)
-        assert b'Invalid average salary' in response.data
+        self.assertIn(b"invalid department&#39;s name", response.data)
 
-        response = self.tester.post('/departments/filter_by_salary',
-                                    data={'comparison': 'asd',
-                                          'average_salary': 123},
+        response = self.client.post(f'{url}/departments/edit/1',
+                                    data={'name': 'newdepartment'},
                                     follow_redirects=True)
-        assert b'Wrong comparison operator' in response.data
+        self.assertIn(b"invalid department&#39;s name", response.data)
 
-        response = self.tester.get('/departments/filter_by_salary', follow_redirects=True)
-        assert b'Filter by the average salary' in response.data
+        response = self.client.post(f'{url}/departments/edit/1',
+                                    data={'name': ''},
+                                    follow_redirects=True)
+        self.assertIn(b"invalid department&#39;s name", response.data)
+
+        mock_json.assert_called()
+
+    @mock.patch('requests.Response.json', side_effect=[
+        {'departments': [deps[1]]},
+        {'departments': deps},
+        {'departments': []}
+    ])
+    def test_searching_deparment(self, mock_response):
+        """test that searhing a department works correctly"""
+        url = self.get_server_url()
+        response = self.client.get(f'{url}/departments/search', data={'search_string': 'Management'})
+        self.assertIn(b">Management department", response.data)
+        self.assertNotIn(b">Marketing department", response.data)
+        self.assertNotIn(b">Finance department", response.data)
+
+        response = self.client.get(f'{url}/departments/search', data={'search_string': ''})
+        self.assertIn(b">Management department", response.data)
+        self.assertIn(b">Marketing department", response.data)
+        self.assertIn(b">Finance department", response.data)
+
+        response = self.client.get(f'{url}/departments/search', data={'search_string': '123'})
+        self.assertNotIn(b">Management department", response.data)
+        self.assertNotIn(b">Marketing department", response.data)
+        self.assertNotIn(b">Finance department", response.data)
+
+        mock_response.assert_called()
+
+    @mock.patch('requests.Response.json', return_value={'departments': deps})
+    def test_filtering_departments_by_average_salary(self, mock_response):
+        """test that filtering the department works correrctly"""
+        url = self.get_server_url()
+        response = self.client.post(f'{url}/departments/filter_by_salary',
+                                    data={
+                                        'comparison': '=',
+                                        'average_salary': 500
+                                    })
+        self.assertIn(b'Marketing department', response.data)
+        self.assertNotIn(b'Management department', response.data)
+        self.assertNotIn(b'Finance department', response.data)
+
+        response = self.client.post(f'{url}/departments/filter_by_salary',
+                                    data={
+                                        'comparison': '<',
+                                        'average_salary': 500
+                                    })
+        self.assertNotIn(b'Marketing department', response.data)
+        self.assertIn(b'Management department', response.data)
+        self.assertIn(b'Finance department', response.data)
+
+        response = self.client.post(f'{url}/departments/filter_by_salary',
+                                    data={
+                                        'comparison': '>=',
+                                        'average_salary': 0
+                                    })
+        self.assertIn(b'Marketing department', response.data)
+        self.assertIn(b'Management department', response.data)
+        self.assertIn(b'Finance department', response.data)
+
+        mock_response.assert_called()
+
+    @mock.patch('requests.Response.json', return_value={'departments': deps})
+    def test_filtering_departments_with_incorrect_input_by_average_salary(self, mock_response):
+        """test that filtering the department works correrctly"""
+        url = self.get_server_url()
+        response = self.client.post(f'{url}/departments/filter_by_salary',
+                                    data={
+                                        'comparison': 1231,
+                                        'average_salary': 500
+                                    }, follow_redirects=True)
+        self.assertIn(b'Wrong comparison operator', response.data)
+
+        response = self.client.post(f'{url}/departments/filter_by_salary',
+                                    data={
+                                        'comparison': 'aasd',
+                                        'average_salary': 500
+                                    }, follow_redirects=True)
+        self.assertIn(b'Wrong comparison operator', response.data)
+
+        response = self.client.post(f'{url}/departments/filter_by_salary',
+                                    data={
+                                        'comparison': '>',
+                                        'average_salary': 'dgsa'
+                                    }, follow_redirects=True)
+        self.assertIn(b'Invalid average salary', response.data)
+
+        response = self.client.post(f'{url}/departments/filter_by_salary',
+                                    data={
+                                        'comparison': '>',
+                                        'average_salary': ''
+                                    }, follow_redirects=True)
+        self.assertIn(b'Invalid average salary', response.data)
+
+
+        mock_response.assert_called()

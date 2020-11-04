@@ -59,7 +59,7 @@ def delete(department_id: int):
     if response.status_code != 204:
         flash(response.json()['message'], category='danger')
     else:
-        flash(f"Succesfully deleted {dep['name']}", category='success')
+        flash(f"Successfully deleted {dep['name']}", category='success')
     return redirect(url_for('departments.index'))
 
 
@@ -78,7 +78,6 @@ def edit(department_id: int):
     if request.method == 'POST':
         data = {'name': request.form['name']}
         response = requests.put(API_URL + f'/{department_id}', data=data)
-
         if response.status_code != 204:
             flash(response.json()['message'], category='danger')
             return redirect(url_for('departments.edit', department_id=department_id))
