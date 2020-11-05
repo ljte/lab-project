@@ -96,7 +96,7 @@ class TestDeparmentRest(unittest.TestCase):
     def test_delete_department(self):
         """test deleting an existing department"""
         with self.context():
-            dep = Department(name='Delete department')
+            dep = Department(name='Deletethis department')
             utils.insert_into_db(dep)
 
             response = self.tester.delete(f'{URL}/departments/{dep.id}')

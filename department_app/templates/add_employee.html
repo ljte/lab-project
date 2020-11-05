@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block header%}
+    <div class="header">
+        <a href="{{ url_for('departments.index') }}">Departments</a>
+        <a href="{{ url_for('employees.index') }}">Employees</a>
+    </div>
+{% endblock header %}
+{% block main %}
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            <ul class="flashes"></ul>
+            {% for category, message in messages %}
+                <li class="flashed-message flash-{{ category }}">{{ message }}</li>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <div class="item">
+        <h2>New employee</h2>
+        <form method="POST">
+            <label for="fullname">Employee's fullname: </label>
+            <input type="text" name="fullname" placeholder="Enter fullname" id="fullname">
+            <br>
+            <label for="dep_name">Department name: </label>
+            <select class="combo" name="dep_name" id="dep_name">
+                <option selected disabled>Choose a department</option>
+                {% for dep in departments %}
+                    <option>{{ dep.name }}</option>
+                {% endfor %}
+            </select>
+            <br>
+            <label for="salary">Employee's salary: </label>
+            <input type="number" name="salary" min=0 id="salary" placeholder="Salary">
+            <br>
+            <label for="bday">Employee's birthday: </label>
+            <input type="date" name="bday" id="bday" max="2002-12-31" min="1960-01-01">
+            <br>
+            <div>
+                <a href="{{ url_for('employees.add') }}"><button class="btn edit-btn" id="add_btn">Add</button></a>
+                <a href="{{ url_for('employees.index') }}" class="btn delete-btn" id="cancel_btn">Cancel</a>
+            </div>
+        </form>
+    </div>
+{% endblock main %}

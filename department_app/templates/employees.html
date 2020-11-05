@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+{% block header %}
+    <div class="header">
+        <a href="{{ url_for('departments.index') }}">Departments</a>
+        <a href="{{ url_for('employees.index') }}" style="text-decoration: underline; color: rgba(68, 70, 67, 1);">Employees</a>
+    </div>
+{% endblock header %}
+{% block main %}
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            <ul class="flashes"></ul>
+            {% for category, message in messages %}
+                <li class="flashed-message flash-{{ category }}">{{ message }}</li>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <div class="fiters">
+        <div class="upper-filters">
+            <a href="{{ url_for('employees.add') }}">
+                <input type="button" name="add-department" value="New Employee" class="btn add-btn" id="add_btn">
+            </a>
+            <form method="POST" action="{{ url_for('employees.search') }}">
+                <div class="search-bar">
+                    <input type="text" name="search_string" placeholder="Search for employee">
+                    <a href="{{ url_for('employees.search') }}"><button>Search</button></a>
+                </div>
+            </form>
+        </div>
+        <div class="lower-filters">
+            <form method='POST' action="{{ url_for('employees.filter_by_bday') }}">
+                <label for="bday">Filter by birthday</label>
+                <input type="date" name="bday" max="2002-12-31" min="1960-01-01" id="bday">
+                <label for="start-date">or by the period from</label>
+                <input type="date" name="start_date" max="2002-12-31" min="1960-01-01" id="start-date">
+                <label for="end-date">to</label>
+                <input type="date" name="end_date" max="2002-12-31" min="1960-01-01" id="end-date">
+                <a href="{{ url_for('employees.filter_by_bday') }}"><button class="btn edit-btn">Filter</button></a>
+            </form>
+            <form method='POST' action="{{ url_for('employees.filter_by_department') }}">
+                <div>
+                    <label for="depart-combo">Filter by department</label>
+                    <select class="combo" name="department" id="depart-combo">
+                        <option disabled selected>Choose a department</option>
+                        {% for dep in departments %}
+                            <option>{{ dep.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <a href="{{ url_for('employees.filter_by_department') }}"><button class="btn edit-btn">Filter</button></a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <table>
+        <tr class="table-headers">
+            <td>Employee ID</td>
+            <td>Employee fullname</td>
+            <td>Department's name</td>
+            <td>Employee salary</td>
+            <td>Birthday</td>
+            <td></td>
+            <td></td>
+        </tr>
+        {% for emp in employees %}
+            <tr>
+                <td>{{ emp.id }}</td>
+                <td>{{ emp.fullname }}</td>
+                <td>{{ emp.department }}</td>
+                <td>{{ emp.salary }}$</td>
+                <td>{{ emp.bday }}</td>
+                <td><a href="{{ url_for('employees.edit', employee_id=emp.id) }}"><button class="btn edit-btn">Edit</button></a></td>
+                <td><a href="{{ url_for('employees.delete', employee_id=emp.id) }}"><button class="btn delete-btn">Delete</button></a></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock main %}

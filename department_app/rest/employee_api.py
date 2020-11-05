@@ -31,7 +31,8 @@ class EmployeeApi(Resource):
            employee_id: the id of department to return
         """
         if employee_id is None:
-            emps = utils.get_all(Employee)
+            search_string = request.form.get('search_string', '')
+            emps = utils.search_employees_by_fullname(search_string)
             response = jsonify({'employees':
                                 [emp.to_dict() for emp in emps]})
             return response.json, 200
@@ -55,11 +56,12 @@ class EmployeeApi(Resource):
         try:
             # try to get all the necessary fields for posting a department
             # if something is missing then the KeyError is raised and gets processed
-            fullname = request.form['fullname']
-            bday = datetime.strptime(request.form['bday'], '%Y-%m-%d')
-            salary = float(request.form['salary'])
+            form = dict(request.form)
+            fullname = form['fullname']
+            bday = datetime.strptime(form['bday'], '%Y-%m-%d')
+            salary = float(form['salary'])
             dep_id = utils.get_or_404(Department,
-                                      name=request.form['dep_name']).id
+                                      name=form['dep_name']).id
 
             # validate the employee's name
             if Employee.validate_fullname(fullname):
@@ -105,7 +107,10 @@ class EmployeeApi(Resource):
             emp = utils.get_or_404(Employee, id=employee_id)
             form = dict(request.form)
             try:
-                if Employee.validate_fullname(request.form['fullname']):
+                if Employee.validate_fullname(form['fullname']):
+                    dep = utils.get_or_404(Department, name=form.get('department', emp.department.name))
+                    form['department_id'] = dep.id
+                    form.pop('department')
                     utils.update_record(Employee, emp, **form)
                 else:
                     return {'message': "invalid employee's fullname"}, 400
@@ -140,3 +145,51 @@ class EmployeeApi(Resource):
             logger.info('Deleted %s', emp)
             utils.delete_from_db(emp)
             return '', 204
+
+
+class FilterBday(Resource):
+    """class for filtering employees by birthday
+    """
+
+    urls = [
+        '/api/employees/filter_by_bday'
+    ]
+
+    def get(self):
+        """get the employees with bday equal to the passed birthday
+        as -d 'bday=1998-12-10' """
+        form = dict(request.form)
+        try:
+            bday = datetime.strptime(form['bday'], "%Y-%m-%d").date()
+            emps = utils.filter_employees_by_bday(bday)
+        except KeyError:
+            return {'message': 'Birthday was not given'}, 400
+        except ValueError:
+            return {'message': 'Birthday must have YY-MM-DD format'}, 400
+        response = jsonify({'employees': [emp.to_dict() for emp in emps]})
+        return response.json, 200
+
+
+class FilterByDatePeriod(Resource):
+    """class for filtering employees by date period
+    """
+
+    urls = [
+        '/api/employees/filter_by_date_period'
+    ]
+
+    def get(self):
+        """get the employees whose bdays fall into period from
+        start_date to end_date
+        """
+        form = dict(request.form)
+        try:
+            start_date = datetime.strptime(form['start_date'], "%Y-%m-%d").date()
+            end_date = datetime.strptime(form['end_date'], "%Y-%m-%d").date()
+            emps = utils.filter_employees_by_date_period(start_date, end_date)
+        except KeyError:
+            return {'message': 'Invalid period'}, 400
+        except ValueError:
+            return {'message': 'Dates must have YY-MM-DD format'}, 400
+        response = jsonify({'employees': [emp.to_dict() for emp in emps]})
+        return response.json, 200

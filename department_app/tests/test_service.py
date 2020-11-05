@@ -172,3 +172,64 @@ class TetsService(unittest.TestCase):
             dep = utils.get_or_404(Department, name='Marketing department')
 
             self.assertEqual(dep.average_salary(), utils.get_or_404(Employee, department_id=dep.id).salary)
+
+    def test_search_department_by_name(self):
+        """test searching a department"""
+        with self.context():
+            dep = utils.search_department_by_name('marketing')
+
+            self.assertListEqual(dep, [utils.get_or_404(Department, name='Marketing department')])
+            self.assertListEqual(utils.search_department_by_name(''), utils.get_all(Department))
+            self.assertListEqual(utils.search_department_by_name('Some'), [])
+            self.assertListEqual(utils.search_department_by_name(1), [])
+
+    def test_search_employees_by_fullname(self):
+        """test searching employees"""
+        with self.context():
+            emp = utils.search_employees_by_fullname('sergey')
+
+            self.assertListEqual(emp, [utils.get_or_404(Employee, fullname='Sergey Nemko')])
+            self.assertListEqual(utils.search_employees_by_fullname(''), utils.get_all(Employee))
+            self.assertListEqual(utils.search_employees_by_fullname('Some'), [])
+            self.assertListEqual(utils.search_employees_by_fullname(1), [])
+
+    def test_filter_employees_by_bday(self):
+        """test filtering the employee by their birthday"""
+        with self.context():
+            emp = utils.filter_employees_by_bday(date(1998, 12, 25))
+
+            self.assertListEqual(emp, [utils.get_or_404(Employee, bday=date(1998, 12, 25))])
+
+            with self.assertRaises(ValueError):
+                utils.filter_employees_by_bday('afsfas')
+                utils.filter_employees_by_bday(1231)
+
+    def test_filter_employees_by_date_period(self):
+        """test filtering the employees by date period"""
+        with self.context():
+            utils.insert_into_db(Employee(id=1421412, fullname='Andrey Semchenko',
+                                          bday=date(1997, 10, 30), salary=555, department_id=2))
+            emps = utils.filter_employees_by_date_period(date(1995, 10, 25), date(2000, 10, 12))
+
+            self.assertListEqual(emps, utils.get_all(Employee))
+
+            with self.assertRaises(ValueError):
+                utils.filter_employees_by_date_period(date(1995, 10, 25), 'afsfas')
+                utils.filter_employees_by_date_period('afsfas', date(1995, 10, 25))
+
+    def test_compare(self):
+        """test compare function"""
+
+        self.assertEqual(utils.compare(2, 1, '>'), True)
+        self.assertEqual(utils.compare(1, 2, '<'), True)
+        self.assertEqual(utils.compare(1, 1, '='), True)
+        self.assertEqual(utils.compare('6', '5', '>'), True)
+        self.assertEqual(utils.compare('a', 'a', '='), True)
+        self.assertEqual(utils.compare(1, 1, '>='), True)
+        self.assertEqual(utils.compare(2, 1, '>='), True)
+        self.assertEqual(utils.compare(1, 1, '<='), True)
+        self.assertEqual(utils.compare(2, 3, '<='), True)
+
+        with self.assertRaises(ValueError):
+            self.assertEqual(utils.compare(2, 1, 'asfa'), True)
+            self.assertEqual(utils.compare(2, 1, 124), True)

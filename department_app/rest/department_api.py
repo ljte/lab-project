@@ -24,12 +24,14 @@ class DepartmentApi(Resource):
            if department does not exist return 404,
            if department_id is not int return 400,
            if department_id is None return the list
-           of all the departments
+           of all the departments or the departments
+           that are searched for by the search_string
 
            department_id: the id of department to return
         """
         if department_id is None:
-            deps = utils.get_all(Department)
+            search_string = request.form.get('search_string', '')
+            deps = utils.search_department_by_name(search_string)
             response = jsonify({'departments':
                                 [dep.to_dict() for dep in deps]})
             return response.json, 200
@@ -114,7 +116,7 @@ class DepartmentApi(Resource):
             return {'message': exc.description}, exc.code
         else:
             if dep.number_of_employees() != 0:
-                return {'message': 'Can not delete department (Department must have 0 employees to be deleted'}, 400
+                return {'message': 'Can not delete department (Department must have 0 employees to be deleted)'}, 400
             logger.info('Deleted %s', dep)
             utils.delete_from_db(dep)
             return '', 204
