@@ -70,4 +70,4 @@ gunicorn "run:run()" or python run.py
 then open your browser and go to the localhost url to see the app,
 you can play around with it, add, change, delete some stuff.
 
-You can find working version on *mydepartments&employees.com*
+You can find working version on *https://mylabproject.herokuapp.com/*
