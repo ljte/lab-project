@@ -1,6 +1,7 @@
 """employees views"""
 
 from datetime import datetime
+import os
 
 from flask import (
     Blueprint, render_template, request, redirect, url_for, flash
@@ -10,8 +11,8 @@ import requests
 employees_bp = Blueprint('employees', __name__,
                          template_folder='../templates')
 
-API_URL = 'http://localhost:5000/api/employees'
-DEP_API_URL = 'http://localhost:5000/api/departments'
+API_URL = f"{os.environ.get('URL')}/api/employees"
+DEP_API_URL = f"{os.environ.get('URL')}/api/departments"
 fullname_filter = lambda emp: emp['fullname']
 
 

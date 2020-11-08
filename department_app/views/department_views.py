@@ -1,5 +1,7 @@
 """department views"""
 
+import os
+
 from flask import (
     Blueprint, render_template, redirect, url_for, request, flash
 )
@@ -10,7 +12,7 @@ from department_app.service import utils
 
 department_bp = Blueprint('departments', __name__,
                           template_folder='../templates')
-API_URL = 'http://localhost:5000/api/departments'
+API_URL = f"{os.environ.get('URL')}/api/departments"
 
 
 @department_bp.route('/', methods=['GET'])
