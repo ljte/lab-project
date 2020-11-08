@@ -19,6 +19,11 @@ script:
 after-success:
   - coveralls
 
+deploy:
+  provider: heroku
+  api_key:
+    secure: MYD2zVkTZZwsZWBtjHda5m/s3ywZGKZTFjVCdTvjM++tOUWuVHptw8sDX+/Is4c0VQLeEZAgSP5cJnrV4fFZbHZbycOnlyK0bCX/8OQ+/eMKsTUAP+Mp1Eom6RFiRKlpjf4AMMideaTv5in5yLsWmsExyYfCIAbNeK49sLgRQTUsKdnVOdrmSwK/TPt3PwiX3/4dzwY91tNHkhRRXlx+qeIF5ew4rRmJO8EtJ7Vu2fr3a2ddwL5vvekpSfKGlZQwG0cU2xI5zoz+h8IhMq1ZOny85fQ4yz+do/ZOLSmsUAc3mv7cVooSp7L7TH57TnoSfANLE2m9T134HbkgQ6R3blRqlSCroIte5bLq5l2jxTfNmvWvXj8UNyVo1e6r+9S+Umg2GeSHWOXg9O1J5gR64rW/wm4Gn7t/x8oZGbag1I1jG0fezELCXXAz1H0TUn9JG4hl8Jl0WB/jBuPgXIJe1YKp/phiIeeyH+7yzX6HBqOlTkaVY7zSF6HJmm5eYYfQbXnaKfZBJRpavhPaet2jmmvG37XMRiTP68HP7PvsV/LDQyMRM2tAriEGxajk5cbuaC/4xtGQam0WdisZUx5j6asoXk1512yQrqVOV3aBGWTcduYYLJAlCmvCG9lAOpp+BT+uToeC3HzbaI4n7IBW2TSBU4NyxEqOAgHtXTOvKfI=
+
 notifications:
   - email:
       recipients:

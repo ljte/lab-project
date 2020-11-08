@@ -21,12 +21,13 @@ def index():
     """when the user enters this route
     show him the list of all the department
     """
-    deps = requests.get(API_URL).json()['departments']
-    return render_template(
-        'departments.html',
-        departments=sorted(deps, key=lambda dep: dep['name']),
-        title='Departments'
-    )
+    # deps = requests.get(API_URL).json()['departments']
+    # return render_template(
+    #     'departments.html',
+    #     departments=sorted(deps, key=lambda dep: dep['name']),
+    #     title='Departments'
+    # )
+    return "<h1>hello</h1>"
 
 
 @department_bp.route('/departments/add', methods=['GET', 'POST'])
