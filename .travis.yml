@@ -1,32 +1,25 @@
 language: python
 python:
 - '3.8'
-
 install:
 - python -m pip install -U pip
 - python setup.py install
-
 services:
 - postgresql
-
 before_script:
 - psql -c "CREATE DATABASE test;" -U postgres
-
 script:
 - pylint --disable=no-self-use,too-few-public-methods,no-member,broad-except,too-many-public-methods
   --max-line-length=120 department_app/
 - coverage run setup.py test
-
 after-success:
-  - coveralls
-
+- coveralls
 deploy:
   skip_cleanup: true
   provider: heroku
   api_key:
-    secure: K7Im0/OvJdLKUAxiyjB2fxA3HrJWXw/VCr8b06Mja7gHL+5JjVSNjQlUau8uL2+6AkIn8dvb9a0w49EMJdyzniOrrPOcXn7ONtBuf9iuSbh+9YMPMbr4QePAivEiLJi4UJkK/27GYK17BfynE1doIIipaszSGWYjn5AyrTPGh46GJG5k0IGsLk4AU6Wl0n4dEuD9suYJ2y822qn6u4v/gCvObXJQ9lEQ6qX7/03DKS0B0NWKtASX5aGbGqFPfMJ8s/javJgD5JHjQJFBiyuMoRkuU+mwOXI8OjTJrM+SdMXvXN2k33vvKf3uVg18Z9HeHQrzfXLKWIqMfzxe6KXFo+pKNPjxHhBSlqSI1BARwNsIQmNE6yF/YfxrOemy7x+f1zbFX6mJ0YH58VwtA9Ah6QHceU7hZxJcpa+Sgftre7IrUmdzeNkw2Mt2Q79vLUVNrErFZ2pzjdUxCeJyRUA2TiOOMkzCNZorivCXstH/O1nazS5Ewjzr16is9Ze5ca/B8tQdnShV5FzIsBdC0ge8+y+TMcFZQ6ppD0ZZ6eooyRuZLNwzsOEGhnY9fBF2Em3x0AebzTGI3n8ckLR6OsU4rfdsGi/QAID/CIihzZfeWMqLL5PUph47a5PJp7j+MSJp2Gorvg/TIqtD6SceWbnVz7+4mphzZVkvtoVt2se5OZM=
+    secure: MUcQHq4xUtZrd9MyYuVAyT2iDY+FmkoDuuAo3ACM5v08lAV3SsC1WdfNObZohQUP0JgsfNAIaIJ0ElzYMUd7Njw5G2zrHvdWfhCyzTPsRTruHaZjI70EFttQZpOAPLMGStujWviLNrHa0jJJGB4xBrBHiLPsFJgl1BIQ5h3fpIuzRzGngYDvBJvAyQK4+cuqJ2oVFffBH5Ge2++MGQKTQG5juE52VwCQw4hiAzJ8odWtme6NEtwGhiuGeZaG9rrqnuWxZ37jC/qZgLiHsix6A+pXk1MdmMBjT/vs+4PCAEsmNwKC5WL/oXZMQdrrNQ3NkM+bHCJ66YY3tKslzJi+hKV4ulsvK3tZemDpm7maog0hs3XDzhEx47L/VD2JCBk2vnIVFCYV/8zD74Q+SwONQWpJEJ+hUjhLyZX67eNGN5eyB0R6Z+CjGmbLf27QtcSsJnG45LGg95LX8vXOmKp9/TvROlus7jeP78gtH2UMJ4thXaX0NzwL8gSN/iU3zLbmLUIUYTAcGewVBk/xKA82brbrPMAEadz05klpHLA8rE1B8mRx++MpSvhaswQppoWSCKJpzVm9tluTK03NUgvP8VSTMoYMYcvi3+4PLFg8qodJYnmJl9AMeL95TqmwAaTSX9UkpPbOyawU337/iEfhi2HI9PkLMydjZlEdCirIubI=
   strategy: git
-
 notifications:
 - email:
     recipients:
