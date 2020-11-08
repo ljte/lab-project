@@ -1,33 +1,27 @@
 language: python
 python:
-  - "3.8"
-
+- '3.8'
 install:
-  - python -m pip install -U pip
-  - python setup.py install
-
+- python -m pip install -U pip
+- python setup.py install
 services:
-  - postgresql
-
+- postgresql
 before_script:
-  - psql -c "CREATE DATABASE test;" -U postgres
-
+- psql -c "CREATE DATABASE test;" -U postgres
 script:
-  - pylint --disable=no-self-use,too-few-public-methods,no-member,broad-except,too-many-public-methods --max-line-length=120 department_app/
-  - coverage run setup.py test
-
+- pylint --disable=no-self-use,too-few-public-methods,no-member,broad-except,too-many-public-methods
+  --max-line-length=120 department_app/
+- coverage run setup.py test
 after-success:
-  - coveralls
-
+- coveralls
 deploy:
   provider: heroku
   api_key:
-    secure: cqWCwU06dlZKjkwNPJ4sjdC5ig6DdfBpKvApWmuEx3EFJ5Vf5jK33M8yXiXrtxSvRQdPZtP+f3UglaxYOMGXHKLj1BiBHRxqvuDjvc87B0De/K2UioVIW/ZrV/BHaAjKnyaFrfwIL+WRZrBBR0+h3SAb3xXmgsZbAf1l6ZBlUv8x7RRH6+ZA9uS64kvABufguWP8O06av7k//BkSs5JTi+K4FxJzyCvrxW5X/xRO5gmKqK22AJedckjBN+uSaGQEkML2Tsr0DPjbqwjJWlHR/F02bFu/r/OhEoTrmNWWDaSdMGtjnU438sCKaIyCF5JckkPe2Rs4PTvDBWA/k7V3isRj63ZZgbZFUdg8xYCA1IQMzIigNIvQIdlDS2B9/RZLbauph6DSKxBo4B3438w4f6JBFd7LdHnAzDxZiEViI+fRK3KI4rEGVzwIc1L4h7MinWasoC/PMrpMC7OLoPhh0cDlGKoetvX5wmCgul/KRuKR102c7y8urse8MDTNb5fo1TH69ztHmfaS4+K22l49tDQDsGQLvOMl2E4teFhrm2mzO9e1SHUNVZL7t+zrwXTSaYVvXNEDuUzoDLeJfIM/MyWVscdBteNdCtpHEElbJ38g4r/mJnbxp9IefhEj3qyw2xtonHonyQfXD8263bUGVhBLb0/CfzCrp7pgdtSDH0M=
+    secure: K7Im0/OvJdLKUAxiyjB2fxA3HrJWXw/VCr8b06Mja7gHL+5JjVSNjQlUau8uL2+6AkIn8dvb9a0w49EMJdyzniOrrPOcXn7ONtBuf9iuSbh+9YMPMbr4QePAivEiLJi4UJkK/27GYK17BfynE1doIIipaszSGWYjn5AyrTPGh46GJG5k0IGsLk4AU6Wl0n4dEuD9suYJ2y822qn6u4v/gCvObXJQ9lEQ6qX7/03DKS0B0NWKtASX5aGbGqFPfMJ8s/javJgD5JHjQJFBiyuMoRkuU+mwOXI8OjTJrM+SdMXvXN2k33vvKf3uVg18Z9HeHQrzfXLKWIqMfzxe6KXFo+pKNPjxHhBSlqSI1BARwNsIQmNE6yF/YfxrOemy7x+f1zbFX6mJ0YH58VwtA9Ah6QHceU7hZxJcpa+Sgftre7IrUmdzeNkw2Mt2Q79vLUVNrErFZ2pzjdUxCeJyRUA2TiOOMkzCNZorivCXstH/O1nazS5Ewjzr16is9Ze5ca/B8tQdnShV5FzIsBdC0ge8+y+TMcFZQ6ppD0ZZ6eooyRuZLNwzsOEGhnY9fBF2Em3x0AebzTGI3n8ckLR6OsU4rfdsGi/QAID/CIihzZfeWMqLL5PUph47a5PJp7j+MSJp2Gorvg/TIqtD6SceWbnVz7+4mphzZVkvtoVt2se5OZM=
   strategy: git
-
 notifications:
-  - email:
-      recipients:
-        - ljte823@gmail.com
-      on_success: never
-      on_failure: always
+- email:
+    recipients:
+    - ljte823@gmail.com
+    on_success: never
+    on_failure: always
