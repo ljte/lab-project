@@ -1,20 +1,21 @@
 language: python
 python:
-  - "3.8"
+- '3.8'
 
 install:
-  - python -m pip install -U pip
-  - python setup.py install
+- python -m pip install -U pip
+- python setup.py install
 
 services:
-  - postgresql
+- postgresql
 
 before_script:
-  - psql -c "CREATE DATABASE test;" -U postgres
+- psql -c "CREATE DATABASE test;" -U postgres
 
 script:
-  - pylint --disable=no-self-use,too-few-public-methods,no-member,broad-except,too-many-public-methods --max-line-length=120 department_app/
-  - coverage run setup.py test
+- pylint --disable=no-self-use,too-few-public-methods,no-member,broad-except,too-many-public-methods
+  --max-line-length=120 department_app/
+- coverage run setup.py test
 
 after-success:
   - coveralls
@@ -27,8 +28,8 @@ deploy:
   strategy: git
 
 notifications:
-  - email:
-      recipients:
-        - ljte823@gmail.com
-      on_success: never
-      on_failure: always
+- email:
+    recipients:
+    - ljte823@gmail.com
+    on_success: never
+    on_failure: always
