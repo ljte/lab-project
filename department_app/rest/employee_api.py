@@ -62,8 +62,6 @@ class EmployeeApi(Resource):
             salary = float(form['salary'])
             dep_id = utils.get_or_404(Department,
                                       name=form['dep_name']).id
-
-            # validate the employee's name
             if Employee.validate_fullname(fullname):
                 emp = Employee(
                     fullname=fullname,

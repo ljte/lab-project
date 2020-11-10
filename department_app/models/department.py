@@ -33,8 +33,8 @@ class Department(db.Model):
     def number_of_employees(self):
         """count the number of employees"""
         return Employee.query.with_entities(
-                    func.count(Employee.id).label('num_of_emps')
-                    ).filter_by(department_id=self.id).first()[0]
+                  func.count(Employee.id).label('num_of_emps')
+               ).filter_by(department_id=self.id).first()[0]
 
     def average_salary(self):
         """count average salary"""
@@ -69,7 +69,11 @@ class Department(db.Model):
             elif letter.isdigit():
                 return False
 
+        return True
+
+    @classmethod
+    def name_does_not_exist(cls, name: str):
+        """check if department with the given name already exists"""
         # if the department already exists return False
-        if 'department' not in name:
-            name += ' department'
+        name = name if name.endswith('department') else name + ' department'
         return cls.query.filter_by(name=name).first() is None

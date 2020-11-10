@@ -21,7 +21,11 @@
             </a>
             <form method="POST" action="{{ url_for('employees.search') }}">
                 <div class="search-bar">
-                    <input type="text" name="search_string" placeholder="Search for employee">
+                    {% if search_string %}
+                        <input type="text" name="search_string" value="{{ search_string }}">
+                    {% else %}
+                        <input type="text" name="search_string" placeholder="Search for employee">
+                    {% endif %}
                     <a href="{{ url_for('employees.search') }}"><button>Search</button></a>
                 </div>
             </form>
@@ -29,11 +33,25 @@
         <div class="lower-filters">
             <form method='POST' action="{{ url_for('employees.filter_by_bday') }}">
                 <label for="bday">Filter by birthday</label>
-                <input type="date" name="bday" max="2002-12-31" min="1960-01-01" id="bday">
+                {% if bday %}
+                    <input type="date" name="bday" max="2002-12-31" min="1960-01-01" value="{{ bday }}"id="bday">
+                {% else %}
+                    <input type="date" name="bday" max="2002-12-31" min="1960-01-01" id="bday">
+                {% endif %}
+                
                 <label for="start-date">or by the period from</label>
-                <input type="date" name="start_date" max="2002-12-31" min="1960-01-01" id="start-date">
+                {% if start_date %}
+                    <input type="date" name="start_date" max="2002-12-31" min="1960-01-01" value="{{ start_date }}" id="start-date">
+                {% else %}
+                    <input type="date" name="start_date" max="2002-12-31" min="1960-01-01" id="start-date">
+                {% endif %}
+
                 <label for="end-date">to</label>
-                <input type="date" name="end_date" max="2002-12-31" min="1960-01-01" id="end-date">
+                {% if end_date %}
+                    <input type="date" name="end_date" max="2002-12-31" min="1960-01-01" value="{{ end_date }}" id="end-date">
+                {% else %}
+                    <input type="date" name="end_date" max="2002-12-31" min="1960-01-01" id="end-date">
+                {% endif %}
                 <a href="{{ url_for('employees.filter_by_bday') }}"><button class="btn edit-btn">Filter</button></a>
             </form>
             <form method='POST' action="{{ url_for('employees.filter_by_department') }}">
@@ -42,7 +60,11 @@
                     <select class="combo" name="department" id="depart-combo">
                         <option disabled selected>Choose a department</option>
                         {% for dep in departments %}
-                            <option>{{ dep.name }}</option>
+                            {% if chosen_department == dep.name %}
+                                <option selected>{{ dep.name }}</option>
+                            {% else %}
+                                <option>{{ dep.name }}</option>
+                            {% endif %}
                         {% endfor %}
                     </select>
                     <a href="{{ url_for('employees.filter_by_department') }}"><button class="btn edit-btn">Filter</button></a>
@@ -52,11 +74,11 @@
     </div>
     <table>
         <tr class="table-headers">
-            <td>Employee ID</td>
-            <td>Employee fullname</td>
-            <td>Department's name</td>
-            <td>Employee salary</td>
-            <td>Birthday</td>
+            <td id='0'>Employee ID</td>
+            <td id='1'>Employee fullname</td>
+            <td id='2'>Department's name</td>
+            <td id='3'>Employee salary</td>
+            <td id='4'>Birthday</td>
             <td></td>
             <td></td>
         </tr>
@@ -73,3 +95,8 @@
         {% endfor %}
     </table>
 {% endblock main %}
+
+{% block script %}
+    <script src="{{ url_for('static', filename='disableButtons.js') }}""></script>
+    <script src="{{ url_for('static', filename='sortTable.js') }}""></script>
+{% endblock script %}

@@ -152,12 +152,17 @@ class TetsService(unittest.TestCase):
             self.assertEqual(Department.validate_name(' '), False)
             self.assertEqual(Department.validate_name('213'), False)
             self.assertEqual(Department.validate_name('123 fas '), False)
-            self.assertEqual(Department.validate_name('Marketing'), False)
-            self.assertEqual(Department.validate_name('Marketing department'), False)
             self.assertEqual(Department.validate_name('dep'), True)
-            self.assertEqual(Department.validate_name('Management'), True)
-            self.assertEqual(Department.validate_name('Managementdepartment'), False)
             self.assertEqual(Department.validate_name(213), False)
+            self.assertEqual(Department.validate_name('managementdepartment'), False)
+
+    def test_department_already_exists(self):
+        """test checking whether the department exists or not"""
+        with self.context():
+            self.assertEqual(Department.name_does_not_exist('Marketing'), False)
+            self.assertEqual(Department.name_does_not_exist('Marketing department'), False)
+            self.assertEqual(Department.name_does_not_exist('Management'), True)
+            self.assertEqual(Department.name_does_not_exist('Management department'), True)
 
     def test_count_employees(self):
         """test counting the number of department's employees"""

@@ -1,193 +1,217 @@
 * {
-    margin: 0;
-    padding: 0;
-    background: #D5D5D5;
-    font-family: Comic;
+  margin: 0;
+  padding: 0;
+  background: #d5d5d5;
+  font-family: Comic;
 }
 
 header {
-    border-bottom: 3px solid rgba(32, 22, 43);
+  border-bottom: 3px solid rgba(32, 22, 43);
 }
 
 .header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    padding: 20px;
-    margin: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding: 20px;
+  margin: 10px;
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 .header a {
-    color: rgba(68, 70, 67, 0.7);
-    font-size: 2.25rem;
+  color: rgba(68, 70, 67, 0.7);
+  font-size: 2.25rem;
 }
 
 a:hover {
-    color: rgba(68, 70, 67, 1);
+  color: rgba(68, 70, 67, 1);
 }
 
 .btn {
-    padding: 8px;
-    font-size: 1rem;
-    border-radius: 6px;
-    cursor: pointer;
-    border: none;
-    color: white;
-    margin: auto;
+  padding: 8px;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+  color: white;
+  margin: auto;
 }
 
 a.btn {
-    padding: 8px;
-    font-size: 1rem;
-    border-radius: 6px;
-    cursor: pointer;
-    border: none;
-    color: white;
-    margin: auto;
+  padding: 8px;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+  color: white;
+  margin: auto;
 }
 
 .add-btn {
-    background-color: rgb(118, 189, 167);
-    border: 2px solid black;
-    margin: 10px;
-    color: black;
+  background-color: rgb(118, 189, 167);
+  border: 2px solid black;
+  margin: 10px;
+  color: black;
 }
 
 .edit-btn {
-    background-color: #02A9D6;
-    padding: 4px;
-    letter-spacing: 1px;
+  background-color: #02a9d6;
+  padding: 4px;
+  letter-spacing: 1px;
 }
 .delete-btn {
-    background-color: #BF2424;
-    padding: 4px;
-    letter-spacing: 1px;
+  background-color: #bf2424;
+  padding: 4px;
+  letter-spacing: 1px;
 }
 
 .upper-filters {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .search-bar {
-    padding: 5px;
-    margin: 10px;
-    background-color: white;
-    border: 2px solid #616161;
+  padding: 5px;
+  margin: 10px;
+  background-color: white;
+  border: 2px solid #616161;
 }
 
 .search-bar input {
-    padding: 4px;
-    background-color: white;
-    border: none;
-    outline: none;
+  padding: 4px;
+  background-color: white;
+  border: none;
+  outline: none;
 }
 
 .search-bar button {
-    padding: 4px;
-    background-color: #DEDEDE;
-    border: none;
-    outline: none;
-    cursor: pointer;
+  padding: 4px;
+  background-color: #dedede;
+  border: none;
+  outline: none;
+  cursor: pointer;
 }
 
 .lower-filters {
-    padding: 8px;
-    margin: 10px;
-    font-size: 1.3rem;
+  padding: 8px;
+  margin: 10px;
+  font-size: 1.3rem;
 }
 
 .combo {
-    background-color: white;
-    outline: none;
-    padding: 3px;
+  background-color: white;
+  outline: none;
+  padding: 3px;
 }
 
-.lower-filters input[type="number"], .lower-filters input[type="date"] {
-    background-color: white;
-    outline: none;
-    padding: 4px;
-    border: 1px solid #373737;
+.lower-filters input[type="number"],
+.lower-filters input[type="date"] {
+  background-color: white;
+  outline: none;
+  padding: 4px;
+  border: 1px solid #373737;
 }
 
 .lower-filters div {
-    margin: 5px 0;
-    padding: 5px 0;
+  margin: 5px 0;
+  padding: 5px 0;
 }
 
 table {
-    width: 100%;
-    border-collapse: collapse;
+  width: 100%;
+  border-collapse: collapse;
 }
 
 .table-headers td {
-    color: white;
-    background-color: #232323;
+  color: white;
+  background-color: #232323;
 }
 
 tr {
-    border-bottom: 1px solid black;
+  border-bottom: 1px solid black;
 }
 
-td, td a{
-    padding: 10px;
-    font-size: 1.5rem;
-    color: rgba(68, 70, 67, 1);
-}
-
-.item {
-    margin: 10px;
-}
-
-.item form input, .item form label {
-    margin: 8px;
-    padding: 5px;
+td,
+td a {
+  padding: 10px;
+  font-size: 1.5rem;
+  color: rgba(68, 70, 67, 1);
 }
 
 .item {
-    font-size: 1.5rem;
+  margin: 10px;
+}
+
+.item form input,
+.item form label {
+  margin: 8px;
+  padding: 5px;
+}
+
+.item {
+  font-size: 1.5rem;
 }
 
 .item form div {
-    margin: 10px;
-    padding: 5px;
+  margin: 10px;
+  padding: 5px;
 }
 
-.item form input, .item form select {
-    padding: 5px;
-    background-color: white;
-    border: 2px solid black;
+.item form input,
+.item form select {
+  padding: 5px;
+  background-color: white;
+  border: 2px solid black;
 }
 
 .item div {
-    margin: 8px;
+  margin: 8px;
 }
 
 .item div button {
-    margin: 5px;
-    padding: 7px;
+  margin: 5px;
+  padding: 7px;
 }
 
 .flashed-message {
-    list-style: none;
-    padding: 10px 7px;
-    margin: 5px;
-    font-size: 1em;
-    color: white;
+  list-style: none;
+  padding: 10px 7px;
+  margin: 5px;
+  font-size: 1em;
+  color: white;
 }
 
 .flash-success {
-    background: #269900;
+  background: #269900;
 }
 
 .flash-info {
-    background: #33adff;
+  background: #33adff;
 }
 
 .flash-danger {
-    background: #ff3333;
+  background: #ff3333;
+}
+
+.headerSortDown:after,
+.headerSortUp:after {
+  content: " ";
+  position: relative;
+  left: 10px;
+  border: 7px solid transparent;
+}
+.headerSortDown:after {
+  top: 16px;
+  border-top-color: silver;
+}
+.headerSortUp:after {
+  bottom: 15px;
+  border-bottom-color: silver;
+}
+.headerSortDown,
+.headerSortUp {
+  padding-left: 20px;
 }
