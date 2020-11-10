@@ -154,6 +154,7 @@ class TetsService(unittest.TestCase):
             self.assertEqual(Department.validate_name('123 fas '), False)
             self.assertEqual(Department.validate_name('dep'), True)
             self.assertEqual(Department.validate_name(213), False)
+            self.assertEqual(Department.validate_name('managementdepartment'), False)
 
     def test_department_already_exists(self):
         """test checking whether the department exists or not"""

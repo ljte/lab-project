@@ -43,6 +43,7 @@ def add():
             flash(response.json()['message'], category='danger')
             return redirect(url_for('departments.add'))
 
+        dep['name'] = dep['name'] if dep['name'].endswith('department') else dep['name'] + ' department'
         flash(f"Successfully added {dep['name']}", category='success')
         return redirect((url_for('departments.index')))
 

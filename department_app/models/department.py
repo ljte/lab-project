@@ -75,6 +75,5 @@ class Department(db.Model):
     def name_does_not_exist(cls, name: str):
         """check if department with the given name already exists"""
         # if the department already exists return False
-        if 'department' not in name:
-            name += ' department'
+        name = name if name.endswith('department') else name + ' department'
         return cls.query.filter_by(name=name).first() is None

@@ -54,10 +54,9 @@ class DepartmentApi(Resource):
 
         try:
             name = request.form['name']
+            name = name if name.endswith('department') else name + ' department'
             if Department.validate_name(name):
                 if Department.name_does_not_exist(name):
-                    if 'department' not in name:
-                        name += ' department'
                     dep = Department(name=name)
                     utils.insert_into_db(dep)
                 else:
@@ -88,6 +87,7 @@ class DepartmentApi(Resource):
 
         try:
             name = request.form['name']
+            name = name if name.endswith('department') else name + ' department'
             if Department.validate_name(name):
                 if Department.name_does_not_exist(name):
                     dep = utils.get_or_404(Department, id=department_id)

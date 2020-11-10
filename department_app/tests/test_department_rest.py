@@ -56,7 +56,7 @@ class TestDeparmentRest(unittest.TestCase):
         """test creating a new department"""
         with self.context():
             response = self.tester.post(f'{URL}/departments/',
-                                        data={'name': 'Post department'})
+                                        data={'name': 'Post'})
 
             dep = utils.get_or_404(Department, name='Post department')
 
@@ -66,6 +66,8 @@ class TestDeparmentRest(unittest.TestCase):
 
             self.assertEqual(self.tester.post(f'{URL}/departments/',
                                               data={'name': ''}).status_code, 400)
+            self.assertEqual(self.tester.post(f'{URL}/departments/',
+                                              data={'name': 'Post'}).status_code, 400)
             self.assertEqual(self.tester.post(f'{URL}/departments/').status_code, 400)
 
             utils.delete_from_db(dep)

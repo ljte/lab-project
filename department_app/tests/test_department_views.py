@@ -59,8 +59,16 @@ class TestDepartmentViews(TestCase, LiveServerTestCase):
         mock_response.assert_called()
         mock_json.assert_called()
 
-    def test_add_department_with_incorrect_input(self):
+    @mock.patch('requests.post')
+    def test_add_department_with_incorrect_input(self, mock_response):
         """test adding a department with incorrect values"""
+        mock_response.return_value.status_code = 400
+        mock_response.return_value.json.side_effect = [
+            {'message': "invalid department's name"},
+            {'message': "invalid department's name"},
+            {'message': "invalid department's name"},
+            {'message': 'Marketing department already exists'},
+        ]
         url = self.get_server_url()
         response = self.client.post(f'{url}/departments/add',
                                     data={'name': 12312},
@@ -76,6 +84,13 @@ class TestDepartmentViews(TestCase, LiveServerTestCase):
                                     data={'name': ''},
                                     follow_redirects=True)
         self.assertIn(b'invalid department&#39;s name', response.data)
+
+        response = self.client.post(f'{url}/departments/add',
+                                    data={'name': 'Marketing'},
+                                    follow_redirects=True)
+        self.assertIn(b'Marketing department already exists', response.data)
+
+        mock_response.assert_called()
 
     @mock.patch('requests.delete')
     @mock.patch('requests.Response.json', side_effect=[deps[2], {'departments': deps}])
@@ -154,11 +169,18 @@ class TestDepartmentViews(TestCase, LiveServerTestCase):
 
         mock_json.assert_called()
 
+    @mock.patch('requests.put')
     @mock.patch('requests.get')
-    @mock.patch('requests.Response.json', return_value={'message': "invalid department's name"})
-    def test_editing_existind_department_with_incorrect_input(self, mock_json, mock_get_response):
+    def test_editing_existing_department_with_incorrect_input(self, mock_get_response, mock_put_response):
         """test that editing a department work correctly"""
         mock_get_response.return_value.status_code = 200
+        mock_put_response.return_value.status_code = 400
+        mock_put_response.return_value.json.side_effect=[
+            {'message': "invalid department's name"},
+            {'message': "invalid department's name"},
+            {'message': "invalid department's name"},
+            {'message': "Marketing department already exists"}
+        ]
         url = self.get_server_url()
 
         response = self.client.post(f'{url}/departments/edit/1',
@@ -176,7 +198,12 @@ class TestDepartmentViews(TestCase, LiveServerTestCase):
                                     follow_redirects=True)
         self.assertIn(b"invalid department&#39;s name", response.data)
 
-        mock_json.assert_called()
+        response = self.client.post(f'{url}/departments/edit/1',
+                                    data={'name': 'Marketing'},
+                                    follow_redirects=True)
+        self.assertIn(b"Marketing department already exists", response.data)
+
+        mock_put_response.assert_called()
 
     @mock.patch('requests.Response.json', side_effect=[
         {'departments': [deps[1]]},
@@ -270,6 +297,5 @@ class TestDepartmentViews(TestCase, LiveServerTestCase):
                                         'average_salary': ''
                                     }, follow_redirects=True)
         self.assertIn(b'Invalid average salary', response.data)
-
 
         mock_response.assert_called()
