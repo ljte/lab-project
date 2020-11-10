@@ -45,3 +45,7 @@
         </form>
     </div>
 {% endblock main %}
+
+{% block script %}
+    <script src="{{ url_for('static', filename='disableButtons.js') }}""></script>
+{% endblock script %}

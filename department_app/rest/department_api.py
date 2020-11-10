@@ -55,10 +55,15 @@ class DepartmentApi(Resource):
         try:
             name = request.form['name']
             if Department.validate_name(name):
-                dep = Department(name=name)
-                utils.insert_into_db(dep)
+                if Department.name_does_not_exist(name):
+                    if 'department' not in name:
+                        name += ' department'
+                    dep = Department(name=name)
+                    utils.insert_into_db(dep)
+                else:
+                    raise BadRequest(f"{name} already exists")
             else:
-                raise BadRequest("invalid department's name '%s'" % name)
+                raise BadRequest(f"invalid department's name '{name}'")
         except KeyError:
             return {'message': "Please specify department's name"}, 400
         except HTTPException as exc:
@@ -84,10 +89,13 @@ class DepartmentApi(Resource):
         try:
             name = request.form['name']
             if Department.validate_name(name):
-                dep = utils.get_or_404(Department, id=department_id)
-                utils.update_record(Department, dep, **request.form)
+                if Department.name_does_not_exist(name):
+                    dep = utils.get_or_404(Department, id=department_id)
+                    utils.update_record(Department, dep, **request.form)
+                else:
+                    raise BadRequest(f"{name} already exists")
             else:
-                raise BadRequest("invalid department's name %s" % name)
+                raise BadRequest(f"invalid department's name '{name}''")
         except KeyError:
             return {'message': "Please specify the department's name"}, 400
         except HTTPException as exc:

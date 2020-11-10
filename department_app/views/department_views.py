@@ -10,9 +10,9 @@ import requests
 from department_app.service import utils
 
 
-department_bp = Blueprint('departments', __name__,
-                          template_folder='../templates')
+department_bp = Blueprint('departments', __name__, template_folder='../templates')
 API_URL = f"{os.environ.get('URL')}/api/departments"
+COMPARISON_OPERATORS = ['>', '<', '=', '>=', '<=']
 
 
 @department_bp.route('/', methods=['GET'])
@@ -25,7 +25,8 @@ def index():
     return render_template(
         'departments.html',
         departments=sorted(deps, key=lambda dep: dep['name']),
-        title='Departments'
+        title='Departments',
+        operators=COMPARISON_OPERATORS
     )
 
 
@@ -96,7 +97,13 @@ def search():
     """
     search_string = request.form.get('search_string', '')
     deps = requests.get(API_URL, data={'search_string': search_string}).json()['departments']
-    return render_template('departments.html', departments=deps, title='Departments')
+    return render_template(
+        'departments.html',
+        departments=deps,
+        title='Departments',
+        search_string=search_string,
+        operators=COMPARISON_OPERATORS
+    )
 
 
 @department_bp.route('/departments/filter_by_salary', methods=['GET', 'POST'])
@@ -106,12 +113,12 @@ def filter_by_salary():
     if request.method == 'POST':
         form = dict(request.form)
         average_salary = form['average_salary']
-
-        if average_salary == '' or not average_salary.isnumeric():
+        try:
+            average_salary = float(average_salary)
+        except ValueError:
             flash('Invalid average salary', category='info')
             return redirect(url_for('departments.index'))
 
-        average_salary = float(average_salary)
         operator = form.get('comparison', '>')
         try:
             deps = [dep for dep in requests.get(API_URL).json()['departments']
@@ -120,6 +127,13 @@ def filter_by_salary():
             flash(str(exc), category='info')
             return redirect(url_for('departments.index'))
 
-        return render_template('departments.html', departments=deps, title='Departments')
+        return render_template(
+            'departments.html',
+            departments=deps,
+            title='Departments',
+            average_salary=average_salary,
+            chosen_operator=operator,
+            operators=COMPARISON_OPERATORS
+        )
 
     return redirect(url_for('departments.index'))

@@ -23,7 +23,11 @@
             </a>
             <form method="POST" action="{{ url_for('departments.search') }}">
                 <div class="search-bar">
-                    <input type="text" name="search_string" placeholder="Search for department">
+                    {% if search_string %}
+                        <input type="text" name="search_string" value="{{ search_string }}">
+                    {% else %}
+                        <input type="text" name="search_string" placeholder="Search for department">
+                    {% endif %}
                     <a href="{{ url_for('departments.search') }}"><button>Search</button></a>
                 </div>
             </form>
@@ -32,23 +36,29 @@
             <form method="POST", action="{{ url_for('departments.filter_by_salary') }}">
                 <label for="comparison">Filter by the average salary</label>
                 <select class="combo" name="comparison" id="comparison">
-                    <option value=">">></option>
-                    <option value="<"><</option>
-                    <option value="=">=</option>
-                    <option value="<="><=</option>
-                    <option value=">=">>=</option>
+                    {% for operator in operators%}
+                        {% if chosen_operator == operator %}
+                            <option value="{{ operator }}" selected>{{ operator }}</option>
+                        {% else %}
+                            <option value="{{ operator }}">{{ operator }}</option>
+                        {% endif %}
+                    {% endfor %}
                 </select>
-                <input type="number" name="average_salary" placeholder="Enter average salary" min=0>
+                {% if average_salary %}
+                    <input type="number" name="average_salary" value="{{ average_salary }}" min=0>
+                {% else %}
+                    <input type="number" name="average_salary" placeholder="Enter average salary" min=0>
+                {% endif %}
                 <a href="{{ url_for('departments.filter_by_salary') }}"><button class="btn edit-btn">Filter</button></a>
             </form>
         </div>
     </div>
     <table>
         <tr class="table-headers">
-            <td>Department ID</td>
-            <td>Department name</td>
-            <td>Number of employees</td>
-            <td>Average salary</td>
+            <td id='0'>Department ID</td>
+            <td id='1'>Department name</td>
+            <td id='2'>Number of employees</td>
+            <td id='3'>Average salary</td>
             <td></td>
             <td></td>
         </tr>
@@ -65,3 +75,7 @@
     </table>
 {% endblock main %}
 
+{% block script %}
+    <script src="{{ url_for('static', filename='disableButtons.js') }}""></script>
+    <script src="{{ url_for('static', filename='sortTable.js') }}""></script>
+{% endblock script %}

@@ -48,6 +48,7 @@ def add():
         except KeyError:
             flash("Choose a department", category='danger')
             return redirect(url_for('employees.add'))
+
         response = requests.post(API_URL, data=emp)
         if response.status_code != 201:
             flash(response.json()['message'], category='danger')
@@ -86,6 +87,7 @@ def edit(employee_id: int):
         flash(emp.json()['message'], category='danger')
         return redirect(url_for('employees.index'))
     emp = emp.json()
+
     if request.method == 'POST':
         form = dict(request.form)
         response = requests.put(API_URL + f'/{employee_id}', data=form)
@@ -111,7 +113,8 @@ def search():
         'employees.html',
         employees=sorted(emps, key=fullname_filter),
         departments=deps,
-        title='Employees'
+        title='Employees',
+        search_string=search_string
     )
 
 
@@ -127,12 +130,14 @@ def filter_by_department():
 
         emps = [emp for emp in requests.get(API_URL).json()['employees']
                 if emp['department'] == dep_name]
+
         deps = requests.get(DEP_API_URL).json()['departments']
         return render_template(
             'employees.html',
             employees=sorted(emps, key=fullname_filter),
             departments=deps,
-            title='Employees'
+            title='Employees',
+            chosen_department=dep_name
         )
 
     return redirect(url_for('employees.index'))
@@ -140,7 +145,7 @@ def filter_by_department():
 
 @employees_bp.route('/employees/filter_by_bday', methods=['GET', 'POST'])
 def filter_by_bday():
-    """return the employee who were born on a specific bady or
+    """return the employee who were born on a specific bday or
     in a specific period
     """
     if request.method == 'POST':
@@ -157,26 +162,31 @@ def filter_by_bday():
                 'employees.html',
                 employees=sorted(emps, key=fullname_filter),
                 departments=deps,
-                title='Employees'
+                title='Employees',
+                bday=bday
             )
 
         start_date = form.get('start_date', '')
         end_date = form.get('end_date', '')
         if start_date != '' and end_date != '':
             response = requests.get(API_URL + '/filter_by_date_period',
-                                    data={
-                                        'start_date': start_date,
-                                        'end_date': end_date
-                                    })
+            data={
+                'start_date': start_date,
+                'end_date': end_date
+            })
+
             if response.status_code != 200:
                 flash(response.json()['message'], category='danger')
                 return redirect(url_for('employees.index'))
+
             emps = response.json()['employees']
             return render_template(
                 'employees.html',
                 employees=emps,
                 departments=deps,
-                title='Employees'
+                title='Employees',
+                start_date=start_date,
+                end_date=end_date
             )
     flash('You must specify both start and end dates or choose a birthday', category='info')
     return redirect(url_for('employees.index'))
