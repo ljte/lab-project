@@ -92,6 +92,8 @@ class TestDeparmentRest(unittest.TestCase):
             self.assertEqual(self.tester.put(f'{URL}/departments/1').status_code, 400)
             self.assertEqual(self.tester.put(f'{URL}/departments/1',
                                              data={'name': ''}).status_code, 400)
+            self.assertEqual(self.tester.put(f'{URL}/departments/1',
+                                             data={'name': 'Super'}).status_code, 400)
 
             utils.delete_from_db(dep)
 
