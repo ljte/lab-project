@@ -58,7 +58,7 @@
             <td id='0'>Department ID</td>
             <td id='1'>Department name</td>
             <td id='2'>Number of employees</td>
-            <td id='3'>Average salary</td>
+            <td id='3'>Average salary $</td>
             <td></td>
             <td></td>
         </tr>
@@ -67,7 +67,7 @@
                 <td>{{ dep.id }}</td>
                 <td>{{ dep.name }}</td>
                 <td>{{ dep.number_of_employees }}</td>
-                <td>{{ dep.average_salary }}$</td>
+                <td>{{ dep.average_salary }}</td>
                 <td><a href="{{ url_for('departments.edit', department_id=dep.id) }}"><button class="btn edit-btn">Edit</button></a></td>
                 <td><a href="{{ url_for('departments.delete', department_id=dep.id) }}"><button class="btn delete-btn">Delete</button></a></td>
             </tr>

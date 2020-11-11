@@ -77,7 +77,7 @@
             <td id='0'>Employee ID</td>
             <td id='1'>Employee fullname</td>
             <td id='2'>Department's name</td>
-            <td id='3'>Employee salary</td>
+            <td id='3'>Employee salary $</td>
             <td id='4'>Birthday</td>
             <td></td>
             <td></td>
@@ -87,7 +87,7 @@
                 <td>{{ emp.id }}</td>
                 <td>{{ emp.fullname }}</td>
                 <td>{{ emp.department }}</td>
-                <td>{{ emp.salary }}$</td>
+                <td>{{ emp.salary }}</td>
                 <td>{{ emp.bday }}</td>
                 <td><a href="{{ url_for('employees.edit', employee_id=emp.id) }}"><button class="btn edit-btn">Edit</button></a></td>
                 <td><a href="{{ url_for('employees.delete', employee_id=emp.id) }}"><button class="btn delete-btn">Delete</button></a></td>
