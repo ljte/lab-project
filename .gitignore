@@ -6,3 +6,4 @@
 .idea/*
 department_app.egg-info/*
 venv/*
+.vscode/*

@@ -1,7 +1,12 @@
 import os
 
+from dotenv import load_dotenv
 
-class BaseConfig:
-    SECRET_KEY = "dev"
-    SQLALCHEMY_DATABASE_URI = "sqlite:///:memory:"
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+dotenv_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dev.env")
+load_dotenv(dotenv_path)
+
+
+class BasicConfig:
+    SECRET_KEY = os.getenv("SECRET_KEY")
+    DATABASE_URI = os.getenv("DATABASE_URI")
