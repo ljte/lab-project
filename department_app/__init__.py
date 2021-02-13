@@ -1,2 +1,2 @@
 from .app import create_app
-from .db import Department, Employee, Base
+from .database import Base

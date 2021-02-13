@@ -1,11 +1,14 @@
 from flask import Flask
 
-from .config import BasicConfig
+from .database import Database
+from .config import config
 
 
-def create_app(config=BasicConfig)-> Flask:
+def create_app(config=config)-> Flask:
     app = Flask(__name__)
-    app.config.from_object(config)
+    app.config.update(config.dict())
+
+    Database(config.DATABASE_URI).connect()
 
     @app.route("/")
     def index():
