@@ -10,9 +10,9 @@ from sqlalchemy import pool
 from alembic import context
 
 
-__PROJECT_PATH__ = str(Path(
+project_dir = str(Path(
     os.path.abspath(os.path.dirname(__file__))).parent)
-sys.path.append(__PROJECT_PATH__)
+sys.path.append(project_dir)
 
 from department_app import Base
 # this is the Alembic Config object, which provides

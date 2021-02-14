@@ -1,3 +1,6 @@
+from abc import ABCMeta
+
+
 def check_for_digits(s: str) -> bool:
     for c in s:
         if c.isdigit():
@@ -5,7 +8,7 @@ def check_for_digits(s: str) -> bool:
     return False
 
 
-class Singleton(type):
+class Singleton(ABCMeta):
 
     _instances = {}
 

@@ -4,7 +4,7 @@ from .database import Database
 from .config import config
 
 
-def create_app(config=config)-> Flask:
+def create_app(config=config) -> Flask:
     app = Flask(__name__)
     app.config.update(config.dict())
 
