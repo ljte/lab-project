@@ -12,6 +12,6 @@ def create_app(config=config) -> Flask:
 
     @app.route("/")
     def index():
-        return "))))"
+	    return "))))"
 
     return app

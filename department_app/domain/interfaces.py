@@ -1,4 +1,7 @@
+from typing import ContextManager
 from abc import ABC, abstractmethod
+
+from sqlalchemy.orm import Session
 
 
 class IDatabase(ABC):
@@ -8,5 +11,5 @@ class IDatabase(ABC):
         pass
 
     @abstractmethod
-    def session(self):
+    def session(self) -> ContextManager[Session]:
         pass
