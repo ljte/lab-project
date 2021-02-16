@@ -1,10 +1,10 @@
 from flask import Flask
 
 from .database import Database
-from .config import config
+from .config import Config
 
 
-def create_app(config=config) -> Flask:
+def create_app(config=Config()) -> Flask:
     app = Flask(__name__)
     app.config.update(config.dict())
 

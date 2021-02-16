@@ -22,7 +22,7 @@ class Database(IDatabase, metaclass=Singleton):
         if self._url is None:
             raise ValueError("Database url is not configured.")
         self._engine = create_engine(self._url, echo=False)
-        self._session = sessionmaker(bind=self._engine)
+        self._session = sessionmaker(bind=self._engine, expire_on_commit=False)
     
     @contextmanager
     def session(self):

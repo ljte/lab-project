@@ -28,6 +28,9 @@ class Employee(Base):
     def __repr__(self):
         return f"{self.__class__.__name__}({self.fullname}, {self.bday})"
 
+    def __eq__(self, other):
+        return self.name == other.name
+
 
 class Department(Base):
     __tablename__ = "departments"
