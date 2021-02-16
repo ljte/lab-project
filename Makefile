@@ -7,7 +7,7 @@ tests:
 	coverage run --omit=venv/*,virtualenv/* -m pytest tests
 
 test-coverage:
-	coverage report
+	coverage report --omit=venv/*,virtualenv/*
 
 build:
 	python setup.py install
