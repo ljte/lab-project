@@ -10,7 +10,7 @@ test-coverage:
 	coverage report
 
 build:
-	pip install $(PROJECT)
+	python setup.py install
 
 format:
 	black $(PROJECT)
