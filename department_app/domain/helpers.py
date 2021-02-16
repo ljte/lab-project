@@ -1,12 +1,22 @@
 from abc import ABCMeta
 from typing import Dict, Type
 
+from flask import g
+
+from .interfaces import IDatabase
+
 
 def check_for_digits(s: str) -> bool:
     for c in s:
         if c.isdigit():
             return True
     return False
+
+
+def get_database() -> IDatabase:
+    if 'database' not in g:
+        raise ValueError("Database was'nt configured properly")
+    return g.database
 
 
 class Singleton(ABCMeta):
