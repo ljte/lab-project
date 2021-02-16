@@ -1,6 +1,5 @@
 from datetime import datetime
 
-from loguru import logger
 import pytest
 
 from department_app.database.models import Department, Employee

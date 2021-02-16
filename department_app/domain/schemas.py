@@ -1,5 +1,4 @@
 from datetime import datetime
-from string import digits
 
 from pydantic import BaseModel, validator
 

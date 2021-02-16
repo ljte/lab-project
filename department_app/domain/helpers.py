@@ -1,4 +1,5 @@
 from abc import ABCMeta
+from typing import Dict, Type
 
 
 def check_for_digits(s: str) -> bool:
@@ -10,7 +11,7 @@ def check_for_digits(s: str) -> bool:
 
 class Singleton(ABCMeta):
 
-    _instances = {}
+    _instances: Dict[Type, Type] = {}
 
     def __call__(cls, *args, **kwargs):
         if cls not in cls._instances:
