@@ -1,7 +1,7 @@
 from flask import Flask
 
-from .database import Database
 from .config import Config
+from .database import Database
 
 
 def create_app(config=Config()) -> Flask:
@@ -12,6 +12,6 @@ def create_app(config=Config()) -> Flask:
 
     @app.route("/")
     def index():
-	    return "))))"
+        return "))))"
 
     return app
