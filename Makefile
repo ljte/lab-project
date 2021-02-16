@@ -4,7 +4,7 @@ PROJECT = "department_app"
 .PHONY: tests test-coverage build format format-check mypy-check
 
 tests:
-	coverage run --omit='venv/*' -m pytest tests
+	coverage run --omit=venv/*,virtualenv/* -m pytest tests
 
 test-coverage:
 	coverage report
