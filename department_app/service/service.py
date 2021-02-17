@@ -45,7 +45,7 @@ class DatabaseService:
                 raise
             finally:
                 s.close()
-            return record or None
+            return record
 
     def insert(self, record: Base) -> None:
         with self.db.session() as s:

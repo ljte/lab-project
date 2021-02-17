@@ -6,11 +6,10 @@ from sqlalchemy.engine.base import Engine
 from sqlalchemy.engine.url import URL
 from sqlalchemy.orm import Session, sessionmaker
 
-from department_app.domain.helpers import Singleton
 from department_app.domain.interfaces import IDatabase
 
 
-class Database(IDatabase, metaclass=Singleton):
+class Database(IDatabase):
     def __init__(self, url: Optional[Union[str, URL]] = None):
         self._url = url
 

@@ -1,9 +1,4 @@
-from abc import ABCMeta
-from typing import Dict, Type
-
 from flask import g
-
-from .interfaces import IDatabase
 
 
 def check_for_digits(s: str) -> bool:
@@ -13,11 +8,23 @@ def check_for_digits(s: str) -> bool:
     return False
 
 
-class Singleton(ABCMeta):
+def get_service():
+    if "service" not in g:
+        raise ValueError("Database service wasn't configured properly")
+    return g.service
 
-    _instances: Dict[Type, Type] = {}
 
-    def __call__(cls, *args, **kwargs):
-        if cls not in cls._instances:
-            cls._instances[cls] = super(Singleton, cls).__call__(*args, **kwargs)
-        return cls._instances[cls]
+def get_db():
+    if "database" not in g:
+        raise ValueError("Database wasn't configured properly")
+    return g.database
+
+
+# class Singleton(ABCMeta):
+
+#     _instances: Dict[Type, Type] = {}
+
+#     def __call__(cls, *args, **kwargs):
+#         if cls not in cls._instances:
+#             cls._instances[cls] = super(Singleton, cls).__call__(*args, **kwargs)
+#         return cls._instances[cls]

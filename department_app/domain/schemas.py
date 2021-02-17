@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import Optional
 
 from pydantic import BaseModel, validator
 
@@ -6,7 +7,6 @@ from .helpers import check_for_digits
 
 
 class DepartmentSchema(BaseModel):
-    id: int
     name: str
 
     @validator("name")
@@ -25,6 +25,10 @@ class DepartmentSchema(BaseModel):
 
     class Config:
         orm_mode = True
+
+
+class DepartmentSchemaDB(DepartmentSchema):
+    id: int
 
 
 class EmployeeSchema(BaseModel):

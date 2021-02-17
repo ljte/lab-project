@@ -1,7 +1,7 @@
 
 PROJECT = "department_app"
 
-.PHONY: tests test-coverage build format format-check mypy-check run ci
+.PHONY: tests test-coverage build format format-check mypy-check run ci check
 
 tests:
 	coverage run --omit='venv/*','*/virtualenv/*' -m pytest tests
@@ -21,6 +21,8 @@ format-check:
 
 mypy-check:
 	mypy $(PROJECT) --ignore-missing-imports
+
+check: | format format-check mypy-check
 
 ci: | format-check mypy-check tests
 

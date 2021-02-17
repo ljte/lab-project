@@ -1,20 +1,23 @@
 from flask import Flask, g
 
+from department_app.service import DatabaseService
+
 from .config import Config
 from .database import Database
-from .views import bp as api_bp
-from .views import resource_not_found
+from .views import api_bp, resource_not_found
 
 
 def create_app(config=Config()) -> Flask:
     app = Flask(__name__)
     app.config.update(config.dict())
 
-    Database(config.DATABASE_URI).connect()
+    db = Database(config.DATABASE_URI)
+    db.connect()
 
     @app.before_request
-    def add_database_to_g():
-        g.database = Database()
+    def add_objects_to_g():
+        g.database = db
+        g.service = DatabaseService(db)
 
     @app.route("/")
     def index():
