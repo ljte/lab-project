@@ -11,7 +11,7 @@ def create_app(config=Config()) -> Flask:
     app = Flask(__name__)
     app.config.update(config.dict())
 
-    db = Database(config.DATABASE_URI)
+    db = Database(config)
     db.connect()
 
     @app.before_request

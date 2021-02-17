@@ -8,19 +8,26 @@ from sqlalchemy.orm import Session, sessionmaker
 
 from department_app.domain.interfaces import IDatabase
 
+from .models import Base
+
 
 class Database(IDatabase):
-    def __init__(self, url: Optional[Union[str, URL]] = None):
-        self._url = url
+    def __init__(self, config):
+        self._url: Union[str, Union] = config.DATABASE_URI
 
         self._engine: Optional[Engine] = None
         self._session: Optional[Session] = None
+
+        self.testing = config.dict().get("TESTING", None)
 
     def connect(self) -> None:
         if self._url is None:
             raise ValueError("Database url is not configured.")
         self._engine = create_engine(self._url, echo=False)
         self._session = sessionmaker(bind=self._engine, expire_on_commit=False)()
+
+        if self.testing:
+            Base.metadata.create_all(self._engine)
 
     @contextmanager
     def session(self):
@@ -30,7 +37,6 @@ class Database(IDatabase):
             yield self._session
         except Exception:
             self._session.rollback()
-            raise        
+            raise
         finally:
             self._session.close()
-        

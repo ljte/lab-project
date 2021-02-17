@@ -14,3 +14,8 @@ class Config(BaseSettings):
 
 class TestConfig:
     DATABASE_URI = "sqlite:///:memory:"
+    TESTING = True
+
+    @classmethod
+    def dict(cls):
+        return cls.__dict__

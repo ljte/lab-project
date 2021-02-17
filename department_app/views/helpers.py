@@ -5,6 +5,7 @@ from pydantic import BaseModel, ValidationError
 
 from ..domain.types import JSON
 
+
 # THE MOST UGLY PART JESUS
 def json_response(obj: object, status_code: int = 200) -> Union[Tuple[JSON, int]]:
 
