@@ -18,6 +18,7 @@ class DepartmentApi(Resource):
             return [
                 DepartmentSchemaDB.from_orm(d) for d in service.all(Department)
             ], 200
+
         if not (dep := service.get(Department, id=dep_id)):
             raise RecordNotFoundError(f"Department with id `{dep_id} was not found")
         return DepartmentSchemaDB.from_orm(dep), 200
