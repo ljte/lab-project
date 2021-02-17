@@ -2,6 +2,8 @@ from flask import Flask, g
 
 from .config import Config
 from .database import Database
+from .views import bp as api_bp
+from .views import resource_not_found
 
 
 def create_app(config=Config()) -> Flask:
@@ -18,5 +20,9 @@ def create_app(config=Config()) -> Flask:
     def index():
         print(g.database._url)
         return "HELLO, MISTER"
+
+    app.register_blueprint(api_bp)
+
+    app.register_error_handler(404, resource_not_found)
 
     return app

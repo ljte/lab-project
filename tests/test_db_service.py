@@ -62,11 +62,11 @@ def test_invalid_update(db_service):
 
 
 def test_delete(db_service):
-    db_service.insert(Department(name="Marketing department"))
+    db_service.insert(Department(id=31231, name="Accounting department"))
 
     assert len(db_service.all(Department)) == 1
 
-    db_service.delete(db_service.get(Department, name="Marketing department"))
+    db_service.delete(db_service.get(Department, name="Accounting department"))
 
     assert len(db_service.all(Department)) == 0
 

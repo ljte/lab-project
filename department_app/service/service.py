@@ -1,4 +1,4 @@
-from typing import Any, List, Mapping
+from typing import Any, List
 
 from sqlalchemy.exc import (IntegrityError, InvalidRequestError,
                             OperationalError)
@@ -22,19 +22,29 @@ class DatabaseService:
             try:
                 records = s.query(model).all()
             except (OperationalError, InvalidRequestError) as e:
-                raise ModelNotFoundError("Invalid model `%s`" % model) from e
-            finally:
                 s.rollback()
+                raise ModelNotFoundError("Invalid model `%s`" % model) from e
+            except Exception:
+                s.rollback()
+                raise
+            finally:
+                s.close()
             return records
 
-    def get(self, model: Base, **criterion: Mapping[str, Any]) -> Base:
+    def get(self, model: Base, **criterion: Any) -> Base:
         with self.db.session() as s:
             try:
                 record = s.query(model).filter_by(**criterion).first()
             except (OperationalError, InvalidRequestError) as e:
+                s.rollback()
                 raise InvalidModelError(
                     "Invalid model `%s` or fields %s" % (model, criterion)
                 ) from e
+            except Exception:
+                s.rollback()
+                raise
+            finally:
+                s.close()
             return record or None
 
     def insert(self, record: Base) -> None:
@@ -43,21 +53,29 @@ class DatabaseService:
                 s.add(record)
                 s.commit()
             except IntegrityError as e:
-                raise RecordAlreadyExistsError(record) from e
-            finally:
                 s.rollback()
+                raise RecordAlreadyExistsError(record) from e
+            except Exception:
+                s.rollback()
+                raise
+            finally:
+                s.close()
 
-    def update(self, record: Base, **updated_fieds: Mapping[str, Any]) -> None:
+    def update(self, record: Base, **updated_fieds: Any) -> None:
         with self.db.session() as s:
             try:
                 s.query(type(record)).filter_by(id=record.id).update(updated_fieds)
                 s.commit()
             except InvalidRequestError as e:
+                s.rollback()
                 raise InvalidRecordError(
                     "Invalid record `%s` or fields `%s`" % (record, updated_fieds)
                 ) from e
-            finally:
+            except Exception:
                 s.rollback()
+                raise
+            finally:
+                s.close()
 
     def delete(self, record: Base) -> None:
         with self.db.session() as s:
@@ -65,6 +83,10 @@ class DatabaseService:
                 s.delete(record)
                 s.commit()
             except (UnmappedInstanceError, InvalidRequestError) as e:
-                raise RecordNotFoundError("Invalid record `%s`" % s) from e
-            finally:
                 s.rollback()
+                raise RecordNotFoundError("Invalid record `%s`" % s) from e
+            except Exception:
+                s.rollback()
+                raise
+            finally:
+                s.close()

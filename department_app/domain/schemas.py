@@ -23,6 +23,9 @@ class DepartmentSchema(BaseModel):
             v = " ".join([v, "department"])
         return v.capitalize().strip()
 
+    class Config:
+        orm_mode = True
+
 
 class EmployeeSchema(BaseModel):
     id: int
@@ -42,3 +45,6 @@ class EmployeeSchema(BaseModel):
         if datetime.utcnow().year - v.year > 100:
             raise ValueError("Age is to big %s" % v)
         return v
+
+    class Config:
+        orm_mode = True
