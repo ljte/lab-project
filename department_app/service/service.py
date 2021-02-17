@@ -24,11 +24,6 @@ class DatabaseService:
             except (OperationalError, InvalidRequestError) as e:
                 s.rollback()
                 raise ModelNotFoundError("Invalid model `%s`" % model) from e
-            except Exception:
-                s.rollback()
-                raise
-            finally:
-                s.close()
             return records
 
     def get(self, model: Base, **criterion: Any) -> Base:
@@ -40,11 +35,6 @@ class DatabaseService:
                 raise InvalidModelError(
                     "Invalid model `%s` or fields %s" % (model, criterion)
                 ) from e
-            except Exception:
-                s.rollback()
-                raise
-            finally:
-                s.close()
             return record
 
     def insert(self, record: Base) -> None:
@@ -55,11 +45,6 @@ class DatabaseService:
             except IntegrityError as e:
                 s.rollback()
                 raise RecordAlreadyExistsError(record) from e
-            except Exception:
-                s.rollback()
-                raise
-            finally:
-                s.close()
 
     def update(self, record: Base, **updated_fieds: Any) -> None:
         with self.db.session() as s:
@@ -71,11 +56,6 @@ class DatabaseService:
                 raise InvalidRecordError(
                     "Invalid record `%s` or fields `%s`" % (record, updated_fieds)
                 ) from e
-            except Exception:
-                s.rollback()
-                raise
-            finally:
-                s.close()
 
     def delete(self, record: Base) -> None:
         with self.db.session() as s:
@@ -85,8 +65,3 @@ class DatabaseService:
             except (UnmappedInstanceError, InvalidRequestError) as e:
                 s.rollback()
                 raise RecordNotFoundError("Invalid record `%s`" % s) from e
-            except Exception:
-                s.rollback()
-                raise
-            finally:
-                s.close()

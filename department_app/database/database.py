@@ -26,4 +26,11 @@ class Database(IDatabase):
     def session(self):
         if self._session is None:
             raise ValueError("Cannot create session. Connect to the database first.")
-        yield self._session
+        try:
+            yield self._session
+        except Exception:
+            self._session.rollback()
+            raise        
+        finally:
+            self._session.close()
+        

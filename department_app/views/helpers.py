@@ -1,23 +1,23 @@
-from typing import Any, Dict, Sequence, Tuple, Union
+from typing import Tuple, Union
 
 from flask import jsonify
 from pydantic import BaseModel, ValidationError
 
-JSON = Union[Sequence[Dict[str, Any]], Dict[str, Any]]
-SCHEMA = Union[Sequence[BaseModel], BaseModel]
+from ..domain.types import JSON
 
+# THE MOST UGLY PART JESUS
+def json_response(obj: object, status_code: int = 200) -> Union[Tuple[JSON, int]]:
 
-def json_response(
-    obj: Union[SCHEMA, Exception], status_code: int = 200
-) -> Union[Tuple[JSON, int]]:
     if isinstance(obj, list):
         return jsonify([s.dict() for s in obj]), status_code
     elif isinstance(obj, BaseModel):
         return jsonify(obj.dict()), status_code  # type: ignore
     elif isinstance(obj, Exception):
         return _exc_to_json(obj), status_code
-
-    raise ValueError("Unkown type %s" % obj)
+    try:
+        return jsonify(obj), status_code
+    except Exception:
+        raise ValueError("Unkown type %s" % obj)
 
 
 def _exc_to_json(exc: Exception) -> JSON:

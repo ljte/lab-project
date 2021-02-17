@@ -1,36 +1,39 @@
-from typing import Any, Dict, Optional, Sequence, Tuple, Union
+from typing import Optional, Sequence, Tuple, Union
 
 from flask import request
-from flask.views import MethodView
 
 from ..database.models import Department
 from ..domain.exceptions import RecordNotFoundError
 from ..domain.helpers import get_service
 from ..domain.schemas import DepartmentSchema, DepartmentSchemaDB
-from .helpers import json_response
-
-JSON = Union[Sequence[Dict[str, Any]], Dict[str, Any]]
+from .resource import Resource
 
 
-class DepartmentApi(MethodView):
-    def get(self, dep_id: Optional[int] = None) -> Tuple[JSON, int]:
+class DepartmentApi(Resource):
+    def get(
+        self, dep_id: Optional[int] = None
+    ) -> Tuple[Union[Sequence[DepartmentSchemaDB], DepartmentSchemaDB], int]:
         service = get_service()
         if dep_id is None:
-            deps = [DepartmentSchemaDB.from_orm(d) for d in service.all(Department)]
-            return json_response(deps)
-        try:
-            if not (dep := service.get(Department, id=dep_id)):
-                raise RecordNotFoundError(f"Department with id `{dep_id} was not found")
-            dep_schema = DepartmentSchemaDB.from_orm(dep)
-        except Exception as e:
-            return json_response(e, 400)
-        return json_response(dep_schema)
+            return [
+                DepartmentSchemaDB.from_orm(d) for d in service.all(Department)
+            ], 200
+        if not (dep := service.get(Department, id=dep_id)):
+            raise RecordNotFoundError(f"Department with id `{dep_id} was not found")
+        return DepartmentSchemaDB.from_orm(dep), 200
 
-    def post(self) -> Tuple[Union[str, JSON], int]:
-        try:
-            dep = DepartmentSchema.parse_obj(request.form)
-            get_service().insert(Department(**dep.dict()))
-        except Exception as e:
-            return json_response(e, 400)
-
+    def post(self) -> Tuple[str, int]:
+        dep = DepartmentSchema.parse_obj(request.form)
+        get_service().insert(Department(**dep.dict()))
         return "", 201
+
+    def put(self, dep_id: int) -> Tuple[str, int]:
+        fields = DepartmentSchema.parse_obj(request.form)
+        service = get_service()
+        service.update(service.get(Department, id=dep_id), **fields.dict())
+        return "", 204
+
+    def delete(self, dep_id: int) -> Tuple[str, int]:
+        service = get_service()
+        service.delete(service.get(Department, id=dep_id))
+        return "", 204
