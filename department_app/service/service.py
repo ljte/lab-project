@@ -51,6 +51,12 @@ class DatabaseService:
             try:
                 s.query(type(record)).filter_by(id=record.id).update(updated_fieds)
                 s.commit()
+            except IntegrityError as e:
+                s.rollback()
+                raise RecordNotFoundError(
+                    "Department with id `%d` does not exist"
+                    % updated_fieds["department_id"]
+                ) from e
             except InvalidRequestError as e:
                 s.rollback()
                 raise InvalidRecordError(

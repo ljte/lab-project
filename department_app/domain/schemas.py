@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Optional
+from typing import Optional, Union
 
 from pydantic import BaseModel, validator
 
@@ -32,11 +32,10 @@ class DepartmentSchemaDB(DepartmentSchema):
 
 
 class EmployeeSchema(BaseModel):
-    id: int
-    first_name: str
-    second_name: str
-    bday: datetime
-    department_id: int
+    first_name: Optional[str]
+    second_name: Optional[str]
+    bday: Optional[Union[datetime, str]]
+    department_id: Optional[int]
 
     @validator("first_name", "second_name")
     def fullname_is_valid(cls, v: str):
@@ -45,10 +44,16 @@ class EmployeeSchema(BaseModel):
         return v.capitalize().strip()
 
     @validator("bday")
-    def age_is_not_too_big(cls, v: datetime):
+    def age_is_not_too_big(cls, v: Union[str, datetime]):
+        if isinstance(v, str):
+            v = datetime.strptime(v, "%Y-%m-%d")
         if datetime.utcnow().year - v.year > 100:
             raise ValueError("Age is to big %s" % v)
-        return v
+        return v.strftime("%Y-%m-%d")
 
     class Config:
         orm_mode = True
+
+
+class EmployeeSchemaDB(EmployeeSchema):
+    id: int

@@ -1,7 +1,7 @@
 from flask import request
 from flask.views import MethodView
 
-from ..domain.types import RESPONSE
+from ..domain.data_types import RESPONSE
 from .helpers import json_response
 
 

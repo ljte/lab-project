@@ -13,12 +13,12 @@ from .models import Base
 
 class Database(IDatabase):
     def __init__(self, config):
-        self._url: Union[str, Union] = config.DATABASE_URI
+        self._url: Union[str, URL] = config.DATABASE_URI
 
         self._engine: Optional[Engine] = None
         self._session: Optional[Session] = None
 
-        self.testing = config.dict().get("TESTING", None)
+        self.testing = getattr(config, "TESTING", None)
 
     def connect(self) -> None:
         if self._url is None:

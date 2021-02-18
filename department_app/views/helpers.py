@@ -3,7 +3,7 @@ from typing import Tuple, Union
 from flask import jsonify
 from pydantic import BaseModel, ValidationError
 
-from ..domain.types import JSON
+from ..domain.data_types import JSON
 
 
 # THE MOST UGLY PART JESUS
