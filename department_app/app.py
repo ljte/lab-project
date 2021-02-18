@@ -19,11 +19,6 @@ def create_app(config=Config()) -> Flask:
         g.database = db
         g.service = DatabaseService(db)
 
-    @app.route("/")
-    def index():
-        print(g.database._url)
-        return "HELLO, MISTER"
-
     app.register_blueprint(api_bp)
 
     app.register_error_handler(404, resource_not_found)

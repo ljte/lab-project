@@ -1,9 +1,3 @@
-import logging 
-
-logger = logging.getLogger(__name__)
-logger.addHandler(logging.StreamHandler())
-logger.setLevel(logging.DEBUG)
-
 
 def test_get(client):
     resp = client.get(f"/api/departments/")
