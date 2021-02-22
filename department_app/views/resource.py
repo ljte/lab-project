@@ -15,7 +15,6 @@ class Resource(MethodView):
         try:
             resp, code = method(*args, **kwargs)
         except Exception as e:
-            raise
             return json_response(e, 400)
 
         return json_response(resp, code)

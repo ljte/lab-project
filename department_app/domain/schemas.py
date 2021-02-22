@@ -37,7 +37,7 @@ class EmployeeSchema(BaseModel):
     first_name: Optional[str]
     second_name: Optional[str]
     bday: Optional[Union[date, str]]
-    salary: float
+    salary: Optional[float]
     department_id: Optional[int]
 
     @validator("first_name", "second_name")

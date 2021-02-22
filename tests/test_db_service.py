@@ -1,5 +1,4 @@
 from datetime import datetime
-import logging
 
 import pytest
 
@@ -17,7 +16,7 @@ def test_all_with_invalid_model(db_service):
 
 
 def test_insert(db_service):
-    e = Employee(first_name="Andrey", second_name="Semenov", bday=datetime(1988, 12, 25), department_id=1)
+    e = Employee(first_name="Andrey", second_name="Semenov", bday=datetime(1988, 12, 25), department_id=1, salary=433)
 
     db_service.insert(e)
     assert len(db_service.all(Employee)) == 1
