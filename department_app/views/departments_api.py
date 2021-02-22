@@ -1,4 +1,4 @@
-from typing import Optional, Sequence, Tuple, Union
+from typing import Optional, Sequence, Tuple, Union, Dict, Any
 
 from flask import request
 
@@ -10,6 +10,15 @@ from ..domain.schemas import DepartmentSchemaDB as schema
 from .resource import Resource
 
 
+def parse_dep(dep: Department) -> Dict[str, Any]:
+    return {
+        "id": dep.id,
+        "name": dep.name,
+        "avg_salary": dep.avg_salary,
+        "num_of_employees": len(dep.employees)
+    }
+
+
 class DepartmentApi(Resource):
     @staticmethod
     def get(
@@ -17,11 +26,11 @@ class DepartmentApi(Resource):
     ) -> Tuple[Union[Sequence[schema], schema], int]:
         service = get_service()
         if dep_id is None:
-            return [schema.from_orm(d) for d in service.all(Department)], 200
+            return [schema.parse_obj(parse_dep(d)) for d in service.all(Department)], 200
 
         if not (dep := service.get(Department, id=dep_id)):
             raise RecordNotFoundError(f"Department with id `{dep_id} was not found")
-        return schema.from_orm(dep), 200
+        return schema.parse_obj(parse_dep(dep)), 200
 
     @staticmethod
     def post() -> Tuple[str, int]:

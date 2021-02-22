@@ -37,6 +37,5 @@ class Database(IDatabase):
             yield self._session
         except Exception:
             self._session.rollback()
-            raise
         finally:
             self._session.close()

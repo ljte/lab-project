@@ -1,4 +1,4 @@
-from sqlalchemy import Column, DateTime, ForeignKey, Integer, String
+from sqlalchemy import Column, Date, ForeignKey, Integer, String, Float
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
@@ -11,10 +11,11 @@ class Employee(Base):  # type: ignore
     id = Column(Integer, primary_key=True)
     first_name = Column(String(64), nullable=False)
     second_name = Column(String(64), nullable=False)
-    bday = Column(DateTime, nullable=False)
+    salary = Column(Float, nullable=False)
+    bday = Column(Date, nullable=False)
 
     department_id = Column(Integer, ForeignKey("departments.id"))
-    department = relationship("Department", back_populates="employees")
+    department = relationship("Department", back_populates="employees", lazy='joined')
 
     @property
     def fullname(self):
@@ -34,8 +35,13 @@ class Department(Base):  # type: ignore
     name = Column(String(256), nullable=False, unique=True)
 
     employees = relationship(
-        "Employee", order_by=Employee.id, back_populates="department"
+        "Employee", order_by=Employee.id, back_populates="department", lazy='joined'
     )
+
+    @property
+    def avg_salary(self):
+        emps_len = len(self.employees)
+        return sum([emp.salary for emp in self.employees]) / emps_len if emps_len > 0 else 0
 
     def __repr__(self):
         return f"{self.__class__.__name__}({self.name})"

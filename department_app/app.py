@@ -1,4 +1,4 @@
-from flask import Flask, g
+from flask import Flask, g, render_template
 
 from department_app.service import DatabaseService
 
@@ -18,6 +18,10 @@ def create_app(config=Config()) -> Flask:
     def add_objects_to_g():
         g.database = db
         g.service = DatabaseService(db)
+
+    @app.route("/")
+    def index():
+        return render_template("departments.html")
 
     app.register_blueprint(api_bp)
 

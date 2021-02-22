@@ -16,8 +16,6 @@ def parse_employee(emp: Dict[str, Any]) -> Dict[str, Any]:
     for k, v in EmployeeSchema.parse_obj(emp).dict().items():
         if v is not None:
             parsed[k] = v
-    if isinstance(parsed.get("bday", None), str):
-        parsed["bday"] = datetime.strptime(parsed["bday"], "%Y-%m-%d")
     return parsed
 
 
