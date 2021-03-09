@@ -1,5 +1,6 @@
 services:
   app:
+    image: ljte/lab-project
     build: 
       context: .
       dockerfile: ./etc/Dockerfile
