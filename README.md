@@ -18,56 +18,26 @@ The user of the app will be able to:
 
 ## Technologies
 -  Python 3.8
--  Flask 1.1.2
--  Flask-SQLAlchemy 2.4.4
--  Flask-Migrate 2.5.3
--  Postgresql 12.4
+-  Django 3.1.7
+-  Docker 20.10.5   
+-  Postgresql latest docker image
 
-
-## Installation
-install virtualenv
-```
-pip install virtualenv
-```
-create virtual environment
-```
-virtualenv venv
-```
-activate venv
-on Linux or Mac:
-```
-source venv/bin/activate
-```
-on Windows:
-```
-venv/Scripts/activate.bat
-```
-install requirements
-```
-pip install -r requirements.txt
-```
-or
-```
-python setup.py install
-```
-to create database you need to run the following commands
-```
-python manage.py db migrate
-python manage.py db upgrade
-```
-this will create two tables Department and Employee in your database
-and the commands above are used to make migrations and also you can use
-```
-python manage.py db downgrade
-``` 
-to cancel the upgrade
-
-## Additional info
-After installing the app you can run a gunicorn or development server
-```
-gunicorn "run:run()" or python run.py
-```
-then open your browser and go to the localhost url to see the app,
-you can play around with it, add, change, delete some stuff.
-
-You can find working version on *https://mylabproject.herokuapp.com/*
+ ## Installation
+ if you have docker and docker-compose installed just run
+ > docker-compose ud -d or make run
+ 
+ migrations
+ > docker-compose run --rm app python manage.py makemigrations
+ >
+ > docker-compose run --rm app python manage.py migrate
+ > 
+ or simply `make migrate` does the same thing
+ 
+ ### TODO
+ * add filters
+ * configure nginx
+ * add more tests
+ * split api and backend into services
+ * add container healthchecks
+ * deploy to heroku
+ * Optinal(think about adding redis)
