@@ -15,6 +15,8 @@ from pathlib import Path
 
 from django.contrib.messages import constants as messages
 
+from .config import settings
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -29,10 +31,10 @@ MESSAGE_TAGS = {
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "4-!7@l(+b+lby%+1fjn3(zb)i#_&2y(nkihkze3%%8j)jp7-%a"
+SECRET_KEY = settings.secret_key
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = settings.debug
 
 ALLOWED_HOSTS = []
 
@@ -89,11 +91,11 @@ WSGI_APPLICATION = "department_app.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.environ.get("POSTGRES_DB"),
-        "USER": os.environ.get("POSTGRES_USER"),
-        "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
-        "HOST": os.environ.get("POSTGRES_HOST"),
-        "PORT": os.environ.get("POSTGRES_PORT"),
+        "NAME": settings.database.db,
+        "USER": settings.database.user,
+        "PASSWORD": settings.database.password,
+        "HOST": settings.database.host,
+        "PORT": settings.database.port,
     }
 }
 
