@@ -1,0 +1,21 @@
+services:
+  app:
+    build: 
+      context: .
+      dockerfile: ./etc/Dockerfile
+    env_file: ./etc/env/dev.env
+    depends_on:
+      - postgres
+    volumes:
+      - ./department_app:/app
+    ports:
+      - 8000:8000
+
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_DB=user
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=user
+    ports:
+      - 5435:5432

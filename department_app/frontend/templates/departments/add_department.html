@@ -1,0 +1,18 @@
+{% extends "../layout.html" %}
+
+{% block searchbar %}
+{% include './searchbar.html' %}
+{% endblock %}
+
+{% block content %}
+<h3 class="mx-2">New department</h3>
+<form method="POST" action="{% url 'add_department' %}" class="m-5">
+    {% csrf_token %}
+    <div class="form-group row my-2 p-1">
+        <label for="depName">Department's name:</label>
+        <input type="text" class="form-control w-25" id="depName" aria-describedby="nameHelp" placeholder="Enter departments's name" name="name">
+    </div>
+    <button type="submit" class="btn btn-secondary my-2">Add</button>
+    <a href="{% url 'departments' %}" class="btn btn-danger">Cancel</a>
+</form>
+{% endblock content%}
