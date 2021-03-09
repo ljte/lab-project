@@ -2,17 +2,20 @@ from pydantic import BaseSettings, Field
 
 
 class PostgresSettings(BaseSettings):
-    user: str = Field(..., env="POSTGRES_USER")
-    password: str = Field(..., env="POSTGRES_PASSWORD")
-    host: str = Field(..., env="POSTGRES_HOST")
-    port: str = Field(..., env="POSTGRES_PORT")
-    db: str = Field(..., env="POSTGRES_DB")
+    user: str
+    password: str
+    host: str
+    port: str
+    db: str
+
+    class Config:
+        env_prefix = "POSTGRES_"
 
 
 class Settings(BaseSettings):
     database: PostgresSettings = PostgresSettings()
-    secret_key: str = Field(...)
-    debug: bool = Field(None)
+    secret_key: str
+    debug: bool = False
 
 
 settings = Settings()
