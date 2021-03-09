@@ -24,7 +24,5 @@ jobs:
     - stage: build
       script:
         - make build
-        - make format
-        - make check-format
-    - stage: tests
-      script: make tests
+    - stage: ci
+      script: make ci
