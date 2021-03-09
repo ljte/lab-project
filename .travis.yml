@@ -1,3 +1,6 @@
+os: linux
+dist: focal
+
 language: python
 python:
 - '3.8'
@@ -7,9 +10,9 @@ services:
   - docker
 
 addons:
-apt:
-  packages:
-    - make
+  apt:
+    packages:
+      - make
 
 before_install:
   - sudo rm /usr/local/bin/docker-compose
@@ -18,7 +21,7 @@ before_install:
   - sudo mv docker-compose /usr/local/bin
 
 before_script:
-  - echo $(DOCKER_PWD) | docker login -u $(DOCKER_LOGIN) --password-stdin
+  - echo $DOCKER_PWD | docker login -u $DOCKER_LOGIN --password-stdin
 
 jobs:
   include:
