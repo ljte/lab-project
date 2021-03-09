@@ -1,0 +1,35 @@
+{% extends "../layout.html" %}
+
+{% block searchbar %}
+{% include './searchbar.html' %}
+{% endblock %}
+
+{% block content %}
+<table class="table table-bordered table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th scope='col' id='0'>Department id</th>
+            <th scope='col' id='1'>Department name</th>
+            <th scope='col' id='2'>Number of employees</th>
+            <th scope='col' id='3'>Average salary $</th>
+            <th scope='col'></th>
+            <th scope='col'></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for dep in deps %}
+            <tr>
+                <td>{{ dep.id }}</td>
+                <td>{{ dep.name }}</td>
+                <td>{{ dep.number_of_employees }}</td>
+                <td>{{ dep.average_salary }}</td>
+                <td style="text-align: center;"><a href="{% url 'edit_department' dep_id=dep.id %}" class="btn btn-sm btn-secondary">Edit</a></td>
+                <td style="text-align: center;"><a href="{% url 'delete_department' dep_id=dep.id %}" class="btn btn-sm btn-danger">Delete</a></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<div>
+    <a href="{% url 'add_department' %}" class="btn btn-success mx-3 px-4">Add</a>
+</div>
+{% endblock content%}

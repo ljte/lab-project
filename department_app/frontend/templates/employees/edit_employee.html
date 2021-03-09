@@ -1,0 +1,41 @@
+{% extends "../layout.html" %}
+
+{% block searchbar %}
+{% include './searchbar.html' %}
+{% endblock %}
+
+{% block content %}
+<h3 class="mx-2">Editing {{ emp.first_name }} {{ emp.second_name }}</h3>
+<form method="POST" action="{% url 'edit_employee' emp_id=emp.id %}" class="m-5">
+    {% csrf_token %}
+    <div class="form-group row my-2 p-1">
+        <label for="firstName">Employee's first name:</label>
+        <input type="text" class="form-control w-25" id="firstName" aria-describedby="nameHelp" value="{{ emp.first_name }}" name="first_name">
+    </div>
+    <div class="form-group row my-2 p-1">
+        <label for="secondName">Employee's second name:</label>
+        <input type="text" class="form-control w-25" id="secondName" aria-describedby="nameHelp" value="{{ emp.second_name }}" name="second_name">
+    </div>
+    <div class="form-group row my-2 p-1">
+        <label for="salary">Employee's salary:</label>
+        <input type="number" step="0.01" min="0" class="form-control w-25" id="salary" aria-describedby="salaryHelp" value="{{ emp.salary }}" name="salary">
+    </div>
+    <div class="form-group row my-2 p-1">
+        <label for="bday">Employee's bday:</label>
+        <input type="date" class="form-control w-25" id="bday" aria-describedby="bdayHelp" value="{{ emp.bday }}" name="bday" min="1940-01-01" max="2002-01-01">
+    </div>
+        <label for="dep_name">Department: </label>
+        <select class="form-select w-25" aria-label="select" name="department" id="dep_name">
+            <option disabled>Choose a department</option>
+            {% for dep in deps %}
+            {% if dep.name == emp.department %}
+                <option selected>{{ emp.department }}</option>
+            {% else %}
+                <option>{{ dep.name }}</option>
+            {% endif %}
+            {% endfor %}
+        </select>
+    <button type="submit" class="btn btn-secondary my-2">Edit</button>
+    <a href="{% url 'employees' %}" class="btn btn-danger">Cancel</a>
+</form>
+{% endblock content%}

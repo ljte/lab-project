@@ -1,0 +1,37 @@
+{% extends "../layout.html" %}
+
+{% block searchbar %}
+{% include './searchbar.html' %}
+{% endblock %
+
+{% block content %}
+<h3 class="mx-2">New Employee</h3>
+<form method="POST" action="{% url 'add_employee' %}" class="m-5">
+    {% csrf_token %}
+    <div class="form-group row my-2 p-1">
+        <label for="firstName">Employee's first name:</label>
+        <input type="text" class="form-control w-25" id="firstName" aria-describedby="nameHelp" placeholder="First name" name="first_name" required>
+    </div>
+    <div class="form-group row my-2 p-1">
+        <label for="secondName">Employee's second name:</label>
+        <input type="text" class="form-control w-25" id="secondName" aria-describedby="nameHelp" placeholder="Second name" name="second_name" required>
+    </div>
+    <div class="form-group row my-2 p-1">
+        <label for="salary">Employee's salary:</label>
+        <input type="number" step="0.01" min="0" class="form-control w-25" id="salary" aria-describedby="salaryHelp" placeholder="Salary" name="salary" required>
+    </div>
+    <div class="form-group row my-2 p-1">
+        <label for="bday">Employee's bday:</label>
+        <input type="date" class="form-control w-25" id="bday" aria-describedby="bdayHelp" placeholder="Birthday" name="bday" min="1940-01-01" max="2002-01-01" required>
+    </div>
+        <label for="dep_name">Department: </label>
+        <select class="form-select w-25" aria-label="select" name="department" id="dep_name" required>
+            <option disabled selected>Choose a department</option>
+            {% for dep in deps %}
+                <option>{{ dep.name }}</option>
+            {% endfor %}
+        </select>
+    <button type="submit" class="btn btn-secondary my-2">Add</button>
+    <a href="{% url 'employees' %}" class="btn btn-danger">Cancel</a>
+</form>
+{% endblock content%}

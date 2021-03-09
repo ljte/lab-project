@@ -1,35 +1,35 @@
+os: linux
+dist: focal
+
 language: python
 python:
 - '3.8'
-
-install:
-- python -m pip install -U pip
-- python setup.py install
-
+env:
+  - DOCKER_COMPOSE_VERSION=1.28.2
 services:
-- postgresql
+  - docker
+
+addons:
+  apt:
+    packages:
+      - make
+
+before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
 
 before_script:
-- psql -c "CREATE DATABASE test;" -U postgres
+  - echo $DOCKER_PWD | docker login -u $DOCKER_LOGIN --password-stdin
 
-script:
-- pylint --disable=no-self-use,too-few-public-methods,no-member,broad-except,too-many-public-methods --max-line-length=120 department_app/
-- coverage run setup.py test
-
-after-success:
-- coveralls
-
-deploy:
-  skip_cleanup: true
-  provider: heroku
-  api_key:
-    secure: MUcQHq4xUtZrd9MyYuVAyT2iDY+FmkoDuuAo3ACM5v08lAV3SsC1WdfNObZohQUP0JgsfNAIaIJ0ElzYMUd7Njw5G2zrHvdWfhCyzTPsRTruHaZjI70EFttQZpOAPLMGStujWviLNrHa0jJJGB4xBrBHiLPsFJgl1BIQ5h3fpIuzRzGngYDvBJvAyQK4+cuqJ2oVFffBH5Ge2++MGQKTQG5juE52VwCQw4hiAzJ8odWtme6NEtwGhiuGeZaG9rrqnuWxZ37jC/qZgLiHsix6A+pXk1MdmMBjT/vs+4PCAEsmNwKC5WL/oXZMQdrrNQ3NkM+bHCJ66YY3tKslzJi+hKV4ulsvK3tZemDpm7maog0hs3XDzhEx47L/VD2JCBk2vnIVFCYV/8zD74Q+SwONQWpJEJ+hUjhLyZX67eNGN5eyB0R6Z+CjGmbLf27QtcSsJnG45LGg95LX8vXOmKp9/TvROlus7jeP78gtH2UMJ4thXaX0NzwL8gSN/iU3zLbmLUIUYTAcGewVBk/xKA82brbrPMAEadz05klpHLA8rE1B8mRx++MpSvhaswQppoWSCKJpzVm9tluTK03NUgvP8VSTMoYMYcvi3+4PLFg8qodJYnmJl9AMeL95TqmwAaTSX9UkpPbOyawU337/iEfhi2HI9PkLMydjZlEdCirIubI=
-  app: mylabproject
-  strategy: git
-
-notifications:
-- email:
-    recipients:
-    - ljte823@gmail.com
-    on_success: never
-    on_failure: always
+jobs:
+  include:
+    - stage: build
+      script:
+        - make build
+        - docker push ljte/lab-project:latest
+    - stage: ci
+      script:
+        - docker pull ljte/lab-project:latest
+        - make ci
