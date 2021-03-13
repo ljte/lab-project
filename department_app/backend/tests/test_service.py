@@ -4,57 +4,74 @@ from django.http import Http404
 from django.test import TestCase
 
 from ..models import Department, Employee
-from ..service import delete, save_obj, update
+from ..service import delete, get_all, get_obj, save_obj, update
 
 
-class TestSevice(TestCase):
+class TestService(TestCase):
     def setUp(self):
-        d = Department.objects.create(name="Marketing department")
-        Department.objects.create(name="Management department")
+        Department.objects.create(id=555, name="Marketing department")
+        Department.objects.create(id=666, name="Management department")
+        Department.objects.create(id=777, name="Delete department")
         Employee.objects.create(
-            first_name="Andrey",
-            second_name="Semenov",
-            salary=341.2,
-            bday=date(1995, 12, 10),
-            department=d,
-        )
-
-    def test_save_obj_with_proper_params(self):
-        d = Department(name="Finance department")
-        save_obj(d)
-        self.assertIn(d, Department.objects.all())
-        e = Employee(
-            first_name="Semen",
-            second_name="Borunov",
-            salary=3523.2,
-            bday=date(1999, 12, 19),
+            id=555,
+            fullname="Andrey Borsuk",
+            salary=123.23,
+            bday=date(1996, 6, 25),
             department=Department.objects.first(),
         )
-        save_obj(e)
-        self.assertIn(e, Employee.objects.all())
 
-    def test_save_obj_with_wrong_params(self):
-        with self.assertRaises(ValueError):
-            save_obj(1231)
-            save_obj(Department(name="Management department"))
+    def test_get_all(self):
+        self.assertEquals(len(get_all(Department)), 3)
+        self.assertEquals(len(get_all(Employee)), 1)
 
-    def test_update_works_correctly(self):
-        d = Department.objects.first()
-        update(Department, id=d.id, name="Accounting department")
-        self.assertEqual(Department.objects.get(id=d.id).name, "Accounting department")
+    def test_get_all_returns_empty_list(self):
+        self.assertEqual(get_all(Department, name__contains="no such department"), [])
 
-    def test_update_raises_exceptions(self):
-        with self.assertRaises(ValueError):
-            update(123, id=1, name="asgas")
+    def test_get_obj(self):
+        dep = get_obj(Department, id=555)
+        self.assertEquals(dep.name, "Marketing department")
+        emp = get_obj(Employee, id=555)
+        self.assertEquals(emp.fullname, "Andrey Borsuk")
 
+    def test_get_obj_raises_404(self):
         with self.assertRaises(Http404):
-            update(Department, id=1142412412, name="sdgsd")
+            get_obj(Department, id=1231231231231231)
 
-    def test_delete_actually_deletes(self):
-        emp = Employee.objects.first()
-        delete(Employee, id=emp.id)
-        self.assertNotIn(emp, Employee.objects.all())
+    def test_update(self):
+        update(Employee, id=555, new_fields={"salary": 200, "bday": date(2000, 5, 12)})
+        emp = get_obj(Employee, id=555)
+        self.assertEquals(int(emp.salary), 200)
+        self.assertEquals(emp.bday, date(2000, 5, 12))
 
-    def test_delete_raises_exceptions(self):
+    def test_update_fails(self):
         with self.assertRaises(ValueError):
-            delete(123, id=1)
+            update(12, id=123, new_fields={"name": 123})
+
+        with self.assertRaises(TypeError):
+            update(Employee, id=555, new_fields={"bday": 12})
+
+    def test_save_obj(self):
+        dep = Department(id=123, name="New department")
+        save_obj(dep)
+        self.assertEquals(len(get_all(Department)), 4)
+        self.assertIn(dep, get_all(Department))
+
+    def test_save_obj_fails(self):
+        with self.assertRaises(ValueError):
+            save_obj(Department(name="Marketing department"))
+
+        with self.assertRaises(ValueError):
+            save_obj(123)
+
+    def test_delete_obj(self):
+        delete(Department, id=777)
+        self.assertEquals(len(get_all(Department)), 2)
+        with self.assertRaises(Http404):
+            get_obj(Department, id=777)
+
+    def test_delete_obj_fails(self):
+        with self.assertRaises(Http404):
+            delete(Department, id=12312312312)
+
+        with self.assertRaises(ValueError):
+            delete(123, id=12321)

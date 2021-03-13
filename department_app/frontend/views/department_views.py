@@ -1,80 +1,40 @@
-import requests
 from django.contrib import messages
-from django.shortcuts import redirect, render
-from django.views.generic import View
 
-API_URL = "http://localhost:8000/api"
+from .generics import (DeleteObjectView, EditObjectView, ListObjectsView,
+                       PostObjectView)
 
-
-class DepartmentView(View):
-    http_method_names = ["get"]
-
-    def get(self, request):
-        pattern = request.GET.dict().get("search_pattern", "")
-        resp = requests.get(f"{API_URL}/departments/", f"search_pattern={pattern}")
-        if resp.status_code != 200:
-            messages.info(request, resp.json().get("message"))
-            return render(request, "departments/departments.html")
-        context = {"deps": resp.json()}
-        return render(request, "departments/departments.html", context)
+API_URL = "http://localhost:8000/api/departments/"
 
 
-class DeleteDepartmentView(View):
-    http_method_names = ["get"]
-
-    def get(self, request, dep_id):
-        resp = requests.delete(f"{API_URL}/departments/{dep_id}")
-        if resp.status_code != 200:
-            messages.error(request, resp.json().get("message"))
-            return redirect("departments")
-        dep = resp.json()
-        messages.success(request, f"Successfully deleted {dep['name']}")
-        return redirect("departments")
+class DepartmentView(ListObjectsView):
+    template_name = "departments/departments.html"
+    context_object_name = "departments"
+    api_url = API_URL
 
 
-class EditDepartmentView(View):
-    http_method_names = ["get", "post"]
+class DeleteDepartmentView(DeleteObjectView):
+    view_name = "departments"
+    api_url = API_URL
 
-    def get(self, request, dep_id):
-        resp = requests.get(f"{API_URL}/departments/{dep_id}")
-        if resp.status_code != 200:
-            messages.error(request, resp.json().get("message"))
-            return redirect("departments")
-        dep = resp.json()
-        return render(request, "departments/edit_department.html", {"dep": dep})
-
-    def post(self, request, dep_id):
-        resp = requests.get(f"{API_URL}/departments/{dep_id}")
-        if resp.status_code != 200:
-            messages.error(request, resp.json().get("message"))
-            return redirect("departments")
-        dep = resp.json()
-        put = request.POST.dict()
-        if dep["name"] != put["name"]:
-            resp = requests.put(
-                f"{API_URL}/departments/{dep_id}",
-                data=put,
-            )
-            if resp.status_code != 204:
-                messages.error(request, resp.json().get("message"))
-                return redirect("edit_department", dep_id=dep_id)
-            messages.info(
-                request, f"Successfully changed {dep['name']} to {put['name']}"
-            )
-        return redirect("departments")
+    def flash_message(self, request, obj, *, message=None, category=messages.SUCCESS):
+        super().flash_message(request, obj["name"], message=message, category=category)
 
 
-class PostDepartmentView(View):
-    http_method_names = ["get", "post"]
+class EditDepartmentView(EditObjectView):
+    template_name = "departments/edit_department.html"
+    view_name = "edit_department"
+    redirect_view = "departments"
+    api_url = API_URL
 
-    def get(self, request):
-        return render(request, "departments/add_department.html")
+    def flash_message(self, request, obj, *, message=None, category=messages.SUCCESS):
+        super().flash_message(request, obj["name"], message=message, category=category)
 
-    def post(self, request):
-        data = request.POST.dict()
-        resp = requests.post(f"{API_URL}/departments/", data=data)
-        if resp.status_code != 201:
-            messages.error(request, resp.json().get("message"))
-            return redirect("add_department")
-        messages.success(request, f"Successfully added {data['name']}")
-        return redirect("departments")
+
+class PostDepartmentView(PostObjectView):
+    template_name = "departments/add_department.html"
+    view_name = "add_department"
+    api_url = API_URL
+    redirect_view = "departments"
+
+    def flash_message(self, request, obj, *, message=None, category=messages.SUCCESS):
+        super().flash_message(request, obj["name"], message=message, category=category)

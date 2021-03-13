@@ -5,12 +5,12 @@
 {% endblock %}
 
 {% block content %}
-<h3 class="mx-2">Editing {{ dep.name }}</h3>
-<form method="POST" action="{% url 'edit_department' dep_id=dep.id %}" class="m-5">
+<h3 class="mx-2">Editing {{ object.name }}</h3>
+<form method="POST" action="{% url 'edit_department' obj_id=object.id %}" class="m-5">
     {% csrf_token %}
     <div class="form-group row my-2 p-1">
         <label for="depName">Department's name:</label>
-        <input type="text" class="form-control w-25" id="depName" aria-describedby="nameHelp" value="{{ dep.name }}" name="name">
+        <input type="text" class="form-control w-25" id="depName" aria-describedby="nameHelp" value="{{ object.name }}" name="name">
     </div>
     <button type="submit" class="btn btn-secondary my-2">Edit</button>
     <a href="{% url 'departments' %}" class="btn btn-danger">Cancel</a>

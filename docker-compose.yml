@@ -5,6 +5,8 @@ services:
       context: .
       dockerfile: ./etc/Dockerfile
     env_file: ./etc/env/dev.env
+    environment:
+      - SECRET_KEY=$SECRET_KEY
     depends_on:
       - postgres
     volumes:

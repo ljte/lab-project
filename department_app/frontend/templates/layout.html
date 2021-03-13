@@ -10,11 +10,24 @@
     <title>Department app</title>
 </head>
 <body>
-    <header>
-        <ul class='header-links d-flex justify-content-around'>
-            <li><a href="{% url 'departments' %}">Department</a></li>
-            <li><a href="{% url 'employees' %}">Employees</a></li>
-        </ul>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3 mb-2">
+        <a class="navbar-brand" href="{% url 'index' %}">D&E</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'departments' %}">Departments</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'employees' %}">Employees</a>
+                </li>
+            </ul>
+            {% block searchbar %}{% endblock %}
+        </div>
+    </nav>
+    <main>
         {% if messages %}
             {% for message in messages %}
                 <div class="m-2 mx-4 alert {{ message.tags }}" role="alert">
@@ -22,12 +35,12 @@
                 </div>
             {% endfor %}
         {% endif %}
-        {% block searchbar %} {% endblock %}
-    </header> 
-    <main>
         {% block content %}{% endblock content %}
     </main>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js" integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG" crossorigin="anonymous"></script>
+
+    <script src="{% static 'js/index.js' %}"></script>
+    {% block script %}{% endblock script %}
 </body>
-<script src="{% static 'js/index.js' %}"></script>
-{% block script %}{% endblock script %}
 </html>

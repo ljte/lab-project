@@ -1,27 +1,27 @@
 from datetime import date, datetime
 from typing import Optional, Union
 
-from django.shortcuts import get_object_or_404
-from pydantic import BaseModel, validator
+from pydantic import validator
 
 from ..models import Department, Employee
+from ..service import get_obj
 from .department_schema import DepartmentSchema
+from .generic_schema import ORMModel
 from .helpers import check_for_digits
 
 
-class EmployeeSchema(BaseModel):
+class EmployeeSchema(ORMModel):
     id: Optional[int]
-    first_name: str
-    second_name: str
-    salary: float
-    bday: Union[str, date]
-    department: Union[str, DepartmentSchema]
+    fullname: Optional[str]
+    salary: Optional[float]
+    bday: Optional[Union[str, date]]
+    department: Optional[Union[str, DepartmentSchema]]
 
-    @validator("first_name", "second_name")
+    @validator("fullname")
     def fullname_is_valid(cls, v):
         if check_for_digits(v):
             raise ValueError("Invalid name `%s`" % v)
-        return v.capitalize().strip()
+        return v.title().strip()
 
     @validator("bday")
     def age_is_not_too_big(cls, v):
@@ -38,38 +38,17 @@ class EmployeeSchema(BaseModel):
         return v
 
     @classmethod
-    def jsonify(cls, emp):
-        emp = cls.from_orm(emp).dict()
-        return emp
+    def dump_obj(cls, emp):
+        return cls.from_orm(emp).dict()
 
     @classmethod
-    def to_orm(cls, emp_dict):
-        dep = Department.objects.filter(name=emp_dict["department"]).first()
-        emp = cls.parse_obj(emp_dict).dict()
-        emp.update({"department": dep})
-        return Employee(**emp)
+    def loads(cls, obj_dict):
+        return super().loads(obj_dict, Employee)
 
     @classmethod
-    def parse_obj(cls, emp):
-        emp = super().parse_obj(emp)
-        if hasattr(emp, "id"):
-            delattr(emp, "id")
-        return emp
-
-    @classmethod
-    def from_put(cls, updated_fields):
-        first_name = updated_fields.get("first_name")
-        second_name = updated_fields.get("second_name")
-        dep = updated_fields.get("department")
-        if first_name:
-            cls.fullname_is_valid(first_name)
-        if second_name:
-            cls.fullname_is_valid(second_name)
-        if dep:
-            updated_fields.update(
-                {"department": get_object_or_404(Department, name=dep)}
-            )
-        return {k: v for k, v in updated_fields.items() if v is not None}
-
-    class Config:
-        orm_mode = True
+    def process(cls, obj_dict):
+        obj = super().process(obj_dict)
+        dep_name = obj["department"]
+        if dep_name is not None:
+            obj.update({"department": get_obj(Department, name=dep_name)})
+        return obj

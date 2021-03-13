@@ -1,6 +1,7 @@
 from django.urls import path
 
-from ..views import DeleteEmployeeView, EditEmployeeView, EmployeeView, PostEmployeeView
+from ..views import (DeleteEmployeeView, EditEmployeeView, EmployeeView,
+                     PostEmployeeView)
 
 urlpatterns = [
     path(
@@ -9,12 +10,12 @@ urlpatterns = [
         name="employees",
     ),
     path(
-        "delete_employee/<int:emp_id>",
+        "delete_employee/<int:obj_id>",
         DeleteEmployeeView.as_view(),
         name="delete_employee",
     ),
     path(
-        "edit_employee/<int:emp_id>",
+        "edit_employee/<int:obj_id>",
         EditEmployeeView.as_view(),
         name="edit_employee",
     ),

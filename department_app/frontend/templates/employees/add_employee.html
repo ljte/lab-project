@@ -2,19 +2,15 @@
 
 {% block searchbar %}
 {% include './searchbar.html' %}
-{% endblock %
+{% endblock %}
 
 {% block content %}
 <h3 class="mx-2">New Employee</h3>
 <form method="POST" action="{% url 'add_employee' %}" class="m-5">
     {% csrf_token %}
     <div class="form-group row my-2 p-1">
-        <label for="firstName">Employee's first name:</label>
-        <input type="text" class="form-control w-25" id="firstName" aria-describedby="nameHelp" placeholder="First name" name="first_name" required>
-    </div>
-    <div class="form-group row my-2 p-1">
-        <label for="secondName">Employee's second name:</label>
-        <input type="text" class="form-control w-25" id="secondName" aria-describedby="nameHelp" placeholder="Second name" name="second_name" required>
+        <label for="fullname">Employee's fullname:</label>
+        <input type="text" class="form-control w-25" id="fullname" aria-describedby="nameHelp" placeholder="Fullname" name="fullname" required>
     </div>
     <div class="form-group row my-2 p-1">
         <label for="salary">Employee's salary:</label>

@@ -1,22 +1,18 @@
 from django.urls import path
 
-from ..views import (
-    DeleteDepartmentView,
-    DepartmentView,
-    EditDepartmentView,
-    PostDepartmentView,
-)
+from ..views import (DeleteDepartmentView, DepartmentView, EditDepartmentView,
+                     PostDepartmentView)
 
 urlpatterns = [
     path("", DepartmentView.as_view(), name="index"),
     path("departments/", DepartmentView.as_view(), name="departments"),
     path(
-        "delete_department/<int:dep_id>",
+        "delete_department/<int:obj_id>",
         DeleteDepartmentView.as_view(),
         name="delete_department",
     ),
     path(
-        "edit_department/<int:dep_id>",
+        "edit_department/<int:obj_id>",
         EditDepartmentView.as_view(),
         name="edit_department",
     ),

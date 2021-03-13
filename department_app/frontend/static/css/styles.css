@@ -1,37 +1,20 @@
-* {
+/* * {
     margin: 0;
     padding: 0
-}
+} */
 
 body {
     background-color: #d5d5d5;
     font-family: 'Courier New', monospace;
 }
 
-.header-links {
-    padding: 10px;
-    margin: 10px 0px;
-    list-style: none;
-}
-
-.header-links li a {
-    text-decoration: none;
-    font-size: 2.5em;
-    font-weight: 600;
-    color: #5c5e5c;
-}
-
-.header-links li a:hover {
-    text-decoration: underline;
-    color: black;
-}
-
-.search-bar {
-    width: 20%;
+header {
+    margin-bottom: 10px;
 }
 
 th {
     font-size: 1.5em;
+    font-weight: 400;
 }
 
 td {
@@ -60,4 +43,13 @@ td {
 .headerSortDown:hover,
 .headerSortUp:hover {
   cursor: pointer;
+}
+
+@media screen and (max-width: 900px) {
+    th {
+        font-size: 1em;
+    }
+    tr {
+        font-size: 0.9em;
+    }
 }

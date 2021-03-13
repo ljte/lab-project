@@ -1,6 +1,20 @@
 from django.db import IntegrityError
 from django.http import Http404
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_list_or_404, get_object_or_404
+
+
+def get_all(model, **filter_kwargs):
+    try:
+        return get_list_or_404(model, **filter_kwargs)
+    except Http404:
+        return []
+
+
+def get_obj(model, **filter_kwargs):
+    try:
+        return get_object_or_404(model, **filter_kwargs)
+    except Http404:
+        raise Http404(f"{model.__name__} with `{filter_kwargs}` does not exist")
 
 
 def save_obj(obj):
@@ -14,26 +28,25 @@ def save_obj(obj):
         ) from e
 
 
-def update(model, id, **new_fields):
+def update(model, id, new_fields):
     try:
-        query_set = model.objects.filter(id=id)
+        obj = get_obj(model, id=id)
+        for key, val in new_fields.items():
+            if val is not None:
+                setattr(obj, key, val)
+        obj.save()
     except AttributeError as e:
         raise ValueError(
             f"Invalid {model} is of type {type(model)}, must be a model"
         ) from e
-    if not query_set.exists():
-        raise Http404(f"{model.__name__} with id of `{id} does not exist")
-    query_set.update(**new_fields)
 
 
 def delete(model, id):
     try:
-        obj = get_object_or_404(model, id=id)
+        obj = get_obj(model, pk=id)
     except ValueError as e:
         raise ValueError(
             f"Invalid {model} is of type {type(model)}, must be a model"
         ) from e
-    except Http404:
-        raise Http404(f"{model.__name__} with the id of {id} does not exist")
     obj.delete()
     return obj

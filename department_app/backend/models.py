@@ -1,17 +1,19 @@
 from django.db import models
 from django.db.models import Avg
 
+from .service import get_obj
+
 
 class Department(models.Model):
     name = models.CharField(max_length=255, unique=True)
 
     @property
     def number_of_employees(self):
-        return self.employees.count()  # type: ignore
+        return self.employees.count()
 
     @property
     def average_salary(self):
-        query = self.employees.aggregate(average_salary=Avg("salary"))  # type: ignore
+        query = self.employees.aggregate(average_salary=Avg("salary"))
         return query.get("average_salary") or 0
 
     @classmethod
@@ -26,8 +28,7 @@ class Department(models.Model):
 
 
 class Employee(models.Model):
-    first_name = models.CharField(max_length=128)
-    second_name = models.CharField(max_length=128)
+    fullname = models.CharField(max_length=256)
     bday = models.DateField()
     salary = models.FloatField()
     department = models.ForeignKey(
@@ -36,12 +37,13 @@ class Employee(models.Model):
         related_name="employees",
     )
 
-    @property
-    def fullname(self):
-        return " ".join((self.first_name, self.second_name))  # type: ignore
-
     def __str__(self):
         return self.fullname
 
     def __repr__(self):
-        return f"{self.__class__.__name__}({self.fullname}, {self.bday}, {self.department.name})"
+        return f"{self.__class__.__name__}({self.fullname}, {self.bday}, {self.salary}, {self.department.name})"
+
+    @classmethod
+    def from_dict(cls, d):
+        d.update({"department": get_obj(Department, name=d["department"])})
+        return cls(**d)

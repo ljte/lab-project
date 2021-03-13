@@ -17,14 +17,14 @@
         </tr>
     </thead>
     <tbody>
-        {% for dep in deps %}
+        {% for dep in departments %}
             <tr>
                 <td>{{ dep.id }}</td>
                 <td>{{ dep.name }}</td>
                 <td>{{ dep.number_of_employees }}</td>
                 <td>{{ dep.average_salary }}</td>
-                <td style="text-align: center;"><a href="{% url 'edit_department' dep_id=dep.id %}" class="btn btn-sm btn-secondary">Edit</a></td>
-                <td style="text-align: center;"><a href="{% url 'delete_department' dep_id=dep.id %}" class="btn btn-sm btn-danger">Delete</a></td>
+                <td style="text-align: center;"><a href="{% url 'edit_department' obj_id=dep.id %}" class="btn btn-sm btn-secondary">Edit</a></td>
+                <td style="text-align: center;"><a href="{% url 'delete_department' obj_id=dep.id %}" class="btn btn-sm btn-danger">Delete</a></td>
             </tr>
         {% endfor %}
     </tbody>

@@ -18,15 +18,15 @@
         </tr>
     </thead>
     <tbody>
-        {% for emp in emps %}
+        {% for emp in employees %}
             <tr>
                 <td>{{ emp.id }}</td>
-                <td>{{ emp.first_name }} {{ emp.second_name }}</td>
+                <td>{{ emp.fullname }}</td>
                 <td>{{ emp.salary }}</td>
                 <td>{{ emp.bday }}</td>
                 <td>{{ emp.department }}</td>
-                <td style="text-align: center;"><a href="{% url 'edit_employee' emp_id=emp.id %}" class="btn btn-sm btn-secondary">Edit</a></td>
-                <td style="text-align: center;"><a href="{% url 'delete_employee' emp_id=emp.id %}" class="btn btn-sm btn-danger">Delete</a></td>
+                <td style="text-align: center;"><a href="{% url 'edit_employee' obj_id=emp.id %}" class="btn btn-sm btn-secondary">Edit</a></td>
+                <td style="text-align: center;"><a href="{% url 'delete_employee' obj_id=emp.id %}" class="btn btn-sm btn-danger">Delete</a></td>
             </tr>
         {% endfor %}
     </tbody>

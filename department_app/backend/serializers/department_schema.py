@@ -1,12 +1,13 @@
 from typing import Optional
 
-from pydantic import BaseModel, validator
+from pydantic import validator
 
 from ..models import Department
+from .generic_schema import ORMModel
 from .helpers import check_for_digits
 
 
-class DepartmentSchema(BaseModel):
+class DepartmentSchema(ORMModel):
     id: Optional[int]
     name: str
 
@@ -22,25 +23,17 @@ class DepartmentSchema(BaseModel):
         return v.capitalize().strip()
 
     @classmethod
-    def jsonify(cls, dep):
-        d = cls.from_orm(dep)
-        return {
-            "id": d.id,
-            "name": d.name,
-            "number_of_employees": dep.number_of_employees,
-            "average_salary": dep.average_salary,
-        }
+    def dump_obj(cls, dep):
+        # get Department object and create a dict from it
+        dep_dict = cls.from_orm(dep).dict()
+        dep_dict.update(
+            {
+                "number_of_employees": dep.number_of_employees,
+                "average_salary": dep.average_salary,
+            }
+        )
+        return dep_dict
 
     @classmethod
-    def to_orm(cls, dep):
-        d = cls.parse_obj(dep)
-        return Department.from_dict(d)
-
-    @classmethod
-    def parse_obj(cls, dep):
-        d = super().parse_obj(dep).dict()
-        del d["id"]
-        return d
-
-    class Config:
-        orm_mode = True
+    def loads(cls, dep_dict):
+        return super().loads(dep_dict, Department)
