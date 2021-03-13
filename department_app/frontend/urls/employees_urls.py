@@ -1,7 +1,6 @@
 from django.urls import path
 
-from ..views import (DeleteEmployeeView, EditEmployeeView, EmployeeView,
-                     PostEmployeeView)
+from ..views import DeleteEmployeeView, EditEmployeeView, EmployeeView, PostEmployeeView
 
 urlpatterns = [
     path(

@@ -2,8 +2,13 @@ import requests
 from django.contrib import messages
 from django.shortcuts import redirect
 
-from .generics import (ConfigurableView, DeleteObjectView, EditObjectView,
-                       ListObjectsView, PostObjectView)
+from .generics import (
+    ConfigurableView,
+    DeleteObjectView,
+    EditObjectView,
+    ListObjectsView,
+    PostObjectView,
+)
 from .helpers import errors_occurred
 
 API_URL = "http://localhost:8000/api/employees/"

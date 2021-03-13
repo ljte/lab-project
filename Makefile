@@ -30,4 +30,4 @@ psql:
 shell:
 	$(COMPOSE) run --rm app bash
 
-ci: | format format-check migrate tests
+ci: | format-check migrate tests
