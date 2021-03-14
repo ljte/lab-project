@@ -1,11 +1,7 @@
 from django.urls import path
 
-from ..views import (
-    DeleteDepartmentView,
-    DepartmentView,
-    EditDepartmentView,
-    PostDepartmentView,
-)
+from ..views import (DeleteDepartmentView, DepartmentView, EditDepartmentView,
+                     PostDepartmentView)
 
 urlpatterns = [
     path("", DepartmentView.as_view(), name="index"),

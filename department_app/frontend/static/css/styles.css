@@ -13,12 +13,12 @@ header {
 }
 
 th {
-    font-size: 1.5em;
+    font-size: 1.3em;
     font-weight: 400;
 }
 
 td {
-    font-size: 1.2em;
+    font-size: 1.0em;
 }
 
 .headerSortDown:after,

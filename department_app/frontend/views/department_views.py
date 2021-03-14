@@ -1,6 +1,7 @@
 from django.contrib import messages
 
-from .generics import DeleteObjectView, EditObjectView, ListObjectsView, PostObjectView
+from .generics import (DeleteObjectView, EditObjectView, ListObjectsView,
+                       PostObjectView)
 
 API_URL = "http://localhost:8000/api/departments/"
 
