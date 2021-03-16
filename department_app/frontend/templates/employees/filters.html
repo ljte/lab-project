@@ -1,24 +1,21 @@
-<div>
-    <div class="d-flex flex-row justify-content-between mb-2">
-        <form class="form-inline d-flex justify-content-between my-3 my-lg-0 ml-auto px-2 w-25" method="GET" action="{% url 'employees' %}">
-            <select class="form-select" aria-label="select" name="department_name" id="dep_name" required>
-                <option disabled selected>Filter by department's name</option>
-                {% for dep in deps %}
-                    <option>{{ dep.name }}</option>
-                {% endfor %}
-            </select>
-            <button class="btn btn-secondary m-2 my-sm-0" type="submit">Filter</button>
-        </form>
-        <form class="form-inline d-flex justify-content-between my-3 my-lg-0 ml-auto px-2 w-25" method="GET" action="{% url 'employees' %}">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search..." aria-label="Search" name="search_pattern">
-            <button class="btn btn-secondary m-2 my-sm-0" type="submit">Search</button>
-        </form>
-    </div>
-    <form class="d-flex flex-column my-3 my-lg-0 ml-auto px-2 w-25" method="GET" action="{% url 'employees' %}">
-        <label for="bday" class="ml-1">Filter by birthday:</label>
-        <div class="d-flex flex-row justify-context-between">
-            <input class="form-control mr-sm-2" type="date" placeholder="Filter by birthday" name="bday" id="bday">
+<div class="d-flex flex-row justify-content-between mb-2">
+    <form class="d-flex flex-column justify-content-between my-3 my-lg-0 ml-auto px-2 w-75" method="GET" action="{% url 'employees' %}">
+        <select class="form-select w-25" aria-label="select" name="department_name" id="dep_name">
+            <option disabled selected>Filter by department's name</option>
+            {% for dep in deps %}
+                <option>{{ dep.name }}</option>
+            {% endfor %}
+        </select>
+        <div class="d-flex flex-row justify-content-left my-2">
+            <span>Filter by birthday range from:</span>
+            <input class="form-control mr-sm-2 w-25" type="date" placeholder="Filter by birthday range" name="start_date" id="start_date">
+            <span>to:</span>
+            <input class="form-control mr-sm-2 w-25" type="date" placeholder="Filter by birthday range" name="end_date" id="end_date">
             <button class="btn btn-secondary m-2 my-sm-0" type="submit">Filter</button>
         </div>
+    </form>
+    <form class="form-inline d-flex justify-content-between my-3 my-lg-0 ml-auto px-2 w-25 h-25" method="GET" action="{% url 'employees' %}">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search..." aria-label="Search" name="search_pattern">
+        <button class="btn btn-secondary m-2 my-sm-0" type="submit">Search</button>
     </form>
 </div>
