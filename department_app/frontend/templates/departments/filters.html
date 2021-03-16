@@ -1,0 +1,21 @@
+<div class="d-flex flex-row justify-content-between">
+    <div class="d-flex flex-row justify-content-between">
+        <form class="form-inline d-flex justify-content-between my-2 my-lg-0 ml-auto px-2" method="GET" action="{% url 'departments' %}">
+            <select class="form-select mx-1" aria-label="select" name="comparison_operator">
+                <option disabled selected>Choose a comparison operator</option>
+                <option>=</option>
+                <option><=</option>
+                <option>>=</option>
+                <option><></option>
+                <option><</option>
+                <option>></option>
+            </select>
+            <input class="form-control mr-sm-2" type="number" step="0.01" min="0" placeholder="Filter by salary..." name="salary">
+            <button class="btn btn-secondary m-2 my-sm-0" type="submit">Filter</button>
+        </form>
+    </div>
+    <form class="form-inline d-flex justify-content-between my-2 my-lg-0 ml-auto px-2 w-25" method="GET" action="{% url 'departments' %}">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search..." aria-label="Search" name="search_pattern">
+        <button class="btn btn-secondary m-2 my-sm-0" type="submit">Search</button>
+    </form>
+</div>

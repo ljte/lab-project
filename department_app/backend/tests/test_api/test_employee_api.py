@@ -1,9 +1,10 @@
 from datetime import date
 
-from backend.models import Department, Employee
-from backend.service import get_all, get_obj, save_obj
 from django.http import Http404
 from django.test import Client, TestCase
+
+from backend.models import Department, Employee
+from backend.service import get_all, get_obj, save_obj
 
 API_URL = "/api/employees/"
 
@@ -46,6 +47,27 @@ class TestEmployeeApi(TestCase):
     def test_get_with_invalid_id(self):
         resp = self.client.get("/api/employees/123123")
         self.assertEqual(resp.status_code, 404)
+
+    def test_get_with_search_pattern(self):
+        resp = self.client.get("/api/employees/", {"search_pattern": "semen"})
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(len(resp.json()), 1)
+        self.assertEqual(resp.json()[0].get("fullname"), "Semen Borzov")
+
+    def test_filter_by_department_name(self):
+        resp = self.client.get(
+            "/api/employees/", {"department_name": "Marketing department"}
+        )
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(len(resp.json()), 1)
+        self.assertEqual(resp.json()[0].get("fullname"), "Semen Borzov")
+
+    def test_filter_by_department_name_with_invalid_department_name(self):
+        resp = self.client.get(
+            "/api/employees/", {"department_name": "asfasfas department"}
+        )
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(len(resp.json()), 0)
 
     def test_post_with_valid_data(self):
         emp = {

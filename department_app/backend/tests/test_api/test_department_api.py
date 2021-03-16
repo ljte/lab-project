@@ -1,7 +1,10 @@
-from backend.models import Department
-from backend.service import get_all, get_obj, save_obj
+from datetime import date
+
 from django.http import Http404
 from django.test import Client, TestCase
+
+from backend.models import Department, Employee
+from backend.service import get_all, get_obj, save_obj
 
 API_URL = "/api/departments/"
 
@@ -11,6 +14,15 @@ class TestDepartmentApi(TestCase):
         save_obj(Department(id=555, name="Marketing department"))
         save_obj(Department(id=666, name="Management department"))
         save_obj(Department(id=777, name="Delete department"))
+        save_obj(
+            Employee(
+                id=555,
+                fullname="Semen Borzov",
+                salary=212.2,
+                bday=date(1998, 12, 12),
+                department=get_obj(Department, id=555),
+            )
+        )
         self.client = Client()
 
     def test_get_all(self):
@@ -22,6 +34,40 @@ class TestDepartmentApi(TestCase):
         resp = self.client.get(f"{API_URL}555")
         self.assertEqual(resp.json().get("name"), "Marketing department")
         self.assertEqual(resp.status_code, 200)
+
+    def test_get_with_search_pattern(self):
+        resp = self.client.get(f"{API_URL}", {"search_pattern": "Management"})
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(len(resp.json()), 1)
+        self.assertEqual(resp.json()[0].get("name"), "Management department")
+
+    def test_filter_by_salary(self):
+        query_dict = {"comparison_operator": ">", "salary": 123.3}
+        resp = self.client.get(API_URL, query_dict)
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(
+            resp.json(),
+            [
+                {
+                    "id": 555,
+                    "name": "Marketing department",
+                    "number_of_employees": 1,
+                    "average_salary": 212.2,
+                }
+            ],
+        )
+
+    def test_filter_by_salary_without_operator(self):
+        query_dict = {"salary": 12312.32}
+        resp = self.client.get(API_URL, query_dict)
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(len(resp.json()), 3)
+
+    def test_filter_by_salary_without_salary(self):
+        query_dict = {"comparison_operator": "<>"}
+        resp = self.client.get(API_URL, query_dict)
+        self.assertEqual(resp.status_code, 400)
+        self.assertEqual(resp.json(), {"message": "Salary is empty"})
 
     def test_get_with_wrong_id(self):
         resp = self.client.get(f"{API_URL}21412412412412")

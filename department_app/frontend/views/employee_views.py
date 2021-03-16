@@ -17,10 +17,19 @@ class BaseEmployeeView(ConfigurableView):
             request, obj["fullname"], message=message, category=category
         )
 
+    @property
+    def context_kwargs(self):
+        resp = requests.get(API_URL.replace("employees", "departments"))
+        if errors_occurred(self.request, resp):
+            return redirect(self.redirect_view)
+        return {"deps": resp.json()}
+
 
 class EmployeeView(BaseEmployeeView, ListObjectsView):
     template_name = "employees/employees.html"
-    context_object_name = "employees"
+
+    def get_context_data(self, **kwargs):
+        return self.get_context(**super().get_context_data(**kwargs))
 
 
 class DeleteEmployeeView(DeleteObjectView, BaseEmployeeView):
@@ -29,13 +38,6 @@ class DeleteEmployeeView(DeleteObjectView, BaseEmployeeView):
 
 class BaseEditEmployeeMixin(BaseEmployeeView):
     redirect_view = "employees"
-
-    @property
-    def context_kwargs(self):
-        resp = requests.get(API_URL.replace("employees", "departments"))
-        if errors_occurred(self.request, resp):
-            return redirect(self.redirect_view)
-        return {"deps": resp.json()}
 
 
 class EditEmployeeView(EditObjectView, BaseEditEmployeeMixin):

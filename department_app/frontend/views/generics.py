@@ -1,5 +1,7 @@
 """classes in this module are not supposed to be used directly"""
 
+from urllib.parse import urlencode
+
 import requests
 from django.contrib import messages
 from django.shortcuts import redirect, render
@@ -34,8 +36,8 @@ class ListObjectsView(ListView):
     api_url = None
 
     def get_queryset(self):
-        pattern = self.request.GET.dict().get("search_pattern", "")
-        resp = requests.get(self.api_url, f"search_pattern={pattern}")
+        query = urlencode(self.request.GET.dict())
+        resp = requests.get(self.api_url, query)
         if errors_occurred(self.request, resp):
             return []
         return resp.json()

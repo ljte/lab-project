@@ -1,9 +1,5 @@
 {% extends "../layout.html" %}
 
-{% block searchbar %}
-{% include './searchbar.html' %}
-{% endblock %}
-
 {% block content %}
 <h3 class="mx-2">Editing {{ object.name }}</h3>
 <form method="POST" action="{% url 'edit_department' obj_id=object.id %}" class="m-5">

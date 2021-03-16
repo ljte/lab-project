@@ -1,10 +1,11 @@
 from datetime import date
 
+from django.test import TestCase
+from pydantic import ValidationError
+
 from backend.models import Department, Employee
 from backend.serializers import EmployeeSchema
 from backend.service import get_obj, save_obj
-from django.test import TestCase
-from pydantic import ValidationError
 
 
 class TestDepartmentSchema(TestCase):

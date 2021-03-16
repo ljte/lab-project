@@ -1,11 +1,11 @@
 {% extends "../layout.html" %}
 
 {% block searchbar %}
-{% include './searchbar.html' %}
+{% include './filters.html' %}
 {% endblock %}
 
 {% block content %}
-<table class="table table-bordered table-hover">
+<table class="table table-light table-hover">
     <thead class="table-dark">
         <tr>
             <th scope='col' id='0'>Employee id</th>
@@ -18,7 +18,7 @@
         </tr>
     </thead>
     <tbody>
-        {% for emp in employees %}
+        {% for emp in object_list %}
             <tr>
                 <td>{{ emp.id }}</td>
                 <td>{{ emp.fullname }}</td>

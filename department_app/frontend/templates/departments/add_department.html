@@ -1,9 +1,5 @@
 {% extends "../layout.html" %}
 
-{% block searchbar %}
-{% include './searchbar.html' %}
-{% endblock %}
-
 {% block content %}
 <h3 class="mx-2">New department</h3>
 <form method="POST" action="{% url 'add_department' %}" class="m-5">
