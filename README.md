@@ -21,23 +21,25 @@ The user of the app will be able to:
 -  Django 3.1.7
 -  Docker 20.10.5   
 -  Postgresql latest docker image
+-  Poetry
 
  ## Installation
- if you have docker and docker-compose installed just run
- > docker-compose ud -d or make run
+ if you have docker docker-compose and make installed just run
+ ```
+ docker-compose ud -d or make run
+ ```
  
  migrations
- > docker-compose run --rm app python manage.py makemigrations
- >
- > docker-compose run --rm app python manage.py migrate
- > 
- or simply `make migrate` does the same thing
+```
+docker-compose run --rm app python manage.py makemigrations
+
+docker-compose run --rm app python manage.py migrate
+```
+or simply `make migrate` does the same thing
  
  ### TODO
- * add filters
+ * finish filters
  * configure nginx
  * add more tests
- * split api and backend into services
  * add container healthchecks
  * deploy to heroku
- * Optinal(think about adding redis)
