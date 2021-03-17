@@ -77,7 +77,6 @@ class EditObjectView(ConfigurableView):
 
     def put(self, request, obj_id):
         obj = self.get_object(obj_id)
-        print(obj)
         if obj is None:
             return redirect(self.redirect_view)
         put_data = self._parse_put_dict(obj, request.POST.dict())
