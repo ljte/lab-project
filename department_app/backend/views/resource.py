@@ -17,7 +17,10 @@ class APIResource(View):
 
     @csrf_exempt
     def dispatch(self, request, *args, **kwargs):
-        handler = getattr(self, request.method.lower(), self.http_method_not_allowed)
+        req = request.method.lower()
+        handler = getattr(self, req, self.http_method_not_allowed)
+        if req not in self.http_method_names:
+            handler = self.http_method_not_allowed
         if request.method == "PUT":
             request.PUT = QueryDict(request.body)
         try:

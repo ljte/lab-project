@@ -7,6 +7,7 @@ from .resource import APIResource
 class EmployeeView(APIResource):
     schema = EmployeeSchema
     model = Employee
+    http_method_names = ["get", "post", "put", "delete"]
 
     def get_queryset(self):
         query_dict = self.request.GET.dict()

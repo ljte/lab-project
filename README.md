@@ -39,5 +39,4 @@ or simply `make migrate` does the same thing
  
  ### TODO
  * configure nginx
- * add container healthchecks
  * deploy to heroku

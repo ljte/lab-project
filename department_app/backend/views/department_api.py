@@ -7,6 +7,7 @@ from .resource import APIResource
 
 
 class DepartmentView(APIResource):
+    http_method_names = ["get", "post", "put", "delete"]
     schema = DepartmentSchema
     model = Department
     operations = {
