@@ -17,7 +17,6 @@ class BaseEmployeeView(ConfigurableView):
             request, obj["fullname"], message=message, category=category
         )
 
-    @property
     def context_kwargs(self):
         resp = requests.get(API_URL.replace("employees", "departments"))
         if errors_occurred(self.request, resp):
@@ -29,7 +28,9 @@ class EmployeeView(BaseEmployeeView, ListObjectsView):
     template_name = "employees/employees.html"
 
     def get_context_data(self, **kwargs):
-        return self.get_context(**super().get_context_data(**kwargs))
+        context = super().get_context_data(**kwargs)
+        context.update(self.context_kwargs())
+        return context
 
 
 class DeleteEmployeeView(DeleteObjectView, BaseEmployeeView):

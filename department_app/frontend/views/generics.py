@@ -27,7 +27,7 @@ class ConfigurableView(View):
     def get_context(self, **kwargs):
         context = kwargs
         if hasattr(self, "context_kwargs"):
-            context.update(self.context_kwargs)
+            context.update(self.context_kwargs())
         return context
 
 
