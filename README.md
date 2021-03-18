@@ -38,8 +38,6 @@ docker-compose run --rm app python manage.py migrate
 or simply `make migrate` does the same thing
  
  ### TODO
- * finish filters
  * configure nginx
- * add more tests
  * add container healthchecks
  * deploy to heroku
