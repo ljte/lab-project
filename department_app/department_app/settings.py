@@ -39,7 +39,7 @@ DEBUG = settings.debug
 if DEBUG:
     ALLOWED_HOSTS = ["*"]
 else:
-    ALLOWED_HOSTS = ["localhost", "app_server", "app"]
+    ALLOWED_HOSTS = ["localhost", "app_server", "app", "0.0.0.0"]
 
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 

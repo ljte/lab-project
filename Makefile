@@ -2,16 +2,18 @@ PROJECT_DIR=./department_app
 COMPOSE_FILE=./docker-compose.yml
 COMPOSE=docker-compose -f $(COMPOSE_FILE)
 
-.PHONY: run build tests format format-check psql shell ci
+.PHONY: run build tests format format-check psql shell ci collectstatic network
 
 network:
 	docker network create lab_project_network || true
 
-run: | network
+up:
 	$(COMPOSE) up -d
 
+run: | network collectstatic up migrate
+
 collectstatic:
-	$(COMPOSE) run --rm app python manage.py collectstatic
+	$(COMPOSE) run --rm app python manage.py collectstatic --noinput
 
 build:
 	$(COMPOSE) build
