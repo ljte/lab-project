@@ -35,8 +35,7 @@ docker-compose run --rm app python manage.py makemigrations
 
 docker-compose run --rm app python manage.py migrate
 ```
-or simply `make migrate` does the same thing
+or simply `make migrate` does the same thing don't forget to collectstatic
  
  ### TODO
- * configure nginx
  * deploy to heroku

@@ -4,8 +4,14 @@ COMPOSE=docker-compose -f $(COMPOSE_FILE)
 
 .PHONY: run build tests format format-check psql shell ci
 
-run:
+network:
+	docker network create lab_project_network || true
+
+run: | network
 	$(COMPOSE) up -d
+
+collectstatic:
+	$(COMPOSE) run --rm app python manage.py collectstatic
 
 build:
 	$(COMPOSE) build
@@ -14,7 +20,7 @@ migrate:
 	$(COMPOSE) run --rm app python manage.py makemigrations
 	$(COMPOSE) run --rm app python manage.py migrate
 
-tests:
+tests: | network
 	$(COMPOSE) run --rm app python manage.py test
 
 format:

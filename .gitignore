@@ -5,6 +5,7 @@
 *.pyc
 .idea/*
 department_app.egg-info/*
+department_app/static/*
 venv/*
 .vscode/*
 build/*
