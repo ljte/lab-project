@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/ljte/lab-project.svg?branch=master)](https://travis-ci.com/ljte/lab-project) [![Coverage Status](https://coveralls.io/repos/github/ljte/lab-project/badge.svg?branch=master)](https://coveralls.io/github/ljte/lab-project?branch=master)
+[![Build Status](https://travis-ci.com/ljte/lab-project.svg?branch=master)](https://travis-ci.com/ljte/lab-project) [![Coverage Status](https://coveralls.io/repos/github/ljte/lab-project/badge.svg?branch=master)]
 
 ## Table of Contents
 * [General Info](#general-info)
