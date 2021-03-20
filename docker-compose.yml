@@ -48,6 +48,7 @@ services:
     ports:
       - 80:80
     volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./department_app/static/:/media/static/
     networks:
       - lab_project_network
