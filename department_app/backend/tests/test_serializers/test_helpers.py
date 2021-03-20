@@ -1,6 +1,5 @@
-from django.test import TestCase
-
 from backend.serializers.helpers import check_for_digits
+from django.test import TestCase
 
 
 class TestHelpers(TestCase):

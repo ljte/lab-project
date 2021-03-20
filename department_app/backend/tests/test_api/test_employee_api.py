@@ -1,10 +1,9 @@
 from datetime import date
 
-from django.http import Http404
-from django.test import Client, TestCase
-
 from backend.models import Department, Employee
 from backend.service import get_all, get_obj, save_obj
+from django.http import Http404
+from django.test import Client, TestCase
 
 API_URL = "/api/employees/"
 

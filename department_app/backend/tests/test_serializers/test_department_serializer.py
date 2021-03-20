@@ -1,9 +1,8 @@
-from django.test import TestCase
-from pydantic import ValidationError
-
 from backend.models import Department
 from backend.serializers import DepartmentSchema
 from backend.service import get_obj, save_obj
+from django.test import TestCase
+from pydantic import ValidationError
 
 
 class TestDepartmentSchema(TestCase):

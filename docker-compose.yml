@@ -3,8 +3,8 @@ services:
     image: ljte/lab-project
     build:
       context: .
-      dockerfile: ./etc/Dockerfile
-    env_file: ./etc/env/dev.env
+      dockerfile: etc/app/Dockerfile
+    env_file: etc/app/env/dev.env
     environment:
       - SECRET_KEY=$SECRET_KEY
     depends_on:
@@ -12,6 +12,7 @@ services:
           condition: service_healthy
     volumes:
       - ./department_app:/app
+      - ./department_app/static:/app/static
     ports:
       - 8000:8000
     healthcheck:
@@ -20,6 +21,9 @@ services:
       timeout: 5s
       retries: 3
       start_period: 40s
+    networks:
+      - lab_project_network
+
 
   postgres:
     image: postgres
@@ -34,3 +38,21 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - lab_project_network
+
+  nginx:
+    image: nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./department_app/static/:/media/static/
+    networks:
+      - lab_project_network
+    depends_on:
+      - app
+
+networks:
+  lab_project_network:
+    external: true
