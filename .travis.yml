@@ -33,10 +33,3 @@ jobs:
       script:
         - docker pull ljte/lab-project:latest
         - make ci
-    - stage: deploy
-        script: skip
-        deploy:
-          provider: heroku
-          api_key: $HEROKU_API_KEY
-          run:
-            - make run
