@@ -42,9 +42,7 @@ services:
       - lab_project_network
 
   nginx:
-    build:
-      context: .
-      dockerfile: etc/nginx/Dockerfile
+    image: nginx
     ports:
       - 80:80
     volumes:
