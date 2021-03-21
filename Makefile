@@ -22,7 +22,7 @@ migrate:
 	$(COMPOSE) run --rm app python manage.py makemigrations
 	$(COMPOSE) run --rm app python manage.py migrate
 
-tests: | network
+tests:
 	$(COMPOSE) run --rm app python manage.py test
 
 format:
@@ -38,4 +38,4 @@ psql:
 shell:
 	$(COMPOSE) run --rm app bash
 
-ci: | format-check migrate tests
+ci: | network format-check migrate tests
