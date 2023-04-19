@@ -1,0 +1,5 @@
+-f requirements.txt
+ruff==0.0.261
+isort==5.12.0
+black==23.3.0
+mypy==1.2.0
