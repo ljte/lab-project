@@ -9,17 +9,17 @@ from sqlalchemy import (
     select,
 )
 
+from management.domain.exceptions import DepartmentNotFoundError
 from management.domain.interfaces import IDepartmentRepository
 from management.domain.model import Department
 from management.infrastructure.datasource import Database
 from management.infrastructure.tables import department_table
-
 from .mapper import DepartmentMapper
 
 
 class QueryBuilder:
-    @property
-    def department_table_columns() -> tuple[Column]:
+    @staticmethod
+    def department_table_columns() -> tuple[Column, ...]:
         return (
             department_table.c.id,
             department_table.c.name,
@@ -28,7 +28,7 @@ class QueryBuilder:
 
     @classmethod
     def select_department_with_id(cls, department_id: str) -> Select:
-        return select(cls.department_table_columns).where(
+        return select(cls.department_table_columns()).where(
             department_table.c.id == department_id
         )
 
@@ -63,7 +63,7 @@ class DepartmentRepository(IDepartmentRepository):
         with self.db.conn() as conn:
             department = conn.execute(query).fetchone()
             if department is None:
-                raise RuntimeError(f"Not found {department_id}")
+                raise DepartmentNotFoundError(department_id)
             return DepartmentMapper.from_dict(department)
 
     def delete(self, department_id: str) -> None:
@@ -71,4 +71,4 @@ class DepartmentRepository(IDepartmentRepository):
 
         with self.db.conn() as conn:
             if conn.execute(query).rowcount == 0:
-                raise RuntimeError(f"Not found {department_id}")
+                raise DepartmentNotFoundError(department_id)

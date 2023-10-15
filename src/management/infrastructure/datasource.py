@@ -11,6 +11,7 @@ def _ConnWrapper(connection: Connection):
         yield connection
     except Exception:
         connection.rollback()
+        raise
     else:
         connection.commit()
     finally:
