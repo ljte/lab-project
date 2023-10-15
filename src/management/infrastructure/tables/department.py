@@ -1,7 +1,6 @@
-from sqlalchemy import Table, Column, String, DateTime, sql
+from sqlalchemy import Column, DateTime, String, Table, sql
 
 from ..datasource import metadata
-
 
 department_table = Table(
     "department",

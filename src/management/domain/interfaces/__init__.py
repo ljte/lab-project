@@ -1,1 +1,1 @@
-from .repositories import IEmployeeRepository, IDepartmentRepository
+from .repositories import IDepartmentRepository, IEmployeeRepository

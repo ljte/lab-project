@@ -9,4 +9,6 @@ class DepartmentFactory:
     @staticmethod
     def make(name: str, id_: t.Optional[str] = None) -> Department:
         id_ = EntityId(id_)
-        return Department(id=id_, name=name, created_at=datetime.now(timezone.utc))
+        return Department(
+            id=id_, name=name, created_at=datetime.now(timezone.utc)
+        )

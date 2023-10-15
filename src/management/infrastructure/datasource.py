@@ -1,6 +1,6 @@
-from contextlib import contextmanager, AbstractContextManager
-from sqlalchemy import MetaData, URL, create_engine, Connection
+from contextlib import AbstractContextManager, contextmanager
 
+from sqlalchemy import URL, Connection, MetaData, create_engine
 
 metadata = MetaData()
 
@@ -28,7 +28,6 @@ class Database:
         dialect: str,
         driver: str,
     ) -> None:
-
         self.url = URL.create(
             f"{dialect}+{driver}",
             username=user,

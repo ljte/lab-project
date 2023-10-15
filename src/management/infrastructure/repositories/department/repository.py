@@ -1,8 +1,19 @@
-from sqlalchemy import select, Select, Column, delete, Delete, insert, Insert, bindparam
+from sqlalchemy import (
+    Column,
+    Delete,
+    Insert,
+    Select,
+    bindparam,
+    delete,
+    insert,
+    select,
+)
 
+from management.domain.interfaces import IDepartmentRepository
 from management.domain.model import Department
 from management.infrastructure.datasource import Database
 from management.infrastructure.tables import department_table
+
 from .mapper import DepartmentMapper
 
 
@@ -32,10 +43,8 @@ class QueryBuilder:
         return insert(department_table).values(
             id=bindparam("id"),
             name=bindparam("name"),
-            created_at=bindparam("created_at")
+            created_at=bindparam("created_at"),
         )
-
-from management.domain.interfaces import IDepartmentRepository
 
 
 class DepartmentRepository(IDepartmentRepository):

@@ -1,8 +1,6 @@
-from sqlalchemy import String, DateTime, Table, Column, sql, ForeignKey
-
+from sqlalchemy import Column, DateTime, ForeignKey, String, Table, sql
 
 from ..datasource import metadata
-
 
 employee_table = Table(
     "employee",
@@ -17,5 +15,10 @@ employee_table = Table(
         server_default=sql.func.now(),
         nullable=False,
     ),
-    Column("department_id", String(40), ForeignKey("department.id"), nullable=False),
+    Column(
+        "department_id",
+        String(40),
+        ForeignKey("department.id"),
+        nullable=False,
+    ),
 )

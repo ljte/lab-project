@@ -1,10 +1,13 @@
 import typing as t
-from management.domain.model import Department
+
 from management.domain.interfaces import IDepartmentRepository
+from management.domain.model import Department
 
 
 class FakeDeparmentRepository(IDepartmentRepository):
-    def __init__(self, storage: t.Optional[dict[str, Department]] = None) -> None:
+    def __init__(
+        self, storage: t.Optional[dict[str, Department]] = None
+    ) -> None:
         self._storage = storage or dict()
 
     def save(self, department: Department) -> None:

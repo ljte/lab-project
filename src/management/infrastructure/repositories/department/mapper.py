@@ -13,7 +13,7 @@ class DepartmentMapper:
 
     def from_dict(department: dict[str, t.Any]) -> Department:
         return Department(
-            id=EntityId(department['id']),
-            name=department['name'],
-            created_at=department['created_at'],
+            id=EntityId(department["id"]),
+            name=department["name"],
+            created_at=department["created_at"],
         )

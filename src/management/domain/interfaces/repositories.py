@@ -27,7 +27,9 @@ class IEmployeeRepository(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def all_employees_of_department(self, department_id: str) -> list[Employee]:
+    def all_employees_of_department(
+        self, department_id: str
+    ) -> list[Employee]:
         pass
 
     @abc.abstractmethod
