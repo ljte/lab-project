@@ -8,3 +8,9 @@ class EntityId:
 
     def __call__(self) -> str:
         return self.id
+
+    def __eq__(self, other: "EntityId") -> bool:
+        return isinstance(other, type(self)) and self.id == other.id
+
+    def repr(self) -> str:
+        return f"EntityId({self.id=})"

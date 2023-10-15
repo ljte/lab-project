@@ -1,4 +1,4 @@
-from management.model import Employee
+from management.domain.model import Employee
 from management.infrastructure.datasource import Database
 from management.domain.interfaces import IEmployeeRepository
 
